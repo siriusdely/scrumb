@@ -1,0 +1,34 @@
+{
+  "name": "scrumby",
+  "version": "0.0.1",
+  "description": "Just another scrum app",
+  "main": "index.js",
+  "engines": {
+    "node": "8.9.4",
+    "yarn": "1.6.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "yarn --cwd scrumb install && yarn --cwd scrumb build",
+    "deploy": "cp -a scrumb/build/. public/",
+    "heroku-postbuild": "yarn build && yarn deploy",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siriusdely/scrumb.git"
+  },
+  "keywords": [
+    "scrum",
+    "scrumb",
+    "scrumby"
+  ],
+  "author": "Sirius Dely <siriusdely@icloud.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siriusdely/scrumb/issues"
+  },
+  "homepage": "https://github.com/siriusdely/scrumb#readme"
+}
