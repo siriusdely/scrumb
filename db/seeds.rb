@@ -16,7 +16,7 @@ first_scrum = Scrum.create(
 )
 first_scrum.items.create(description: "1 banana")
 first_scrum.items.create(description: "1 tbsp porridge oats")
-first_scrum.items.create(description: "80g soft fruit (like mango or strawberries")
+first_scrum.items.create(description: "80g soft fruit (like mango or strawberries)")
 first_scrum.items.create(description: "150ml milk")
 first_scrum.items.create(description: "1 tsp honey")
 first_scrum.items.create(description: "1 tsp vanilla extract")
