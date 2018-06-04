@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # resources :items
   # resources :scrums
   devise_for :admin_users, ActiveAdmin::Devise.config
