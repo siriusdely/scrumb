@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  scope :auth do
+    get 'is_signed_in', to: 'auth#is_signed_in?'
+  end
+
   # resources :items
   # resources :scrums
 
@@ -15,7 +19,8 @@ Rails.application.routes.draw do
     resources :scrums
   end
 
-  get '*path', to: "application#fallback_index_html", constraints: ->(request) do
+  # get '*path', to: "application#fallback_index_html", constraints: ->(request) do
+  get '*path', to: "static_pages#index", constraints: ->(request) do
     !request.xhr? && request.format.html?
   end
 end

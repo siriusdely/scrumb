@@ -27,7 +27,7 @@ class Home extends Component {
   fetch(endpoint) {
     return window.fetch(endpoint)
                  .then(response => response.json())
-    // .then(json => console.log(json))
+                 // .then(json => console.log(json))
                  .catch(error => console.log(error));
   }
 
