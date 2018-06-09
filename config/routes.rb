@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   scope :auth do
     get 'is_signed_in', to: 'auth#is_signed_in?'
   end
@@ -10,13 +13,15 @@ Rails.application.routes.draw do
   # resources :items
   # resources :scrums
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  scope '/api' do
-    resources :scrums
+  namespace :api do
+    namespace :v1, defaults: { format: :json } do
+      resources :sessions, only: [:create, :destroy]
+      resources :scrums do
+        resources :items
+      end
+    end
   end
 
   # get '*path', to: "application#fallback_index_html", constraints: ->(request) do
