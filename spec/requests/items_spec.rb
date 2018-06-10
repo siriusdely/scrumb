@@ -1,13 +1,15 @@
 require "rails_helper"
 
 RSpec.describe 'Items API Version 1' do
+  let(:user) { create(:user) }
   let!(:scrum) { create(:scrum) }
   let!(:items) { create_list(:item, 20, scrum_id: scrum.id) }
   let(:scrum_id) { scrum.id }
   let(:item_id) { items.first.id }
+  let(:headers) { valid_headers }
 
   describe 'GET /api/v1/scrums/:scrum_id/items' do
-    before { get "/api/v1/scrums/#{scrum_id}/items" }
+    before { get "/api/v1/scrums/#{scrum_id}/items", params: {}, headers: headers }
 
     context 'when scrum exists' do
       it 'returns status code 200' do
@@ -33,7 +35,7 @@ RSpec.describe 'Items API Version 1' do
   end
 
   describe 'GET /api/v1/scrums/:scrum_id/items/:id' do
-    before { get "/api/v1/scrums/#{scrum_id}/items/#{item_id}" }
+    before { get "/api/v1/scrums/#{scrum_id}/items/#{item_id}", params: {}, headers: headers }
 
     context 'when scrum item exists' do
       it 'returns status code 200' do
@@ -59,10 +61,10 @@ RSpec.describe 'Items API Version 1' do
   end
 
   describe 'POST /api/v1/scrums/:scrum_id/items' do
-    let(:valid_attributes) { { description: 'Visit Narnia' } }
+    let(:valid_attributes) { { description: 'Visit Narnia' }.to_json }
 
     context 'when request attributes are valid' do
-      before { post "/api/v1/scrums/#{scrum_id}/items", params: valid_attributes }
+      before { post "/api/v1/scrums/#{scrum_id}/items", params: valid_attributes, headers: headers }
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
@@ -70,7 +72,7 @@ RSpec.describe 'Items API Version 1' do
     end
 
     context 'when an invalid request' do
-      before { post "/api/v1/scrums/#{scrum_id}/items", params: {} }
+      before { post "/api/v1/scrums/#{scrum_id}/items", params: {}, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -83,10 +85,10 @@ RSpec.describe 'Items API Version 1' do
   end
 
   describe 'PUT /api/v1/scrums/:scrum_id/items/:id' do
-    let(:valid_attributes) { { description: 'Mozart' } }
+    let(:valid_attributes) { { description: 'Mozart' }.to_json }
 
     before {
-      put "/api/v1/scrums/#{scrum_id}/items/#{item_id}", params: valid_attributes
+      put "/api/v1/scrums/#{scrum_id}/items/#{item_id}", params: valid_attributes, headers: headers
     }
 
     context 'when item exists' do
@@ -114,7 +116,7 @@ RSpec.describe 'Items API Version 1' do
   end
 
   describe 'DELETE /api/v1/scrums/#scrum_id/items/#{item_id}' do
-    before { delete "/api/v1/scrums/#{scrum_id}/items/#{item_id}" }
+    before { delete "/api/v1/scrums/#{scrum_id}/items/#{item_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

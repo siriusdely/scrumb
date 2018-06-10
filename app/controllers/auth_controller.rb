@@ -1,4 +1,5 @@
 class AuthController < ApplicationController
+  # protect_from_forgery with: :null_session
 
   def is_signed_in?
     puts "current_user: #{current_user.inspect}"
