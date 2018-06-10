@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
     var metas = document.getElementsByTagName('meta');
 
     for (var i = 0; i < metas.length; i++) {
-      if (metas[i].getAttribute("name") == name) {
+      if (metas[i].getAttribute("name") === name) {
         return metas[i].getAttribute("content");
       }
     }
