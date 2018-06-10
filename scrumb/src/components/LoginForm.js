@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Functions from './Functions';
+import AuthActions from '../actions/AuthActions';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class LoginForm extends React.Component {
         email: this.state.email,
         password: this.state.password
       },
-      authenticity_token: Functions.getMetaContent("csrf-token")
+      authenticity_token: AuthActions.getMetaContent("csrf-token")
     }).then(function (response) {
       console.log(response);
     }).catch(function (error) {

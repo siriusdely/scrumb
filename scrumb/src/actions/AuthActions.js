@@ -1,4 +1,4 @@
-var Functions = {
+var AuthActions = {
   getMetaContent: function(name) {
     var metas = document.getElementsByTagName('meta');
 
@@ -12,4 +12,4 @@ var Functions = {
   }
 }
 
-module.exports = Functions;
+module.exports = AuthActions;

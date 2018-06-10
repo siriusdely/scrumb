@@ -7,11 +7,11 @@ import {
   Switch,
   withRouter
 } from 'react-router-dom';
-import Home from './Home';
-import Private from './Private';
-import LoginForm from './LoginForm';
-import LogoutLink from './LogoutLink';
-import NotFound from './NotFound';
+import Home from './components/Home';
+import Private from './components/Private';
+// import LoginForm from './components/LoginForm';
+import LogoutLink from './components/LogoutLink';
+import NotFound from './components/NotFound';
 
 const fakeAuth = {
   isAuthenticated: false,
