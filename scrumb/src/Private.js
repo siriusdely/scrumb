@@ -12,7 +12,7 @@ import {
 // import logo from './logo.svg';
 // import './App.css';
 
-class Home extends Component {
+class Private extends Component {
   constructor() {
     super();
     this.state = {};
@@ -76,7 +76,7 @@ class Home extends Component {
           <Header as='h2' icon textAlign='center' color='teal'>
             <Icon name='unordered list' circular />
             <Header.Content>
-              List of Public Ingredients
+              List of Private Ingredients
             </Header.Content>
           </Header>
           <Divider hidden section />
@@ -135,4 +135,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Private;

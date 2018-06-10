@@ -1,9 +1,93 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Link,
+  Redirect,
+  Route,
+  Switch,
+  withRouter
+} from 'react-router-dom';
 import Home from './Home';
+import Private from './Private';
 import LoginForm from './LoginForm';
 import LogoutLink from './LogoutLink';
 import NotFound from './NotFound';
+
+const fakeAuth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signout(cb) {
+    this.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
+};
+
+const AuthButton = withRouter(
+  ({ history }) =>
+    fakeAuth.isAuthenticated ? (
+      <p>
+      Welcome!{" "}
+      <button
+      onClick={() => {
+        fakeAuth.signout(() => history.push("/"));
+      }}
+      >
+      Sign out
+          </button>
+        </p>
+    ) : (
+      <p>You are not logged in.</p>
+    )
+);
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={ props =>
+      fakeAuth.isAuthenticated ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={ {
+              pathname: "/login",
+              state: { from: props.location }
+          } }
+        />
+      )
+    }
+  />
+);
+
+class Login extends Component {
+  state = {
+    redirectToReferrer: false
+  };
+
+  login = () => {
+    fakeAuth.authenticate(() => {
+      this.setState({ redirectToReferrer: true });
+    });
+  };
+
+  render() {
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+      return <Redirect to={ from } />;
+    }
+
+    return (
+      <div>
+        <p>You must log in to view the page at { from.pathname }</p>
+        <button onClick={ this.login }>Log in</button>
+      </div>
+    );
+  }
+}
 
 class App extends Component {
   constructor() {
@@ -32,12 +116,25 @@ class App extends Component {
 
   render() {
     return <Router>
-      <Switch>
-        <Route path='/' exact component={ Home } />
-        <Route path='/login' exact component={ LoginForm } />
-        <Route path='/logout' exact component={ LogoutLink } />
-        <Route component={ NotFound } />
-      </Switch>
+      <div>
+        <AuthButton />
+        <ul>
+          <li>
+            <Link to="/public">Public Home Page</Link>
+          </li>
+          <li>
+            <Link to="/dashboard">Private Dashboard</Link>
+          </li>
+        </ul>
+        <Switch>
+          <Route path='/' exact component={ Home } />
+          <Route path='/public' exact component={ Home } />
+          <Route path='/login' exact component={ Login } />
+          <Route path='/logout' exact component={ LogoutLink } />
+          <PrivateRoute path='/dashboard' exact component={ Private } />
+          <Route component={ NotFound } />
+        </Switch>
+      </div>
     </Router>;
   }
 }
