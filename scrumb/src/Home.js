@@ -25,14 +25,20 @@ class Home extends Component {
   }
 
   fetch(endpoint) {
-    return window.fetch(endpoint)
-                 .then(response => response.json())
-                 // .then(json => console.log(json))
-                 .catch(error => console.log(error));
+    return window
+      .fetch(endpoint, {
+        headers: {
+          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJleHAiOjE1Mjg2NzU3MDB9.ntRgx1bd1tF0wf-37lkFh2cX9W8XNhYF0mCYlhZt99A',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      // .then(json => console.log(json))
+      .catch(error => console.log(error));
   }
 
   getScrums() {
-    this.fetch('/api/scrums')
+    this.fetch('/api/v1/scrums')
         .then(scrums => {
           if (scrums && scrums.length) {
             this.setState({ scrums: scrums });
@@ -44,7 +50,7 @@ class Home extends Component {
   }
 
   getScrum(id) {
-    this.fetch(`/api/scrums/${id}`)
+    this.fetch(`/api/v1/scrums/${id}`)
         .then(scrum => this.setState({ scrum: scrum }));
   }
 

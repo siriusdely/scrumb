@@ -40,6 +40,7 @@
     "build": "yarn --cwd scrumb install && yarn --cwd scrumb build",
     "deploy": "cp -a scrumb/build/. public/",
     "heroku-postbuild": "yarn build && yarn deploy",
+    "start": "gulp",
     "test": "mocha"
   },
   "repository": {
