@@ -15,7 +15,7 @@ class LogoutLink extends React.Component {
 
   render() {
     return(
-        <a href="#logout" onClick={ this.logout }>Logout</a>
+      <a href="#logout" onClick={ this.logout }>Logout</a>
     );
   }
 }
