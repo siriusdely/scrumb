@@ -64819,7 +64819,12 @@ var Home = function (_Component) {
   }, {
     key: 'fetch',
     value: function fetch(endpoint) {
-      return window.fetch(endpoint).then(function (response) {
+      return window.fetch(endpoint, {
+        headers: {
+          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJleHAiOjE1Mjg2NzU3MDB9.ntRgx1bd1tF0wf-37lkFh2cX9W8XNhYF0mCYlhZt99A',
+          'Content-Type': 'application/json'
+        }
+      }).then(function (response) {
         return response.json();
       })
       // .then(json => console.log(json))
@@ -64832,7 +64837,7 @@ var Home = function (_Component) {
     value: function getScrums() {
       var _this2 = this;
 
-      this.fetch('/api/scrums').then(function (scrums) {
+      this.fetch('/api/v1/scrums').then(function (scrums) {
         if (scrums && scrums.length) {
           _this2.setState({ scrums: scrums });
           _this2.getScrum(scrums[0].id);
@@ -64846,7 +64851,7 @@ var Home = function (_Component) {
     value: function getScrum(id) {
       var _this3 = this;
 
-      this.fetch('/api/scrums/' + id).then(function (scrum) {
+      this.fetch('/api/v1/scrums/' + id).then(function (scrum) {
         return _this3.setState({ scrum: scrum });
       });
     }
