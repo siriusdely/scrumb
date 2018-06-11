@@ -11,6 +11,7 @@ import {
 } from 'semantic-ui-react';
 // import logo from './logo.svg';
 // import './App.css';
+import AuthStore from '../stores/AuthStore';
 
 class Private extends Component {
   constructor() {
@@ -28,7 +29,7 @@ class Private extends Component {
     return window
       .fetch(endpoint, {
         headers: {
-          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1Mjg3NjQ4MDl9.5ihsXnfOsELudE6TyYu94TO8sSk7CkH3pRgnjoGTlK0',
+          'Authorization': AuthStore.jwt,
           'Content-Type': 'application/json'
         }
       })
