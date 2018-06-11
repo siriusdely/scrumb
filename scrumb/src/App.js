@@ -15,37 +15,75 @@ import NotFound from './components/NotFound';
 import Private from './components/Private';
 import PrivateRoute from './components/PrivateRoute';
 
-import RouterContainer from './services/RouterContainer';
+import AuthService from './services/AuthService';
+import AuthStore from './stores/AuthStore';
+// import RouterContainer from './services/RouterContainer';
 
 class App extends Component {
   constructor() {
     super();
-    this.state = {};
-    this.isSignedIn = this.isSignedIn.bind(this);
+    // this.state = {};
+    // this.isSignedIn = this.isSignedIn.bind(this);
+    this.state = this._getLoginState();
+  }
+
+  _getLoginState() {
+    return {
+      isSignedIn: AuthStore.isLoggedIn()
+    };
   }
 
   componentWillMount() {
-    this.isSignedIn();
+    // this.isSignedIn();
   }
 
-  fetch(endpoint) {
-    return window.fetch(endpoint)
-                 .then(response => response.json())
-                 .catch(error => console.log(error));
+  componentDidMount() {
+    this.changeListener = this._onChange.bind(this);
+    AuthStore.addChangeListener(this.changeListener);
   }
 
-  isSignedIn() {
-    this.fetch('/auth/is_signed_in')
-        .then(response => {
-          this.setState({ signedIn: response.signed_in });
-          console.log(this.state);
-        });
+  _onChange() {
+    this.setState(this._getLoginState());
+  }
+
+  componentWillUnmount() {
+    AuthStore.removeChangeListener(this.changeListener);
+  }
+
+  logout(e) {
+    e.preventDefault();
+    AuthService.logout();
+  }
+
+  get headerItems() {
+    return (
+      !this.state.isSignedIn ? (
+        <ul>
+          <li>
+            <Link to="login">Login</Link>
+          </li>
+          <li>
+            <Link to="signup">Signup</Link>
+          </li>
+        </ul>
+      ) : (
+        <ul>
+          <li>
+            <Link to="dashboard">Dashboard</Link>
+          </li>
+          <li>
+            <a href="#logout" onClick={ this.logout }>Logout</a>
+          </li>
+        </ul>
+      )
+    );
   }
 
   render() {
     var router = (
       <Router>
         <div>
+          { this.headerItems }
           <AuthButton />
           <ul>
             <li>
@@ -67,9 +105,27 @@ class App extends Component {
       </Router>
     );
 
-    RouterContainer.set(router);
-    return router;
+    // RouterContainer.set(router);
+
+    return (
+      router
+    );
   }
+
+  fetch(endpoint) {
+    return window.fetch(endpoint)
+                 .then(response => response.json())
+                 .catch(error => console.log(error));
+  }
+
+  isSignedIn() {
+    this.fetch('/auth/is_signed_in')
+        .then(response => {
+          this.setState({ isSignedIn: response.signed_in });
+          console.log(this.state);
+        });
+  }
+
 }
 
 export default App;

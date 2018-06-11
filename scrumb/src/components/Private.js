@@ -28,7 +28,7 @@ class Private extends Component {
     return window
       .fetch(endpoint, {
         headers: {
-          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJleHAiOjE1Mjg2NzU3MDB9.ntRgx1bd1tF0wf-37lkFh2cX9W8XNhYF0mCYlhZt99A',
+          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1Mjg3NjQ4MDl9.5ihsXnfOsELudE6TyYu94TO8sSk7CkH3pRgnjoGTlK0',
           'Content-Type': 'application/json'
         }
       })

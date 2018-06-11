@@ -1,10 +1,16 @@
 import { LOGIN_URL } from '../constants/AuthConstants';
+import AuthActions from '../actions/AuthActions';
 
 class AuthService {
   isAuthenticated = false;
 
   authenticate(cb) {
-    // this.login("asdf@asdf.asdf", "asdfasdf");
+    this.login("asdf@asdf.asdf", "asdfasdf")
+      .then((response) => {
+        console.log(response);
+        console.log(response.auth_token);
+        AuthActions.loginUser(response['auth_token']);
+      });
     this.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
   }
@@ -27,8 +33,12 @@ class AuthService {
         }
       })
       .then(response => response.json())
-      .then(json => console.log(json))
+      // .then(json => console.log(json))
       .catch(error => console.log(error));
+  }
+
+  logout() {
+    AuthActions.logoutUser();
   }
 
   fetch(endpoint) {
