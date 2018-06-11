@@ -7,7 +7,8 @@ class LoginForm extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      redirect: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,25 +49,28 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <label>
-          Email:
-          <input type="email"
-                 name="email"
-                 placeholder="email"
-                 value={ this.state.email }
-                 onChange={ this.handleChange } />
-        </label>
-        <label>
-          Password:
-          <input type="password"
-                 name="password"
-                 placeholder="password"
-                 value={ this.state.password }
-                 onChange={ this.handleChange } />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <p>You must log in to view pate at { from.pathname }</p>
+        <form onSubmit={ this.handleSubmit }>
+          <label>
+            Email:
+            <input type="email"
+                   name="email"
+                   placeholder="email"
+                   value={ this.state.email }
+                   onChange={ this.handleChange } />
+          </label>
+          <label>
+            Password:
+            <input type="password"
+                   name="password"
+                   placeholder="password"
+                   value={ this.state.password }
+                   onChange={ this.handleChange } />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
     );
   }
 }
