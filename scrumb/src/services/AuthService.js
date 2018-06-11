@@ -7,7 +7,6 @@ class AuthService {
   authenticate(cb) {
     this.login("asdf@asdf.asdf", "asdfasdf")
       .then((response) => {
-        console.log(response);
         console.log(response.auth_token);
         AuthActions.loginUser(response['auth_token']);
       });
@@ -33,8 +32,10 @@ class AuthService {
         }
       })
       .then(response => response.json())
-      // .then(json => console.log(json))
-      .catch(error => console.log(error));
+      .then(json => {
+        // console.log(json);
+        AuthActions.loginUser(json['auth_token']);
+      }).catch(error => console.log(error));
   }
 
   logout() {

@@ -8,8 +8,8 @@ import {
 
 import AuthButton from './components/AuthButton';
 import Home from './components/Home';
-import Login from './components/Login';
-// import LoginForm from './components/LoginForm';
+// import Login from './components/Login';
+import LoginForm from './components/LoginForm';
 import LogoutLink from './components/LogoutLink';
 import NotFound from './components/NotFound';
 import Private from './components/Private';
@@ -96,7 +96,7 @@ class App extends Component {
           <Switch>
             <Route path='/' exact component={ Home } />
             <Route path='/public' exact component={ Home } />
-            <Route path='/login' exact component={ Login } />
+            <Route path='/login' exact component={ LoginForm } />
             <Route path='/logout' exact component={ LogoutLink } />
             <PrivateRoute path='/dashboard' exact component={ Private } />
             <Route component={ NotFound } />
