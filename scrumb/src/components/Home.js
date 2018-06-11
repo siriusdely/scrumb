@@ -12,17 +12,58 @@ import {
 // import logo from './logo.svg';
 // import './App.css';
 import AuthStore from '../stores/AuthStore';
+import ScrumService from '../services/ScrumService';
+import ScrumStore from '../stores/ScrumStore';
 
 class Home extends Component {
   constructor() {
     super();
-    this.state = {};
-    this.getScrums = this.getScrums.bind(this);
-    this.getScrum = this.getScrum.bind(this);
+    // this.state = {};
+    // this.getScrums = this.getScrums.bind(this);
+    // this.getScrum = this.getScrum.bind(this);
+
+    // this.state = {
+    //   scrums: ScrumStore.scrums,
+    //   scrum: ScrumStore.scrum
+    // };
+
+    this.state = this._getScrumsState();
+  }
+
+  _getScrumsState() {
+    return {
+      scrums: ScrumStore.scrums,
+      scrum: ScrumStore.scrum
+    }
+  }
+
+  _onStoreDidChange() {
+    // let scrums = ScrumStore.scrums;
+    // let scrum = ScrumStore.scrum;
+    // if (scrums && scrums.length) {
+    //   this.setState({ scrums: scrums, scrum: scrum });
+    //   ScrumService.getScrum(scrums[0].id);
+    // } else {
+    //   this.setState({ scrums: [], scrum: null });
+    // }
+
+    // this.setState({
+    //   scrums: ScrumStore.scrums,
+    //   scrum: ScrumStore.scrum
+    // });
+
+    this.setState(this._getScrumsState());
   }
 
   componentDidMount() {
-    this.getScrums();
+    // this.getScrums();
+    this.storeDidChange = this._onStoreDidChange.bind(this);
+    ScrumStore.addChangeListener(this.storeDidChange);
+    ScrumService.getScrums();
+  }
+
+  componentWillUnmount() {
+    ScrumStore.removeChangeListener(this.storeDidChange);
   }
 
   fetch(endpoint) {
@@ -45,7 +86,7 @@ class Home extends Component {
             this.setState({ scrums: scrums });
             this.getScrum(scrums[0].id);
           } else {
-            this.setState({ scrums: []});
+            this.setState({ scrums: [], scrum: null });
           }
         });
   }
@@ -71,6 +112,7 @@ class Home extends Component {
     */
 
     let { scrums, scrum } = this.state;
+
     if (scrums) {
       return (
         <Container text>
@@ -90,7 +132,7 @@ class Home extends Component {
                     <Button
                       active={ scrum && scrum.id === scrums[key].id }
                       fluid key={ key }
-                      onClick={ () => this.getScrum(scrums[key].id) }>
+                      onClick={ () => ScrumService.getScrum(scrums[key].id) }>
                       { scrums[key].title }
                     </Button>
                   );

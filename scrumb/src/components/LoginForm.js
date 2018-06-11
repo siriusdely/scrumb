@@ -48,9 +48,9 @@ class LoginForm extends React.Component {
     //     password: this.state.password
     //   },
     //   authenticity_token: AuthActions.getMetaContent("csrf-token")
-    // }).then(function (response) {
+    // }).then(function(response) {
     //   console.log(response);
-    // }).catch(function (error) {
+    // }).catch(function(error) {
     //   console.log(error);
     // });
     Auth.login(this.state.email, this.state.password);

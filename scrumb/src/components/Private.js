@@ -9,67 +9,38 @@ import {
   Loader,
   Segment,
 } from 'semantic-ui-react';
-// import logo from './logo.svg';
-// import './App.css';
-import AuthStore from '../stores/AuthStore';
+
+import ScrumService from '../services/ScrumService';
+import ScrumStore from '../stores/ScrumStore';
 
 class Private extends Component {
   constructor() {
     super();
-    this.state = {};
-    this.getScrums = this.getScrums.bind(this);
-    this.getScrum = this.getScrum.bind(this);
+    this.state = this._getScrumsState();
+  }
+
+  _getScrumsState() {
+    return {
+      scrums: ScrumStore.scrums,
+      scrum: ScrumStore.scrum
+    }
+  }
+
+  _onStoreDidChange() {
+    this.setState(this._getScrumsState());
   }
 
   componentDidMount() {
-    this.getScrums();
+    this.storeDidChange = this._onStoreDidChange.bind(this);
+    ScrumStore.addChangeListener(this.storeDidChange);
+    ScrumService.getScrums();
   }
 
-  fetch(endpoint) {
-    return window
-      .fetch(endpoint, {
-        headers: {
-          'Authorization': AuthStore.jwt,
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => response.json())
-      // .then(json => console.log(json))
-      .catch(error => console.log(error));
-  }
-
-  getScrums() {
-    this.fetch('/api/v1/scrums')
-        .then(scrums => {
-          if (scrums && scrums.length) {
-            this.setState({ scrums: scrums });
-            this.getScrum(scrums[0].id);
-          } else {
-            this.setState({ scrums: []});
-          }
-        });
-  }
-
-  getScrum(id) {
-    this.fetch(`/api/v1/scrums/${id}`)
-        .then(scrum => this.setState({ scrum: scrum }));
+  componentWillUnmount() {
+    ScrumStore.removeChangeListener(this.storeDidChange);
   }
 
   render() {
-    /*
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-    */
-
     let { scrums, scrum } = this.state;
     if (scrums) {
       return (
@@ -90,7 +61,7 @@ class Private extends Component {
                     <Button
                       active={ scrum && scrum.id === scrums[key].id }
                       fluid key={ key }
-                      onClick={ () => this.getScrum(scrums[key].id) }>
+                      onClick={ () => ScrumService.getScrum(scrums[key].id) }>
                       { scrums[key].title }
                     </Button>
                   );
