@@ -111,7 +111,7 @@ class LoginForm extends React.Component {
                        onChange={ this.handleChange } />
               </label>
             </Form.Field>
-            <Button type="submit" color="teal">Submit</Button>
+            <Button type="submit" color="teal">Login</Button>
           </Form>
         </Container>
       </Container>

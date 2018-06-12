@@ -5,8 +5,13 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import {
+  Container,
+  Divider,
+  Menu
+} from 'semantic-ui-react';
 
-import AuthButton from './components/AuthButton';
+// import AuthButton from './components/AuthButton';
 import Home from './components/Home';
 // import Login from './components/Login';
 import LoginForm from './components/LoginForm';
@@ -58,41 +63,34 @@ class App extends Component {
   get headerItems() {
     return (
       !this.state.isSignedIn ? (
-        <ul>
-          <li>
-            <Link to="login">Login</Link>
-          </li>
-          <li>
-            <Link to="signup">Signup</Link>
-          </li>
-        </ul>
-      ) : (
-        <ul>
-          <li>
-            <Link to="dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <a href="#logout" onClick={ this.logout }>Logout</a>
-          </li>
-        </ul>
-      )
+          <Menu size="large">
+            <Menu.Item header>SCRUMBY</Menu.Item>
+            <Link className="item active" to="/">Home</Link>
+            <Menu.Menu position="right">
+              <Link className="item" to="login">Login</Link>
+              <Link className="item" to="signup">Signup</Link>
+            </Menu.Menu>
+          </Menu>
+        ) : (
+          <Menu size="large">
+            <Menu.Item header>SCRUMBY</Menu.Item>
+            <Link className="item active" to="/">Home</Link>
+            <Link className="item" to="dashboard">Dashboard</Link>
+            <Menu.Menu position="right">
+              <a className="item" href="#logout" onClick={ this.logout }>Logout</a>
+            </Menu.Menu>
+          </Menu>
+        )
     );
   }
 
   render() {
     var router = (
       <Router>
-        <div>
+        <Container>
+          <Divider hidden />
           { this.headerItems }
-          <AuthButton />
-          <ul>
-            <li>
-              <Link to="/public">Public Home Page</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Private Dashboard</Link>
-            </li>
-          </ul>
+          <Divider hidden section />
           <Switch>
             <Route path='/' exact component={ Home } />
             <Route path='/public' exact component={ Home } />
@@ -101,7 +99,8 @@ class App extends Component {
             <PrivateRoute path='/dashboard' exact component={ Private } />
             <Route component={ NotFound } />
           </Switch>
-        </div>
+          <Divider hidden section />
+        </Container>
       </Router>
     );
 
