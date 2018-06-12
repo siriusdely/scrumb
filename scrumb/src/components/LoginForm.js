@@ -1,5 +1,11 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import {
+  Button,
+  Container,
+  Form,
+  Header
+} from 'semantic-ui-react';
 
 // import axios from 'axios';
 
@@ -75,28 +81,40 @@ class LoginForm extends React.Component {
     }
 
     return (
-      <div>
-        <p>You must log in to view page at { from.pathname }</p>
-        <form onSubmit={ this.handleSubmit }>
-          <label>
-            Email:
-            <input type="email"
-                   name="email"
-                   placeholder="email"
-                   value={ this.state.email }
-                   onChange={ this.handleChange } />
-          </label>
-          <label>
-            Password:
-            <input type="password"
-                   name="password"
-                   placeholder="password"
-                   value={ this.state.password }
-                   onChange={ this.handleChange } />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+      <Container text>
+        <Header as='h3' textAlign='center' color='teal'>
+          <Header.Content>
+            { from && from.pathname && from.pathname !== '/'
+              ? `You must log in to view page at ${from.pathname}`
+              : 'Login' }
+          </Header.Content>
+        </Header>
+        <Container>
+          <Form onSubmit={ this.handleSubmit }>
+            <Form.Field>
+              <label>
+                Email:
+                <input type="email"
+                       name="email"
+                       placeholder="email"
+                       value={ this.state.email }
+                       onChange={ this.handleChange } />
+              </label>
+            </Form.Field>
+            <Form.Field>
+              <label>
+                Password:
+                <input type="password"
+                       name="password"
+                       placeholder="password"
+                       value={ this.state.password }
+                       onChange={ this.handleChange } />
+              </label>
+            </Form.Field>
+            <Button type="submit" color="teal">Submit</Button>
+          </Form>
+        </Container>
+      </Container>
     );
   }
 }
