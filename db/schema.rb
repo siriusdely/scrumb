@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180604094507) do
+ActiveRecord::Schema.define(version: 20180613091346) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -51,11 +51,27 @@ ActiveRecord::Schema.define(version: 20180604094507) do
     t.index ["scrum_id"], name: "index_items_on_scrum_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "topic_id"
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_messages_on_topic_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "scrums", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.string "tasks"
     t.string "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
