@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Cable from 'actioncable';
+import { CABLE_URL } from '../constants/ChatConstants';
 
 class ChatsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentChatMessage: ''
+      currentChatMessage: '',
+      chatLogs: []
     }
   }
 
@@ -16,7 +18,7 @@ class ChatsPage extends Component {
   }
 
   createSocket() {
-    let cable = Cable.createConsumer('ws://localhost:3001/cable');
+    let cable = Cable.createConsumer(CABLE_URL);
     this.chats = cable.subscriptions.create({
       channel: 'TopicsChannel'
     }, {
@@ -24,8 +26,11 @@ class ChatsPage extends Component {
         console.log('connected: ' + c);
       },
       received: (data) => {
-        console.log('data: ' + JSON.stringify(data));
-        console.log('title: ' + data.title);
+        // console.log('data: ' + JSON.stringify(data));
+        // console.log('title: ' + data.title);
+        let chatLogs = this.state.chatLogs;
+        chatLogs.push(data);
+        this.setState({ chatLogs: chatLogs })
       },
       create: function(chatContent) {
         this.perform('create', {
@@ -43,8 +48,29 @@ class ChatsPage extends Component {
     });
   }
 
+  handleChatInputKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.handleSendEvent(e);
+    }
+  }
+
   componentWillMount() {
     this.createSocket();
+  }
+
+  componentWillUnmount() {
+    this.chats.unsubscribe();
+  }
+
+  renderChatLogs() {
+    return this.state.chatLogs.map((cl) => {
+      return (
+        <li key={ `chat_${cl.id}` }>
+          <span className='chat-message'>{ cl.title }</span>{ ' ' }
+          <span className='chat-created-at'>{ cl.created_at }</span>
+        </li>
+      );
+    });
   }
 
   render() {
@@ -52,19 +78,21 @@ class ChatsPage extends Component {
       <div className='ChatsPage'>
         <div className='stage'>
           <h1>Chats</h1>
-          <div className='chat-logs'>
-            <input
-              type='text'
-              placeholder='Enter your message ...'
-              value={ this.state.currentChatMessage }
-              onChange={ (e) => this.updateCurrentChatMessage(e) }
-              className='chat-input' />
-            <button
-              onClick={ (e) => { this.handleSendEvent(e) } }
-              className='send'>
-              Send
-            </button>
-          </div>
+          <ul className='chat-logs'>
+            { this.renderChatLogs() }
+          </ul>
+          <input
+            type='text'
+            placeholder='Enter your message ...'
+            value={ this.state.currentChatMessage }
+            onChange={ (e) => this.updateCurrentChatMessage(e) }
+            onKeyPress={ (e) => this.handleChatInputKeyPress(e) }
+            className='chat-input' />
+          <button
+            onClick={ (e) => { this.handleSendEvent(e) } }
+            className='send'>
+            Send
+          </button>
         </div>
       </div>
     );

@@ -5,6 +5,7 @@ class TopicsChannel < ApplicationCable::Channel
 
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
+    puts "unsubscribed"
   end
 
   def create(opts)
