@@ -25,8 +25,15 @@ Rails.application.routes.draw do
       resources :scrums do
         resources :items
       end
+
+      resources :topics, only: [:index, :create] do
+        resources :messages, only: [:create]
+      end
     end
   end
+
+  # Serve websocket cable request
+  mount ActionCable.server => '/cable'
 
   # get '*path', to: "static_pages#index", constraints: ->(request) do
   get '*path', to: "application#fallback_index_html", constraints: ->(request) do

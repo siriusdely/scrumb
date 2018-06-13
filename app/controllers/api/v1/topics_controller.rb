@@ -1,0 +1,20 @@
+class Api::V1::TopicsController < ApiController
+  def index
+    topics = Topic.all
+    render json: topics
+  end
+
+  def create
+    topic = Topic.new(topic_params)
+    if topic.save
+      ActionCable.server.broadcast 'conversations_channel', topic.as_json
+      json_response(topic, :created)
+    end
+  end
+
+  private
+
+  def topic_params
+    params.require(:topic).permit(:title)
+  end
+end
