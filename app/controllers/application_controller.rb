@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def fallback_index_html
-    render :file => 'public/index.html'
+    render :file => 'public/index.html', :layout => nil
   end
 
   private
