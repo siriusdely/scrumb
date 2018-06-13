@@ -41,5 +41,12 @@ module Scrumby
     config.to_prepare do
       DeviseController.respond_to :html, :json
     end
+
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+      g.view_specs false
+      g.helper_specs false
+    end
   end
 end
