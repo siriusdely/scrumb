@@ -12,6 +12,7 @@ import {
 } from 'semantic-ui-react';
 
 // import AuthButton from './components/AuthButton';
+import ChatsPage from './components/ChatsPage';
 import Home from './components/Home';
 // import Login from './components/Login';
 import LoginForm from './components/LoginForm';
@@ -76,6 +77,7 @@ class App extends Component {
             <Menu.Item header>SCRUMBY</Menu.Item>
             <Link className="item active" to="/">Home</Link>
             <Link className="item" to="dashboard">Dashboard</Link>
+            <Link className="item" to="chats">Chats</Link>
             <Menu.Menu position="right">
               <a className="item" href="#logout" onClick={ this.logout }>Logout</a>
             </Menu.Menu>
@@ -93,9 +95,10 @@ class App extends Component {
           <Divider hidden section />
           <Switch>
             <Route path='/' exact component={ Home } />
-            <Route path='/public' exact component={ Home } />
+            <Route path='/chats' exact component={ ChatsPage} />
             <Route path='/login' exact component={ LoginForm } />
             <Route path='/logout' exact component={ LogoutLink } />
+            <Route path='/public' exact component={ Home } />
             <PrivateRoute path='/dashboard' exact component={ Private } />
             <Route component={ NotFound } />
           </Switch>
