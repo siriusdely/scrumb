@@ -1,50 +1,44 @@
 import React from 'react';
-import ActionCable from 'actioncable';
 import NewTopicForm from './NewTopicForm';
 import MessagesSection from './MessagesSection';
-import Cable from './Cable';
+// import Cable from './Cable';
+import TopicElement from './TopicElement';
 
-import { CABLE_URL, TOPICS_URL } from '../constants/ChatConstants';
-import AuthStore from '../stores/AuthStore';
+import ChatService from '../services/ChatService';
+import ChatStore from '../stores/ChatStore';
 
 export default class TopicsList extends React.Component {
+  /*
   state = {
-    topics: [],
-    activeTopic: null,
+    topics: ChatStore.topics,
+    activeTopicId: ChatStore.currentTopic ? ChatStore.currentTopic.id : null,
   };
+  */
+  constructor(props) {
+    super(props);
+    this.cable = ChatService.initCable();
+    this.state = {
+      topics: ChatStore.topics,
+      activeTopicId: ChatStore.currentTopic ? ChatStore.currentTopic.id : null,
+    };
+  }
+
+  _chatStoreChange() {
+    this.setState({
+      topics: ChatStore.topics,
+      activeTopicId: ChatStore.currentTopic.id,
+    });
+  }
 
   componentDidMount = () => {
-    fetch(TOPICS_URL, {
-      headers: {
-        Authorization: AuthStore.jwt,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    }).then(resp => resp.json())
-      .then(topics => this.setState({
-        topics,
-        activeTopicId: topics[0].id
-      }))
-      .catch(error => console.log(error) );
+    this.chatStoreChange = this._chatStoreChange.bind(this);
+    ChatStore.addChangeListener(this.chatStoreChange);
 
-    this.cable = ActionCable.createConsumer(CABLE_URL);
-    this.topics = this.cable.subscriptions.create({
-      channel: 'TopicsChannel'
-    }, {
-      connected: (c) => {
-        console.log('connected: ' + c);
-      },
-      received: (topic) => {
-        this.handleReceivedTopic(topic);
-      },
-      create: function(content) {
-        this.perform('create', { content });
-      }
-    });
+    ChatService.getTopics();
   };
 
   componentWillUnmount = () => {
-    this.topics.unsubscribe();
+    ChatService.deinitCable();
   }
 
   handleClick = id => {
@@ -60,27 +54,38 @@ export default class TopicsList extends React.Component {
     topic.messages = [...topic.messages, message];
     this.setState({ topics });
   };
-
+  /*
   handleReceivedTopic = topic => {
     this.setState({
       topics: [...this.state.topics, topic]
     });
   };
-
+  */
   render = () => {
     const { topics, activeTopicId } = this.state;
     return (
       <div className='topics-list'>
-        { topics && topics.length ? (
+        {/* topics && topics.length ? (
           <Cable
             cable={ this.cable }
             topics={ topics }
             handleReceivedMessage={ this.handleReceivedMessage }
           />
-        ) : null }
+        ) : null */}
         <h2>Topics</h2>
         <ul>
-          { topics ? mapTopics(topics, this.handleClick) : null }
+          {/* topics ? mapTopics(topics, this.handleClick) : null */}
+          {
+            topics ?
+            topics.map(topic =>
+              <TopicElement
+              key={ topic.id }
+              topic={ topic }
+              cable={ this.cable }
+              handleReceivedMessage={ this.handleReceivedMessage }
+              handleClick={ this.handleClick } />
+            ) : null
+          }
         </ul>
         <NewTopicForm />
         { activeTopicId ? (
@@ -103,7 +108,7 @@ const findActiveTopic = (topics, activeTopicId) => {
     topic => topic.id === activeTopicId
   );
 };
-
+/*
 const mapTopics = (topics, handleClick) => {
   return topics.map(topic => {
     return (
@@ -113,3 +118,4 @@ const mapTopics = (topics, handleClick) => {
     );
   });
 }
+*/

@@ -1,6 +1,6 @@
 import { USER_LOGOUT } from '../constants/AuthConstants';
 import { GET_SCRUMS, GET_SCRUM } from '../constants/ScrumConstants';
-import BaseStore from '../stores/BaseStore';
+import BaseStore from './BaseStore';
 
 class ScrumStore extends BaseStore {
   constructor() {

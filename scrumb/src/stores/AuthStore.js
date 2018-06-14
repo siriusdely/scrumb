@@ -1,5 +1,5 @@
 import { USER_LOGIN, USER_LOGOUT } from '../constants/AuthConstants';
-import BaseStore from '../stores/BaseStore';
+import BaseStore from './BaseStore';
 
 class AuthStore extends BaseStore {
   constructor() {
