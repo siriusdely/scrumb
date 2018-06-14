@@ -1,7 +1,7 @@
 const locationProtocol = window.location.protocol;
 const locationHostname = window.location.hostname;
 const locationPort = window.location.port;
-const cableUrl = (locationProtocol === 'https' ? 'wss://' : 'ws://')
+const cableUrl = (locationProtocol === 'https:' ? 'wss://' : 'ws://')
       + locationHostname + (locationPort ? (':' + window.location.port) : '')
       + '/cable';
 
