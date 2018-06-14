@@ -33,7 +33,6 @@ export default class TopicsList extends React.Component {
   componentDidMount = () => {
     this.chatStoreChange = this._chatStoreChange.bind(this);
     ChatStore.addChangeListener(this.chatStoreChange);
-
     ChatService.getTopics();
   };
 
@@ -44,17 +43,18 @@ export default class TopicsList extends React.Component {
   handleClick = id => {
     this.setState({ activeTopicId: id });
   };
-
+  /*
   handleReceivedMessage = message => {
     console.log('message: ' + message)
     const topics = [...this.state.topics];
     const topic = topics.find(
       topic => topic.id === message.topic_id
     );
+    // const topic = ChatStore.findTopic(message.topic_id);
     topic.messages = [...topic.messages, message];
     this.setState({ topics });
   };
-  /*
+
   handleReceivedTopic = topic => {
     this.setState({
       topics: [...this.state.topics, topic]
@@ -77,30 +77,35 @@ export default class TopicsList extends React.Component {
           {/* topics ? mapTopics(topics, this.handleClick) : null */}
           {
             topics ?
-            topics.map(topic =>
-              <TopicElement
-              key={ topic.id }
-              topic={ topic }
-              cable={ this.cable }
-              handleReceivedMessage={ this.handleReceivedMessage }
-              handleClick={ this.handleClick } />
-            ) : null
+              topics.map(topic =>
+                <TopicElement
+                key={ topic.id }
+                topic={ topic }
+                // cable={ this.cable }
+                // handleReceivedMessage={ this.handleReceivedMessage }
+                handleClick={ this.handleClick } />
+              ) : null
           }
         </ul>
         <NewTopicForm />
-        { activeTopicId ? (
+        {/* activeTopicId ? (
           <MessagesSection
             topic={ findActiveTopic(
               topics,
               activeTopicId
             ) }
           />
+        ) : null */}
+        { activeTopicId ? (
+          <MessagesSection
+            topic={ ChatStore.findTopic(activeTopicId) } />
         ) : null }
       </div>
     );
   };
 }
 
+/*
 // helpers
 
 const findActiveTopic = (topics, activeTopicId) => {
@@ -108,7 +113,7 @@ const findActiveTopic = (topics, activeTopicId) => {
     topic => topic.id === activeTopicId
   );
 };
-/*
+
 const mapTopics = (topics, handleClick) => {
   return topics.map(topic => {
     return (

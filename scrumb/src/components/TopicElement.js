@@ -1,8 +1,10 @@
 import React from 'react';
-import { MESSAGES_CHANNEL } from '../constants/ChatConstants';
+// import { MESSAGES_CHANNEL } from '../constants/ChatConstants';
+import ChatService from '../services/ChatService';
 
 class TopicElement extends React.Component {
   componentDidMount = () => {
+    /*
     this.messages = this.props.cable.subscriptions.create({
       channel: MESSAGES_CHANNEL,
       topic_id: this.props.topic.id
@@ -14,10 +16,13 @@ class TopicElement extends React.Component {
         this.props.handleReceivedMessage(message);
       }
     });
+    */
+    ChatService.subscribeToTopic(this.props.topic.id);
   }
 
   componentWillUnmount = () => {
-    this.messages.unsubscribe();
+    // this.messages.unsubscribe();
+    ChatService.unsubscribeFromTopic(this.props.topic.id);
   }
 
   render() {

@@ -1,6 +1,9 @@
 import ActionCable from 'actioncable';
 
-import { CABLE_URL, TOPICS_CHANNEL, TOPICS_URL } from '../constants/ChatConstants';
+import { CABLE_URL,
+         MESSAGES_CHANNEL,
+         TOPICS_CHANNEL,
+         TOPICS_URL } from '../constants/ChatConstants';
 import ChatActions from '../actions/ChatActions';
 import AuthStore from '../stores/AuthStore';
 
@@ -27,14 +30,35 @@ class ChatService {
         console.log('connected: ' + c);
       },
       received: (topic) => {
-        ChatActions.gotNewTopic(topic);
         // this.handleReceivedTopic(topic);
+        ChatActions.gotNewTopic(topic);
       },
       create: function(content) {
         this.perform('create', { content });
       }
     });
-   return this.cable;
+    this._messagesSubscriptions = {};
+    return this.cable;
+  }
+
+  subscribeToTopic(topicId) {
+    this.subscriptions[topicId] = this.cable.subscriptions.create({
+      channel: MESSAGES_CHANNEL,
+      topic_id: topicId
+    }, {
+      connected: () => {
+        console.log('cable connected');
+      },
+      received: (message) => {
+        // this.handleReceivedMessage(message);
+        ChatActions.gotNewMessage(message);
+      }
+    });
+  }
+
+  unsubscribeFromTopic(topicId) {
+    this.subscriptions[topicId].unsubscribe();
+    delete this.subscriptions[topicId];
   }
 
   deinitCable() {
@@ -43,6 +67,10 @@ class ChatService {
 
   get cable() {
     return this._cable;
+  }
+
+  get subscriptions() {
+    return this._messagesSubscriptions;
   }
 }
 
