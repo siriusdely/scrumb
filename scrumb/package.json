@@ -2,7 +2,15 @@
   "name": "scrumb",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:3001"
+    },
+    "/cable": {
+      "target": "ws://localhost:3001",
+      "ws": true
+    }
+  },
   "dependencies": {
     "actioncable": "5.2.0",
     "axios": "0.18.0",

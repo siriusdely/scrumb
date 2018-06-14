@@ -17,6 +17,8 @@ class Private extends Component {
   constructor() {
     super();
     this.state = this._getScrumsState();
+    console.log(window.location.host);
+    console.log(window.location.href);
   }
 
   _getScrumsState() {

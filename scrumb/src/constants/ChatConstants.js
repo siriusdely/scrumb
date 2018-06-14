@@ -1,5 +1,14 @@
+const locationProtocol = window.location.protocol;
+const locationHostname = window.location.hostname;
+const locationPort = window.location.port;
+const cableUrl = (locationProtocol === 'https' ? 'wss://' : 'ws://')
+      + locationHostname + (locationPort ? (':' + window.location.port) : '')
+      + '/cable';
+
+console.log(cableUrl);
+
 const ChatConstants = {
-  CABLE_URL: 'ws://localhost:3001/cable',
+  CABLE_URL: cableUrl,
   GET_MESSAGES: 'GET_MESSAGES',
   GET_TOPICS: 'GET_TOPICS',
   GOT_NEW_MESSAGE: 'GOT_NEW_MESSAGE',

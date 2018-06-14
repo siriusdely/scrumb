@@ -28,7 +28,11 @@ class Home extends Component {
     // };
 
     this.state = this._getScrumsState();
-    console.log(process.env)
+    console.log(process.env);
+    console.log(window.location.host);
+    console.log(window.location.href);
+    console.log(window.location.hostname);
+    console.log(window.location.port);
   }
 
   _getScrumsState() {
