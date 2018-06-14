@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Cable from 'actioncable';
+import ActionCable from 'actioncable';
 import { CABLE_URL } from '../constants/ChatConstants';
 
 class ChatsPage extends Component {
@@ -18,7 +18,7 @@ class ChatsPage extends Component {
   }
 
   createSocket() {
-    let cable = Cable.createConsumer(CABLE_URL);
+    let cable = ActionCable.createConsumer(CABLE_URL);
     this.chats = cable.subscriptions.create({
       channel: 'TopicsChannel'
     }, {

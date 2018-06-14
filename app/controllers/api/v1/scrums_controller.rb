@@ -9,7 +9,7 @@ class Api::V1::ScrumsController < ApiController
   # GET /scrums/:id
   def show
     @scrum = Scrum.find(params[:id])
-    render json: @scrum.to_json(:include => { :items => { :only => [:id, :description] } } )
+    render json: @scrum.to_json(:include => { :items => { :only => [:id, :description] } })
   end
 
   def create

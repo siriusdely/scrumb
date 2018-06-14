@@ -12,7 +12,7 @@ import {
 } from 'semantic-ui-react';
 
 // import AuthButton from './components/AuthButton';
-import ChatsPage from './components/ChatsPage';
+import ChatsPage from './components/MessagesPage';
 import Home from './components/Home';
 // import Login from './components/Login';
 import LoginForm from './components/LoginForm';

@@ -1,7 +1,7 @@
 class Api::V1::TopicsController < ApiController
   def index
     topics = Topic.all
-    render json: topics
+    render json: topics.to_json(:include => :messages)
   end
 
   def create
