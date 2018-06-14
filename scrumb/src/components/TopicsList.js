@@ -1,10 +1,10 @@
 import React from 'react';
-// import ActionCable from 'actioncable';
+import ActionCable from 'actioncable';
 import NewTopicForm from './NewTopicForm';
 import MessagesSection from './MessagesSection';
 import Cable from './Cable';
 
-import { TOPICS_URL } from '../constants/ChatConstants';
+import { CABLE_URL, TOPICS_URL } from '../constants/ChatConstants';
 import AuthStore from '../stores/AuthStore';
 
 export default class TopicsList extends React.Component {
@@ -21,16 +21,38 @@ export default class TopicsList extends React.Component {
         'Accept': 'application/json'
       }
     }).then(resp => resp.json())
-      .then(topics => this.setState({ topics }))
+      .then(topics => this.setState({
+        topics,
+        activeTopicId: topics[0].id
+      }))
       .catch(error => console.log(error) );
+
+    this.cable = ActionCable.createConsumer(CABLE_URL);
+    this.topics = this.cable.subscriptions.create({
+      channel: 'TopicsChannel'
+    }, {
+      connected: (c) => {
+        console.log('connected: ' + c);
+      },
+      received: (topic) => {
+        this.handleReceivedTopic(topic);
+      },
+      create: function(content) {
+        this.perform('create', { content });
+      }
+    });
   };
+
+  componentWillUnmount = () => {
+    this.topics.unsubscribe();
+  }
 
   handleClick = id => {
     this.setState({ activeTopicId: id });
   };
 
-  handleReceivedMessage = response => {
-    const { message } = response;
+  handleReceivedMessage = message => {
+    console.log('message: ' + message)
     const topics = [...this.state.topics];
     const topic = topics.find(
       topic => topic.id === message.topic_id
@@ -39,12 +61,19 @@ export default class TopicsList extends React.Component {
     this.setState({ topics });
   };
 
+  handleReceivedTopic = topic => {
+    this.setState({
+      topics: [...this.state.topics, topic]
+    });
+  };
+
   render = () => {
     const { topics, activeTopicId } = this.state;
     return (
       <div className='topics-list'>
         { topics && topics.length ? (
           <Cable
+            cable={ this.cable }
             topics={ topics }
             handleReceivedMessage={ this.handleReceivedMessage }
           />
