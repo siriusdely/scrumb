@@ -54,6 +54,10 @@ acorn@^5.0.0, acorn@^5.5.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.6.0.tgz#572bedb377a1c61b7a289e72b8c5cfeb7baaf0bf"
 
+action-cable-react-jwt@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/action-cable-react-jwt/-/action-cable-react-jwt-0.0.5.tgz#41666e478818919eee55fa0441b57c31df76d68f"
+
 actioncable@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/actioncable/-/actioncable-5.2.0.tgz#97a4e06681c749a8af86e1ead8487bf5e87b59e4"

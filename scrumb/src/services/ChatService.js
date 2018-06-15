@@ -1,4 +1,5 @@
-import ActionCable from 'actioncable';
+// import ActionCable from 'actioncable';
+import ActionCable from 'action-cable-react-jwt';
 
 import { CABLE_URL,
          MESSAGES_CHANNEL,
@@ -22,7 +23,7 @@ class ChatService {
   }
 
   initCable() {
-    this._cable = ActionCable.createConsumer(CABLE_URL);
+    this._cable = ActionCable.createConsumer(CABLE_URL, AuthStore.jwt);
     this._topicsSubscription = this.cable.subscriptions.create({
       channel: TOPICS_CHANNEL
     }, {

@@ -1,5 +1,6 @@
 class TopicsChannel < ApplicationCable::Channel
   def subscribed
+    puts "TopicsChannel.current_user: #{current_user.inspect}"
     stream_from "topics_channel"
   end
 
