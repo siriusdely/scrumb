@@ -18,15 +18,6 @@ import ScrumStore from '../stores/ScrumStore';
 class Home extends Component {
   constructor() {
     super();
-    // this.state = {};
-    // this.getScrums = this.getScrums.bind(this);
-    // this.getScrum = this.getScrum.bind(this);
-
-    // this.state = {
-    //   scrums: ScrumStore.scrums,
-    //   scrum: ScrumStore.scrum
-    // };
-
     this.state = this._getScrumsState();
     console.log(process.env);
     console.log(window.location.host);
@@ -43,25 +34,10 @@ class Home extends Component {
   }
 
   _onStoreDidChange() {
-    // let scrums = ScrumStore.scrums;
-    // let scrum = ScrumStore.scrum;
-    // if (scrums && scrums.length) {
-    //   this.setState({ scrums: scrums, scrum: scrum });
-    //   ScrumService.getScrum(scrums[0].id);
-    // } else {
-    //   this.setState({ scrums: [], scrum: null });
-    // }
-
-    // this.setState({
-    //   scrums: ScrumStore.scrums,
-    //   scrum: ScrumStore.scrum
-    // });
-
     this.setState(this._getScrumsState());
   }
 
   componentDidMount() {
-    // this.getScrums();
     this.storeDidChange = this._onStoreDidChange.bind(this);
     ScrumStore.addChangeListener(this.storeDidChange);
     ScrumService.getScrums();
@@ -102,20 +78,6 @@ class Home extends Component {
   }
 
   render() {
-    /*
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-    */
-
     let { scrums, scrum } = this.state;
 
     if (scrums) {

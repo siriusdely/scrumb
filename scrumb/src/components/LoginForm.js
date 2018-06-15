@@ -7,9 +7,6 @@ import {
   Header
 } from 'semantic-ui-react';
 
-// import axios from 'axios';
-
-// import AuthActions from '../actions/AuthActions';
 import Auth from '../services/AuthService';
 import AuthStore from '../stores/AuthStore';
 
@@ -48,17 +45,6 @@ class LoginForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // axios.post('/users/sign_in.json', {
-    //   user: {
-    //     email: this.state.email,
-    //     password: this.state.password
-    //   },
-    //   authenticity_token: AuthActions.getMetaContent("csrf-token")
-    // }).then(function(response) {
-    //   console.log(response);
-    // }).catch(function(error) {
-    //   console.log(error);
-    // });
     Auth.login(this.state.email, this.state.password);
   }
 
