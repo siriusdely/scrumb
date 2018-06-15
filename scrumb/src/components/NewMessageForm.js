@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Form } from 'semantic-ui-react';
 import { MESSAGES_URL } from '../constants/ChatConstants';
 import AuthStore from '../stores/AuthStore';
 
@@ -40,18 +41,12 @@ class NewMessageForm extends Component {
 
   render = () => {
     return (
-      <div className="new-message-form">
-        <form onSubmit={ this.handleSubmit }>
-          <label>New Message</label>
-          <br />
-          <input
-            type='text'
-            value={ this.state.content }
-            onChange={ this.handleChange }
-          />
-          <input type='submit' />
-        </form>
-      </div>
+      <Form reply onSubmit={ this.handleSubmit }>
+        <Form.TextArea
+          value={ this.state.content }
+          onChange={ this.handleChange } />
+        <Button content='Add Comment' labelPosition='left' icon='edit' primary />
+      </Form>
     );
   }
 }

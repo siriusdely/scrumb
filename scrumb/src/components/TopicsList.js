@@ -51,8 +51,9 @@ export default class TopicsList extends React.Component {
           <Grid.Row>
             <Header as='h2'>Topics</Header>
           </Grid.Row>
+          <NewTopicForm />
           <Grid.Row>
-            <Grid.Column width={ 4 }>
+            <Grid.Column width={ 5 }>
               <List selection verticalAlign='middle'>
                 {
                   topics ?
@@ -64,9 +65,8 @@ export default class TopicsList extends React.Component {
                   ) : null
                 }
               </List>
-              <NewTopicForm />
             </Grid.Column>
-            <Grid.Column width={ 12 } stretched>
+            <Grid.Column width={ 11 } stretched>
               { activeTopicId ? (
                   <MessagesSection
                     topic={ ChatStore.findTopic(activeTopicId) } />

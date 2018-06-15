@@ -1,4 +1,8 @@
 import React from 'react';
+import { Comment
+       , Container
+       , Divider
+       , Header } from 'semantic-ui-react';
 import NewMessageForm from './NewMessageForm';
 
 const MessagesSection = ({
@@ -9,11 +13,13 @@ const MessagesSection = ({
   }
 }) => {
   return (
-    <div className="messages-section">
-      <h2>{ title }</h2>
-      <ul>{ messages && messages.length ? orderedMessages(messages) : null }</ul>
-      <NewMessageForm topicId={ id } />
-    </div>
+    <Container>
+      <Header as='h2'>{ title }</Header>
+      <Comment.Group>
+        { messages && messages.length ? orderedMessages(messages) : null }
+        <NewMessageForm topicId={ id } />
+      </Comment.Group>
+    </Container>
   );
 };
 
@@ -27,6 +33,18 @@ const orderedMessages = messages => {
   );
 
   return sortedMessages.map(message => {
-    return <li key={ message.id }>{ message.content }</li>;
+    return (
+      <Comment key={ message.id }>
+        <Divider />
+        <Comment.Avatar as='a' src={ message.user.avatar_url } />
+        <Comment.Content>
+          <Comment.Author>{ message.user.email }</Comment.Author>
+          <Comment.Metadata>
+            Today at 5:42PM
+          </Comment.Metadata>
+          <Comment.Text>{ message.content }</Comment.Text>
+        </Comment.Content>
+      </Comment>
+    );
   });
 };
