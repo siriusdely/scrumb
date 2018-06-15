@@ -6,4 +6,8 @@ class User < ApplicationRecord
 
   has_many :messages
   has_many :topics, through: :messages
+
+  def avatar_url
+    "//www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.strip.downcase)}?d=robohash&s=60"
+  end
 end

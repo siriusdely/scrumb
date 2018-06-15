@@ -1,4 +1,9 @@
 import React from 'react';
+import { Container
+       , Grid
+       , Header
+       , List } from 'semantic-ui-react';
+
 import NewTopicForm from './NewTopicForm';
 import MessagesSection from './MessagesSection';
 import TopicElement from './TopicElement';
@@ -41,25 +46,35 @@ export default class TopicsList extends React.Component {
   render = () => {
     const { topics, activeTopicId } = this.state;
     return (
-      <div className='topics-list'>
-        <h2>Topics</h2>
-        <ul>
-          {
-            topics ?
-              topics.map(topic =>
-                <TopicElement
-                key={ topic.id }
-                topic={ topic }
-                handleClick={ this.handleClick } />
-              ) : null
-          }
-        </ul>
-        <NewTopicForm />
-        { activeTopicId ? (
-          <MessagesSection
-            topic={ ChatStore.findTopic(activeTopicId) } />
-        ) : null }
-      </div>
+      <Container text>
+        <Grid>
+          <Grid.Row>
+            <Header as='h2'>Topics</Header>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={ 4 }>
+              <List selection verticalAlign='middle'>
+                {
+                  topics ?
+                  topics.map(topic =>
+                    <TopicElement
+                      key={ topic.id }
+                      topic={ topic }
+                      handleClick={ this.handleClick } />
+                  ) : null
+                }
+              </List>
+              <NewTopicForm />
+            </Grid.Column>
+            <Grid.Column width={ 12 } stretched>
+              { activeTopicId ? (
+                  <MessagesSection
+                    topic={ ChatStore.findTopic(activeTopicId) } />
+              ) : null }
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
     );
   };
 }

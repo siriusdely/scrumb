@@ -1,7 +1,9 @@
 class Api::V1::TopicsController < ApiController
   def index
     topics = Topic.all
-    render json: topics.to_json(:include => :messages)
+    render json: topics.to_json(:include => { :messages => {
+      :only => [:id, :content, :created_at, :topic_id],
+      :include => { :user => { :only => :email, :methods => :avatar_url } } } })
   end
 
   def create
