@@ -89,7 +89,7 @@ class Private extends Component {
               }
               { scrum.tasks && <p>{ scrum.tasks }</p> }
               { scrum.link &&
-                <Button basic size='tiny' color='teal' href={ scrum.link }>
+                <Button target='_blank' basic size='tiny' color='teal' href={ scrum.link }>
                   Link
                 </Button>
               }

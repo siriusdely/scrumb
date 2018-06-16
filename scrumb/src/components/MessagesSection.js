@@ -41,7 +41,7 @@ const orderedMessages = messages => {
           <Comment.Metadata>
             <span>{ message.created_at }</span>
           </Comment.Metadata>
-          <Comment.Text><Linkify>{
+          <Comment.Text><Linkify properties={ { target: '_blank' } }>{
             message.content.split('\n').map(function(s, i) {
               return <span key={ message.id + '-' + i }>{ s }<br /></span>;
             })

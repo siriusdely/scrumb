@@ -65,7 +65,7 @@ class App extends Component {
     return (
       !this.state.isSignedIn ? (
           <Menu size="large">
-            <Menu.Item header>SCRUMBY</Menu.Item>
+            <Menu.Item header>ScrumBy</Menu.Item>
             <Link className="item active" to="/">Home</Link>
             <Menu.Menu position="right">
               <Link className="item" to="login">Login</Link>
@@ -74,7 +74,7 @@ class App extends Component {
           </Menu>
         ) : (
           <Menu size="large">
-            <Menu.Item header>SCRUMBY</Menu.Item>
+            <Menu.Item header>ScrumBy</Menu.Item>
             <Link className="item active" to="/">Home</Link>
             <Link className="item" to="dashboard">Dashboard</Link>
             <Link className="item" to="chats">Chats</Link>
