@@ -13,7 +13,7 @@ class TopicElement extends React.Component {
 
   render() {
     return (
-      <List.Item key={ this.props.topic.id }
+      <List.Item key={ this.props.topic.id } active={ this.props.topic.id === 2 }
                  onClick={ () => this.props.handleClick(this.props.topic.id) }>
         <List.Content>
           <List.Header>{ this.props.topic.title }</List.Header>

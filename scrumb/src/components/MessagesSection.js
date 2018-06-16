@@ -1,7 +1,6 @@
 import React from 'react';
 import { Comment
        , Container
-       , Divider
        , Header } from 'semantic-ui-react';
 import NewMessageForm from './NewMessageForm';
 
@@ -14,8 +13,8 @@ const MessagesSection = ({
 }) => {
   return (
     <Container>
-      <Header as='h2'>{ title }</Header>
-      <Comment.Group>
+      <Header as='h2' dividing>{ title }</Header>
+      <Comment.Group minimal>
         { messages && messages.length ? orderedMessages(messages) : null }
         <NewMessageForm topicId={ id } />
       </Comment.Group>
@@ -35,14 +34,16 @@ const orderedMessages = messages => {
   return sortedMessages.map(message => {
     return (
       <Comment key={ message.id }>
-        <Divider />
         <Comment.Avatar as='a' src={ message.user.avatar_url } />
         <Comment.Content>
           <Comment.Author>{ message.user.email }</Comment.Author>
           <Comment.Metadata>
-            Today at 5:42PM
+            <span>{ message.created_at }</span>
           </Comment.Metadata>
           <Comment.Text>{ message.content }</Comment.Text>
+          <Comment.Actions>
+            <a>Reply</a>
+          </Comment.Actions>
         </Comment.Content>
       </Comment>
     );
