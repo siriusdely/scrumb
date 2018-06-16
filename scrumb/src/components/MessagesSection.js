@@ -2,6 +2,7 @@ import React from 'react';
 import { Comment
        , Container
        , Header } from 'semantic-ui-react';
+import Linkify from 'react-linkify';
 import NewMessageForm from './NewMessageForm';
 
 const MessagesSection = ({
@@ -40,7 +41,11 @@ const orderedMessages = messages => {
           <Comment.Metadata>
             <span>{ message.created_at }</span>
           </Comment.Metadata>
-          <Comment.Text>{ message.content }</Comment.Text>
+          <Comment.Text><Linkify>{
+            message.content.split('\n').map(function(s, i) {
+              return <span key={ message.id + '-' + i }>{ s }<br /></span>;
+            })
+          }</Linkify></Comment.Text>
           <Comment.Actions>
             <a>Reply</a>
           </Comment.Actions>
