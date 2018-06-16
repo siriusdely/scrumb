@@ -27,6 +27,11 @@ class NewMessageForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
+    const bodyString = JSON.stringify({
+      ...this.state,
+      content: this.state.content.trim()
+    });
+
     fetch(MESSAGES_URL, {
       method: 'POST',
       headers: {
@@ -34,7 +39,7 @@ class NewMessageForm extends Component {
         'Content-Type': 'application/json',
         Accept: 'application/json'
       },
-      body: JSON.stringify(this.state)
+      body: bodyString
     });
     this.setState({ content: '' });
   }
