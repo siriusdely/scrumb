@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "ScrumBy",
+  "name": "Run Daily Scrum for Your Team",
   "icons": [
     {
       "src": "favicon.ico",
