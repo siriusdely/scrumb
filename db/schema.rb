@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180613091346) do
+ActiveRecord::Schema.define(version: 20180616140844) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 20180613091346) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "days", force: :cascade do |t|
+    t.integer "scrum_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scrum_id"], name: "index_days_on_scrum_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.integer "scrum_id"
     t.string "description"
@@ -59,6 +66,15 @@ ActiveRecord::Schema.define(version: 20180613091346) do
     t.datetime "updated_at", null: false
     t.index ["topic_id"], name: "index_messages_on_topic_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "rotations", force: :cascade do |t|
+    t.integer "day_id", null: false
+    t.integer "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day_id"], name: "index_rotations_on_day_id"
+    t.index ["item_id"], name: "index_rotations_on_item_id"
   end
 
   create_table "scrums", force: :cascade do |t|

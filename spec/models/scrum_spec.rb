@@ -4,6 +4,7 @@ require "rails_helper"
 RSpec.describe Scrum, type: :model do
   # Association test
   # ensure Scrum model has a 1:m relationship with the Item model
+  it { should have_many(:days).dependent(:destroy) }
   it { should have_many(:items).dependent(:destroy) }
 
   # Validation tests
