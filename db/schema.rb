@@ -50,12 +50,12 @@ ActiveRecord::Schema.define(version: 20180616140844) do
     t.index ["scrum_id"], name: "index_days_on_scrum_id"
   end
 
-  create_table "items", force: :cascade do |t|
+  create_table "tasks", force: :cascade do |t|
     t.integer "scrum_id"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["scrum_id"], name: "index_items_on_scrum_id"
+    t.index ["scrum_id"], name: "index_tasks_on_scrum_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -70,11 +70,11 @@ ActiveRecord::Schema.define(version: 20180616140844) do
 
   create_table "rotations", force: :cascade do |t|
     t.integer "day_id", null: false
-    t.integer "item_id", null: false
+    t.integer "task_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["day_id"], name: "index_rotations_on_day_id"
-    t.index ["item_id"], name: "index_rotations_on_item_id"
+    t.index ["task_id"], name: "index_rotations_on_task_id"
   end
 
   create_table "scrums", force: :cascade do |t|

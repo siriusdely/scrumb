@@ -1,36 +1,36 @@
 require 'test_helper'
 
-class ItemsControllerTest < ActionDispatch::IntegrationTest
+class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @item = items(:one)
+    @task = tasks(:one)
   end
 
   test "should get index" do
-    get items_url, as: :json
+    get tasks_url, as: :json
     assert_response :success
   end
 
-  test "should create item" do
-    assert_difference('Item.count') do
-      post items_url, params: { item: { description: @item.description, scrum_id: @item.scrum_id } }, as: :json
+  test "should create task" do
+    assert_difference('Task.count') do
+      post tasks_url, params: { task: { description: @task.description, scrum_id: @task.scrum_id } }, as: :json
     end
 
     assert_response 201
   end
 
-  test "should show item" do
-    get item_url(@item), as: :json
+  test "should show task" do
+    get task_url(@task), as: :json
     assert_response :success
   end
 
-  test "should update item" do
-    patch item_url(@item), params: { item: { description: @item.description, scrum_id: @item.scrum_id } }, as: :json
+  test "should update task" do
+    patch task_url(@task), params: { task: { description: @task.description, scrum_id: @task.scrum_id } }, as: :json
     assert_response 200
   end
 
-  test "should destroy item" do
-    assert_difference('Item.count', -1) do
-      delete item_url(@item), as: :json
+  test "should destroy task" do
+    assert_difference('Task.count', -1) do
+      delete task_url(@task), as: :json
     end
 
     assert_response 204

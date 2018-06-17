@@ -1,33 +1,33 @@
-class Api::V1::ItemsController < ApiController
+class Api::V1::TasksController < ApiController
   before_action :set_scrum
-  before_action :set_scrum_item, only: [:show, :update, :destroy]
+  before_action :set_scrum_task, only: [:show, :update, :destroy]
 
   def index
-    json_response(@scrum.items)
+    json_response(@scrum.tasks)
   end
 
   def show
-    json_response(@item)
+    json_response(@task)
   end
 
   def create
-    @scrum.items.create!(item_params)
+    @scrum.tasks.create!(task_params)
     json_response(@scrum, :created)
   end
 
   def update
-    @item.update(item_params)
+    @task.update(task_params)
     head :no_content
   end
 
   def destroy
-    @item.destroy
+    @task.destroy
     head :no_content
   end
 
   private
 
-  def item_params
+  def task_params
     params.permit(:description)
   end
 
@@ -35,8 +35,8 @@ class Api::V1::ItemsController < ApiController
     @scrum = Scrum.find(params[:scrum_id])
   end
 
-  def set_scrum_item
-    @item = @scrum.items.find_by!(id: params[:id]) if @scrum
+  def set_scrum_task
+    @task = @scrum.tasks.find_by!(id: params[:id]) if @scrum
   end
 
 end

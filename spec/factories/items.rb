@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :item do
+  factory :task do
     description { Faker::StarWars.character }
     scrum_id nil
   end

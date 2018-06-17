@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get 'is_signed_in', to: 'auth#is_signed_in?'
   end
 
-  # resources :items
+  # resources :tasks
   # resources :scrums
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       resources :sessions, only: [:create, :destroy]
 
       resources :scrums do
-        resources :items
+        resources :tasks
       end
 
       resources :topics, only: [:index, :create] do

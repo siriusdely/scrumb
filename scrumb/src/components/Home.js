@@ -114,11 +114,11 @@ class Home extends Component {
             <Container>
               <Header as='h2'>{scrum.title}</Header>
               { scrum.description && <p>{ scrum.description }</p> }
-              { scrum.items &&
+              { scrum.tasks &&
                 <Segment.Group>
-                  { scrum.items.map((item, i) =>
+                  { scrum.tasks.map((task, i) =>
                     <Segment key={ i }>
-                      { item.description }
+                      { task.description }
                     </Segment>
                   )}
                 </Segment.Group>

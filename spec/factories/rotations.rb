@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :rotation do
     day nil
-    item nil
+    task nil
   end
 end

@@ -1,6 +1,6 @@
-class CreateItems < ActiveRecord::Migration[5.1]
+class CreateTasks < ActiveRecord::Migration[5.1]
   def change
-    create_table :items do |t|
+    create_table :tasks do |t|
       t.references :scrum, foreign_key: true, null: false
       t.string :description
 

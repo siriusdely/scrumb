@@ -5,5 +5,5 @@ RSpec.describe Day, type: :model do
   it { should validate_presence_of(:scrum).with_message(:required) }
 
   it { should have_many(:rotations).dependent(:destroy) }
-  it { should have_many(:items) }
+  it { should have_many(:tasks) }
 end

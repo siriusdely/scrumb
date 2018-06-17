@@ -1,4 +1,4 @@
-ActiveAdmin.register Item do
+ActiveAdmin.register Task do
   permit_params :description, :scrum_id
 
 # See permitted parameters documentation:

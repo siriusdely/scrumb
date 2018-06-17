@@ -1,9 +1,9 @@
 require "rails_helper"
 
-# Test suite for the Item model
-RSpec.describe Item, type: :model do
+# Test suite for the Task model
+RSpec.describe Task, type: :model do
   # Association test
-  # ensure an item record belongs to a single Scrum record
+  # ensure an task record belongs to a single Scrum record
   it { should belong_to(:scrum) }
 
   # Validation test

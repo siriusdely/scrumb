@@ -14,12 +14,12 @@ first_scrum = Scrum.create(
   items: "Put all the items in a blender and whizz for 1 min until smooth. Pour the mixture into two glasses to serve.",
   link: "https://www.bbcgoodfood.com/recipes/two-minute-breakfast-smoothie"
 )
-first_scrum.items.create(description: "1 banana")
-first_scrum.items.create(description: "1 tbsp porridge oats")
-first_scrum.items.create(description: "80g soft fruit (like mango or strawberries)")
-first_scrum.items.create(description: "150ml milk")
-first_scrum.items.create(description: "1 tsp honey")
-first_scrum.items.create(description: "1 tsp vanilla extract")
+first_scrum.tasks.create(description: "1 banana")
+first_scrum.tasks.create(description: "1 tbsp porridge oats")
+first_scrum.tasks.create(description: "80g soft fruit (like mango or strawberries)")
+first_scrum.tasks.create(description: "150ml milk")
+first_scrum.tasks.create(description: "1 tsp honey")
+first_scrum.tasks.create(description: "1 tsp vanilla extract")
 
 second_scrum = Scrum.create(
   title: "Kale And Hearty Smoothie",
@@ -27,10 +27,10 @@ second_scrum = Scrum.create(
   items: "Put all of the items into a bullet or smoothie maker, add a large splash of water and blitz. Add more water until you have the desired consistency.",
   link: "https://www.bbcgoodfood.com/recipes/kale-smoothie",
 )
-second_scrum.items.create(description: "2 handfuls kale")
-second_scrum.items.create(description: "½ avocado")
-second_scrum.items.create(description: "½ lime, juice only")
-second_scrum.items.create(description: "large handful frozen pineapple chunks")
-second_scrum.items.create(description: "medium-sized chunk ginger")
-second_scrum.items.create(description: "1 tbsp cashew nuts")
-second_scrum.items.create(description: "1 banana, optional")
+second_scrum.tasks.create(description: "2 handfuls kale")
+second_scrum.tasks.create(description: "½ avocado")
+second_scrum.tasks.create(description: "½ lime, juice only")
+second_scrum.tasks.create(description: "large handful frozen pineapple chunks")
+second_scrum.tasks.create(description: "medium-sized chunk ginger")
+second_scrum.tasks.create(description: "1 tbsp cashew nuts")
+second_scrum.tasks.create(description: "1 banana, optional")

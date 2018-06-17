@@ -3,9 +3,9 @@ require "rails_helper"
 # Test suite for Scrum model
 RSpec.describe Scrum, type: :model do
   # Association test
-  # ensure Scrum model has a 1:m relationship with the Item model
+  # ensure Scrum model has a 1:m relationship with the Task model
   it { should have_many(:days).dependent(:destroy) }
-  it { should have_many(:items).dependent(:destroy) }
+  it { should have_many(:tasks).dependent(:destroy) }
 
   # Validation tests
   # ensure columns title and description are present before saving
