@@ -123,7 +123,7 @@ class Home extends Component {
                   )}
                 </Segment.Group>
               }
-              { scrum.tasks && <p>{ scrum.tasks }</p> }
+              { scrum.items && <p>{ scrum.items }</p> }
               { scrum.link &&
                 <Button basic size='tiny' color='teal' href={ scrum.link }>
                   Link

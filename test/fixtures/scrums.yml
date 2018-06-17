@@ -3,11 +3,11 @@
 one:
   title: MyString
   description: MyString
-  tasks: MyString
+  items: MyString
   link: MyString
 
 two:
   title: MyString
   description: MyString
-  tasks: MyString
+  items: MyString
   link: MyString

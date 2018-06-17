@@ -87,7 +87,7 @@ class Private extends Component {
                   )}
                 </Segment.Group>
               }
-              { scrum.tasks && <p>{ scrum.tasks }</p> }
+              { scrum.items && <p>{ scrum.items }</p> }
               { scrum.link &&
                 <Button target='_blank' basic size='tiny' color='teal' href={ scrum.link }>
                   Link
