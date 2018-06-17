@@ -7,7 +7,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-User.create!(email: 'asdf@asdf.asdf', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+user = User.create!(email: 'asdf@asdf.asdf', password: 'asdfasdf', password_confirmation: 'asdfasdf')
 
 first_scrum = Scrum.create(
   title: "Two-Minute Breakfast Boost",
@@ -15,12 +15,17 @@ first_scrum = Scrum.create(
   items: "Put all the items in a blender and whizz for 1 min until smooth. Pour the mixture into two glasses to serve.",
   link: "https://www.bbcgoodfood.com/recipes/two-minute-breakfast-smoothie"
 )
-first_scrum.tasks.create(title: "1 banana")
+first_scrum.memberships.create!(user: user, role: :owner)
+
+task = first_scrum.tasks.create(title: "1 banana")
 first_scrum.tasks.create(title: "1 tbsp porridge oats")
 first_scrum.tasks.create(title: "80g soft fruit (like mango or strawberries)")
 first_scrum.tasks.create(title: "150ml milk")
 first_scrum.tasks.create(title: "1 tsp honey")
 first_scrum.tasks.create(title: "1 tsp vanilla extract")
+
+discussion = task.create_discussion!(topic: task.title)
+discussion.messages.create!(content: 'hohoho', user: user)
 
 second_scrum = Scrum.create(
   title: "Kale And Hearty Smoothie",
