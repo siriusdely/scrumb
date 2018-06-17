@@ -1,33 +1,33 @@
-import { GET_TOPICS
+import { GET_DISCUSSIONS
          , GOT_NEW_MESSAGE
-         , GOT_NEW_TOPIC } from '../constants/ChatConstants';
+         , GOT_NEW_DISCUSSION } from '../constants/ChatConstants';
 import BaseStore from './BaseStore';
 
 class ChatStore extends BaseStore {
   constructor() {
     super();
     this.subscribe(() => this._actionsToSubscribe.bind(this));
-    this._topics = [];
-    this._activeTopic = null;
+    this._discussions = [];
+    this._activeDiscussion = null;
   }
 
   _actionsToSubscribe(action) {
     switch(action.actionType) {
-    case GET_TOPICS:
-      this._topics = action.topics;
-      this._activeTopic = this.topics[0];
+    case GET_DISCUSSIONS:
+      this._discussions = action.discussions;
+      this._activeDiscussion = this.discussions[0];
       this.emitChange();
       break;
     case GOT_NEW_MESSAGE:
       const message = action.message;
-      const topic = this.findTopic(message.topic_id);
-      topic.messages = [...topic.messages, message];
+      const discussion = this.findDiscussion(message.discussion_id);
+      discussion.messages = [...discussion.messages, message];
       this.emitChange();
       break;
-    case GOT_NEW_TOPIC:
-      const topic1 = action.topic;
-      this._activeTopic = topic1;
-      this._topics = [...this.topics, topic1];
+    case GOT_NEW_DISCUSSION:
+      const discussion1 = action.discussion;
+      this._activeDiscussion = discussion1;
+      this._discussions = [...this.discussions, discussion1];
       this.emitChange();
       break;
     default:
@@ -35,17 +35,17 @@ class ChatStore extends BaseStore {
     }
   }
 
-  get topics() {
-    return this._topics;
+  get discussions() {
+    return this._discussions;
   }
 
-  get currentTopic() {
-    return this._activeTopic;
+  get currentDiscussion() {
+    return this._activeDiscussion;
   }
 
-  findTopic(topicId) {
-    return this.topics.find(
-      topic => topic.id === topicId
+  findDiscussion(discussionId) {
+    return this.discussions.find(
+      discussion => discussion.id === discussionId
     );
   };
 }

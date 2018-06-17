@@ -4,35 +4,35 @@ import { Container
        , Header
        , List } from 'semantic-ui-react';
 
-import NewTopicForm from './NewTopicForm';
+import NewDiscussionForm from './NewDiscussionForm';
 import MessagesSection from './MessagesSection';
-import TopicElement from './TopicElement';
+import DiscussionElement from './DiscussionElement';
 
 import ChatService from '../services/ChatService';
 import ChatStore from '../stores/ChatStore';
 
-export default class TopicsList extends React.Component {
+export default class DiscussionsList extends React.Component {
 
   constructor(props) {
     super(props);
     this.cable = ChatService.initCable();
     this.state = {
-      topics: ChatStore.topics,
-      activeTopicId: ChatStore.currentTopic ? ChatStore.currentTopic.id : null,
+      discussions: ChatStore.discussions,
+      activeDiscussionId: ChatStore.currentDiscussion ? ChatStore.currentDiscussion.id : null,
     };
   }
 
   _chatStoreChange() {
     this.setState({
-      topics: ChatStore.topics,
-      activeTopicId: ChatStore.currentTopic.id,
+      discussions: ChatStore.discussions,
+      activeDiscussionId: ChatStore.currentDiscussion.id,
     });
   }
 
   componentDidMount = () => {
     this.chatStoreChange = this._chatStoreChange.bind(this);
     ChatStore.addChangeListener(this.chatStoreChange);
-    ChatService.getTopics();
+    ChatService.getDiscussions();
   };
 
   componentWillUnmount = () => {
@@ -40,36 +40,36 @@ export default class TopicsList extends React.Component {
   }
 
   handleClick = id => {
-    this.setState({ activeTopicId: id });
+    this.setState({ activeDiscussionId: id });
   };
 
   render = () => {
-    const { topics, activeTopicId } = this.state;
+    const { discussions, activeDiscussionId } = this.state;
     return (
       <Container text>
         <Grid>
           <Grid.Row>
-            <Header as='h2'>Topics</Header>
+            <Header as='h2'>Discussions</Header>
           </Grid.Row>
-          <NewTopicForm />
+          <NewDiscussionForm />
           <Grid.Row>
             <Grid.Column width={ 5 }>
               <List selection verticalAlign='middle'>
                 {
-                  topics ?
-                  topics.map(topic =>
-                    <TopicElement
-                      key={ topic.id }
-                      topic={ topic }
+                  discussions ?
+                  discussions.map(discussion =>
+                    <DiscussionElement
+                      key={ discussion.id }
+                      discussion={ discussion }
                       handleClick={ this.handleClick } />
                   ) : null
                 }
               </List>
             </Grid.Column>
             <Grid.Column width={ 11 } stretched>
-              { activeTopicId ? (
+              { activeDiscussionId ? (
                   <MessagesSection
-                    topic={ ChatStore.findTopic(activeTopicId) } />
+                    discussion={ ChatStore.findDiscussion(activeDiscussionId) } />
               ) : null }
             </Grid.Column>
           </Grid.Row>

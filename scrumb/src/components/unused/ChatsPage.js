@@ -20,14 +20,14 @@ class ChatsPage extends Component {
   createSocket() {
     let cable = ActionCable.createConsumer(CABLE_URL);
     this.chats = cable.subscriptions.create({
-      channel: 'TopicsChannel'
+      channel: 'DiscussionsChannel'
     }, {
       connected: (c) => {
         console.log('connected: ' + c);
       },
       received: (data) => {
         // console.log('data: ' + JSON.stringify(data));
-        // console.log('title: ' + data.title);
+        // console.log('content: ' + data.content);
         let chatLogs = this.state.chatLogs;
         chatLogs.push(data);
         this.setState({ chatLogs: chatLogs })
@@ -66,7 +66,7 @@ class ChatsPage extends Component {
     return this.state.chatLogs.map((cl) => {
       return (
         <li key={ `chat_${cl.id}` }>
-          <span className='chat-message'>{ cl.title }</span>{ ' ' }
+          <span className='chat-message'>{ cl.topic }</span>{ ' ' }
           <span className='chat-created-at'>{ cl.created_at }</span>
         </li>
       );

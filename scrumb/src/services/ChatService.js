@@ -3,36 +3,36 @@ import ActionCable from 'action-cable-react-jwt';
 
 import { CABLE_URL,
          MESSAGES_CHANNEL,
-         TOPICS_CHANNEL,
-         TOPICS_URL } from '../constants/ChatConstants';
+         DISCUSSIONS_CHANNEL,
+         DISCUSSIONS_URL } from '../constants/ChatConstants';
 import ChatActions from '../actions/ChatActions';
 import AuthStore from '../stores/AuthStore';
 
 class ChatService {
-  getTopics() {
-    fetch(TOPICS_URL, {
+  getDiscussions() {
+    fetch(DISCUSSIONS_URL, {
       headers: {
         Authorization: AuthStore.jwt,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       }
     }).then(resp => resp.json())
-      .then(topics => {
-        ChatActions.gotTopics(topics);
+      .then(discussions => {
+        ChatActions.gotDiscussions(discussions);
       }).catch(error => console.log(error) );
   }
 
   initCable() {
     this._cable = ActionCable.createConsumer(CABLE_URL, AuthStore.jwt);
-    this._topicsSubscription = this.cable.subscriptions.create({
-      channel: TOPICS_CHANNEL
+    this._discussionsSubscription = this.cable.subscriptions.create({
+      channel: DISCUSSIONS_CHANNEL
     }, {
       connected: (c) => {
         console.log('connected: ' + c);
       },
-      received: (topic) => {
-        // this.handleReceivedTopic(topic);
-        ChatActions.gotNewTopic(topic);
+      received: (discussion) => {
+        // this.handleReceivedDiscussion(discussion);
+        ChatActions.gotNewDiscussion(discussion);
       },
       create: function(content) {
         this.perform('create', { content });
@@ -42,10 +42,10 @@ class ChatService {
     return this.cable;
   }
 
-  subscribeToTopic(topicId) {
-    this.subscriptions[topicId] = this.cable.subscriptions.create({
+  subscribeToDiscussion(discussionId) {
+    this.subscriptions[discussionId] = this.cable.subscriptions.create({
       channel: MESSAGES_CHANNEL,
-      topic_id: topicId
+      discussion_id: discussionId
     }, {
       connected: () => {
         console.log('cable connected');
@@ -57,13 +57,13 @@ class ChatService {
     });
   }
 
-  unsubscribeFromTopic(topicId) {
-    this.subscriptions[topicId].unsubscribe();
-    delete this.subscriptions[topicId];
+  unsubscribeFromDiscussion(discussionId) {
+    this.subscriptions[discussionId].unsubscribe();
+    delete this.subscriptions[discussionId];
   }
 
   deinitCable() {
-    this._topicsSubscription.unsubscribe();
+    this._discussionsSubscription.unsubscribe();
   }
 
   get cable() {

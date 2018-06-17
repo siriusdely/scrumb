@@ -4,10 +4,10 @@ class Cable extends React.Component {
   render = () => {
     return (
       <Fragment>
-        { this.props.topics.map(topic => {
+        { this.props.discussions.map(discussion => {
           this.props.cable.subscriptions.create({
             channel: 'MessagesChannel',
-            topic_id: topic.id
+            discussion_id: discussion.id
           }, {
             connected: () => {
               console.log('cable connected');
@@ -23,10 +23,10 @@ class Cable extends React.Component {
   }
 }
 /*
-const Cable = ({ topics, handleReceivedMessage }) => {
+const Cable = ({ discussions, handleReceivedMessage }) => {
   return (
     <Fragment>
-    { topics.map(topic => {
+    { discussions.map(discussion => {
       return (
        'cable'
       );

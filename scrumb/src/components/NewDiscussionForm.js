@@ -1,19 +1,19 @@
 import React from 'react';
-import { TOPICS_URL } from '../constants/ChatConstants';
+import { DISCUSSIONS_URL } from '../constants/ChatConstants';
 import AuthStore from '../stores/AuthStore';
 
-export default class NewTopicForm extends React.Component {
+export default class NewDiscussionForm extends React.Component {
   state = {
-    title: ''
+    topic: ''
   }
 
   handleChange = (e) => {
-    this.setState({ title: e.target.value });
+    this.setState({ topic: e.target.value });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    fetch(TOPICS_URL, {
+    fetch(DISCUSSIONS_URL, {
       method: 'POST',
       headers: {
         Authorization: AuthStore.jwt,
@@ -22,18 +22,18 @@ export default class NewTopicForm extends React.Component {
       },
       body: JSON.stringify(this.state)
     });
-    this.setState({ title: '' });
+    this.setState({ topic: '' });
   }
 
   render = () => {
     return (
-      <div className='new-topic-form'>
+      <div className='new-discussion-form'>
         <form onSubmit={ this.handleSubmit }>
-          <label>New Topic</label>
+          <label>New Discussion</label>
           <br />
           <input
             type='text'
-            value={ this.state.title }
+            value={ this.state.topic }
             onChange={ this.handleChange }
           />
           <input type='submit' />

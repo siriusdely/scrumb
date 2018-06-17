@@ -1,13 +1,13 @@
-import { GET_TOPICS
+import { GET_DISCUSSIONS
          , GOT_NEW_MESSAGE
-         , GOT_NEW_TOPIC } from '../constants/ChatConstants';
+         , GOT_NEW_DISCUSSION } from '../constants/ChatConstants';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 
 export default {
-  gotTopics: topics => {
+  gotDiscussions: discussions => {
     AppDispatcher.dispatch({
-      actionType: GET_TOPICS,
-      topics: topics
+      actionType: GET_DISCUSSIONS,
+      discussions: discussions
     });
   },
 
@@ -18,10 +18,10 @@ export default {
     });
   },
 
-  gotNewTopic: topic => {
+  gotNewDiscussion: discussion => {
     AppDispatcher.dispatch({
-      actionType: GOT_NEW_TOPIC,
-      topic: topic
+      actionType: GOT_NEW_DISCUSSION,
+      discussion: discussion
     });
   }
 }

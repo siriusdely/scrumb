@@ -1,11 +1,11 @@
 import React from 'react';
-import TopicsList from './TopicsList';
+import DiscussionsList from './DiscussionsList';
 
 export default class MessagesPage extends React.Component {
   render() {
     return (
       <div className='messages-page'>
-        <TopicsList />
+        <DiscussionsList />
       </div>
     );
   }

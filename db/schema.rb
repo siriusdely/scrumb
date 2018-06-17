@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(version: 20180617040633) do
     t.index ["scrum_id"], name: "index_days_on_scrum_id"
   end
 
+  create_table "discussions", force: :cascade do |t|
+    t.string "topicable_type"
+    t.integer "topicable_id"
+    t.string "topic", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topicable_type", "topicable_id"], name: "index_discussions_on_topicable_type_and_topicable_id", unique: true
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.integer "scrum_id"
     t.integer "user_id"
@@ -63,11 +72,11 @@ ActiveRecord::Schema.define(version: 20180617040633) do
 
   create_table "messages", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "topic_id"
+    t.integer "discussion_id"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["topic_id"], name: "index_messages_on_topic_id"
+    t.index ["discussion_id"], name: "index_messages_on_discussion_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -96,12 +105,6 @@ ActiveRecord::Schema.define(version: 20180617040633) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["scrum_id"], name: "index_tasks_on_scrum_id"
-  end
-
-  create_table "topics", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -8,13 +8,13 @@ class NewMessageForm extends Component {
     super(props);
     this.state = {
       content: '',
-      topic_id: props.topicId
+      discussion_id: props.discussionId
     }
   }
 
   componentWillReceiveProps = newProps => {
     this.setState({
-      topic_id: newProps.topicId
+      discussion_id: newProps.discussionId
     });
   }
 

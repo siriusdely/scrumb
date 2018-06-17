@@ -5,5 +5,5 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:password) }
 
   it { should have_many(:messages) }
-  it { should have_many(:topics) }
+  it { should have_many(:discussions) }
 end

@@ -6,18 +6,18 @@ import Linkify from 'react-linkify';
 import NewMessageForm from './NewMessageForm';
 
 const MessagesSection = ({
-  topic: {
+  discussion: {
     id,
-    title,
+    topic,
     messages
   }
 }) => {
   return (
     <Container>
-      <Header as='h2' dividing>{ title }</Header>
+      <Header as='h2' dividing>{ topic }</Header>
       <Comment.Group minimal>
         { messages && messages.length ? orderedMessages(messages) : null }
-        <NewMessageForm topicId={ id } />
+        <NewMessageForm discussionId={ id } />
       </Comment.Group>
     </Container>
   );

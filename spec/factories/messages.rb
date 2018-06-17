@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :message do
     user nil
-    topic nil
+    discussion nil
     content "MyString"
   end
 end

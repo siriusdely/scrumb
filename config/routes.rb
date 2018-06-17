@@ -26,7 +26,7 @@ Rails.application.routes.draw do
         resources :tasks
       end
 
-      resources :topics, only: [:index, :create] do
+      resources :discussions, only: [:index, :create] do
         resources :messages, only: [:index, :create]
       end
       resources :messages, only: [:create]
