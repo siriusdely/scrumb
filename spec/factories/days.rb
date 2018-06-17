@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :day do
-    scrum nil
+    :scrum
   end
 end
