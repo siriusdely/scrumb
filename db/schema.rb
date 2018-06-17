@@ -50,14 +50,6 @@ ActiveRecord::Schema.define(version: 20180616140844) do
     t.index ["scrum_id"], name: "index_days_on_scrum_id"
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.integer "scrum_id"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["scrum_id"], name: "index_tasks_on_scrum_id"
-  end
-
   create_table "messages", force: :cascade do |t|
     t.integer "user_id"
     t.integer "topic_id"
@@ -79,11 +71,20 @@ ActiveRecord::Schema.define(version: 20180616140844) do
 
   create_table "scrums", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.string "description", default: "", null: false
     t.string "items"
     t.string "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_scrums_on_title"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer "scrum_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scrum_id"], name: "index_tasks_on_scrum_id"
   end
 
   create_table "topics", force: :cascade do |t|
