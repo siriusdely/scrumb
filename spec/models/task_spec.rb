@@ -8,8 +8,7 @@ RSpec.describe Task, type: :model do
 
   # Validation test
   # ensure column description is present before saving
-  # it { should validate_presence_of :title }
-  it { should validate_presence_of(:description) }
+  it { should validate_presence_of :title }
 
   it { should have_one(:discussion).dependent(:destroy) }
   it { should_not validate_presence_of :discussion }

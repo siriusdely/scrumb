@@ -61,7 +61,7 @@ RSpec.describe 'Tasks API Version 1' do
   end
 
   describe 'POST /api/v1/scrums/:scrum_id/tasks' do
-    let(:valid_attributes) { { description: 'Visit Narnia' }.to_json }
+    let(:valid_attributes) { { title: 'Visit Narnia' }.to_json }
 
     context 'when request attributes are valid' do
       before { post "/api/v1/scrums/#{scrum_id}/tasks", params: valid_attributes, headers: headers }
@@ -79,13 +79,13 @@ RSpec.describe 'Tasks API Version 1' do
       end
 
       it 'returns a failure message' do
-        expect(response.body).to match(/Validation failed: Description can't be blank/)
+        expect(response.body).to match(/Validation failed: Title can't be blank/)
       end
     end
   end
 
   describe 'PUT /api/v1/scrums/:scrum_id/tasks/:id' do
-    let(:valid_attributes) { { description: 'Mozart' }.to_json }
+    let(:valid_attributes) { { title: 'Mozart' }.to_json }
 
     before {
       put "/api/v1/scrums/#{scrum_id}/tasks/#{task_id}", params: valid_attributes, headers: headers
@@ -98,7 +98,7 @@ RSpec.describe 'Tasks API Version 1' do
 
       it 'updates the task' do
         task = Task.find(task_id)
-        expect(task.description).to match(/Mozart/)
+        expect(task.title).to match(/Mozart/)
       end
     end
 

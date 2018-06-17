@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20180617040633) do
   end
 
   create_table "discussions", force: :cascade do |t|
-    t.string "topicable_type"
-    t.integer "topicable_id"
+    t.string "topicable_type", null: false
+    t.integer "topicable_id", null: false
     t.string "topic", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20180617040633) do
 
   create_table "tasks", force: :cascade do |t|
     t.integer "scrum_id", null: false
+    t.string "title", null: false
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

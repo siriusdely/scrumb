@@ -118,7 +118,7 @@ class Home extends Component {
                 <Segment.Group>
                   { scrum.tasks.map((task, i) =>
                     <Segment key={ i }>
-                      { task.description }
+                      { task.title }
                     </Segment>
                   )}
                 </Segment.Group>
