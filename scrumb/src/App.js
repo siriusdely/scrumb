@@ -20,6 +20,7 @@ import LogoutLink from './components/LogoutLink';
 import NotFound from './components/NotFound';
 import Private from './components/Private';
 import PrivateRoute from './components/PrivateRoute';
+import Today from './components/Today';
 
 import AuthService from './services/AuthService';
 import AuthStore from './stores/AuthStore';
@@ -94,7 +95,7 @@ class App extends Component {
           { this.headerItems }
           <Divider hidden section />
           <Switch>
-            <Route path='/' exact component={ Home } />
+            <Route path='/' exact component={ Today } />
             <Route path='/chats' exact component={ ChatsPage} />
             <Route path='/login' exact component={ LoginForm } />
             <Route path='/logout' exact component={ LogoutLink } />
