@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Scrum, type: :request do
   let(:user) { create(:user) }
   # initialize test data
-  let!(:scrums) { create_list(:scrum, 10) }
+  let!(:scrums) { create_list(:scrum, 10, :with_memberships, user: user) }
   let(:scrum_id) { scrums.first.id }
   # authorize request
   let(:headers) { valid_headers }

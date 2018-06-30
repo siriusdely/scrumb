@@ -11,7 +11,7 @@ RSpec.describe Membership, type: :model do
     # pending "add some examples to (or delete) #{__FILE__}"
 
     setup do
-      @membership = create :membership
+      @membership = create :membership, :with_user_and_scrum
     end
     subject { @membership }
 
