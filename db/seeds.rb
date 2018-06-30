@@ -33,6 +33,8 @@ second_scrum = Scrum.create(
   items: "Put all of the items into a bullet or smoothie maker, add a large splash of water and blitz. Add more water until you have the desired consistency.",
   link: "https://www.bbcgoodfood.com/recipes/kale-smoothie",
 )
+second_scrum.memberships.create!(user: user, role: :owner)
+
 second_scrum.tasks.create(title: "2 handfuls kale")
 second_scrum.tasks.create(title: "½ avocado")
 second_scrum.tasks.create(title: "½ lime, juice only")
