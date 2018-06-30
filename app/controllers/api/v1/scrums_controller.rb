@@ -2,12 +2,17 @@ class Api::V1::ScrumsController < ApiController
   before_action :set_scrum, only: [:show, :update, :destroy]
   # GET /scrums
   def index
-    @scrums = Scrum.select("id, title").all
+    @scrums = @current_user.scrums
     render json: @scrums.to_json
   end
 
   # GET /scrums/:id
   def show
+    @scrum = Scrum.find(params[:id])
+    render json: @scrum.to_json(:include => { :tasks => { :only => [:id, :title] } })
+  end
+
+  def today
     @scrum = Scrum.find(params[:id])
     render json: @scrum.to_json(:include => { :tasks => { :only => [:id, :title] } })
   end

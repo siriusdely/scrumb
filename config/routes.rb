@@ -23,7 +23,9 @@ Rails.application.routes.draw do
       resources :sessions, only: [:create, :destroy]
 
       resources :scrums do
+        resources :days, only: [:create, :show]
         resources :tasks
+        get 'today', on: :member
       end
 
       resources :discussions, only: [:index, :create] do
