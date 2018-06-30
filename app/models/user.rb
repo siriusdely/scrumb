@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :memberships, dependent: :destroy
+  has_many :scrums, through: :memberships
+  has_many :tasks
+
   has_many :messages
   has_many :discussions, through: :messages
 
