@@ -20,17 +20,6 @@ class Api::V1::ScrumsController < ApiController
     data[:users] = []
     @day.rotations.includes(:user, :task => :owner).group_by(&:user).each do |user, rotations|
       user = user.as_json :only => [:id, :email], :methods => :avatar_url
-      # rotations.each do |rotation|
-      #   user[:rotations] << (rotation.as_json :only => :id, :include => {
-      #     :task => {
-      #       :only => [:id, :title], :include => {
-      #         :owner => {
-      #           :only => [:id, :email], :methods => :avatar_url
-      #         }
-      #       }
-      #     }
-      #   })
-      # end
       user[:rotations] = []
       rotations.group_by(&:type).each do |type, rotation|
         rttn = { :type => type, :name => type.to_s.capitalize }
@@ -49,11 +38,6 @@ class Api::V1::ScrumsController < ApiController
     end
 
     render json: data
-    # render json: @day.to_json(:only => :created_at,
-    #   :include => [{ :scrum => { :only => [:id, :title, :description] } },
-    #     { :rotations => { :only => :id,
-    #       :include => { :task => { :only => [:id, :title],
-    #         :include => { :owner => { :only => [:id, :email], :methods => :avatar_url } } } } } }])
   end
 
   def create
