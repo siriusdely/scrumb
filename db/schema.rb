@@ -84,10 +84,12 @@ ActiveRecord::Schema.define(version: 20180617040633) do
     t.integer "day_id", null: false
     t.integer "task_id", null: false
     t.integer "user_id", null: false
+    t.integer "types_mask", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["day_id"], name: "index_rotations_on_day_id"
     t.index ["task_id"], name: "index_rotations_on_task_id"
+    t.index ["types_mask"], name: "index_rotations_on_types_mask"
     t.index ["user_id"], name: "index_rotations_on_user_id"
   end
 
