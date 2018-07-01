@@ -3,7 +3,7 @@ class Api::V1::DiscussionsController < ApiController
     discussions = Discussion.all
     render json: discussions.to_json(:include => { :messages => {
       :only => [:id, :content, :created_at, :discussion_id],
-      :include => { :user => { :only => :email, :methods => :avatar_url } } } })
+      :include => { :user => { :only => [:id, :email], :methods => :avatar_url } } } })
   end
 
   def create
