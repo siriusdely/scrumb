@@ -7,6 +7,147 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+wenhan = User.create!(email: 'wenhan@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+sirius = User.create!(email: 'sirius@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+fadil = User.create!(email: 'fadil@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+aditya = User.create!(email: 'aditya@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+
+vp_scrum = Scrum.create!(
+  title: 'VoicePing Devs Work Log',
+  description: 'Daily Stand-up Meeting for VoicePing Developers Scrum'
+)
+
+vp_scrum.memberships.create!(user: wenhan, role: :owner)
+vp_scrum.memberships.create!(user: sirius, role: :creator)
+vp_scrum.memberships.create!(user: fadil, role: :admin)
+vp_scrum.memberships.create!(user: aditya, role: :member)
+
+day = vp_scrum.days.create!
+
+task = vp_scrum.tasks.create!(
+  title: 'Texting and response API',
+  description: '- No breaks\n- No new bugs (forever spinning, anything else?)\n- Hiding the "Downloading Group Messages"',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'Focus with Aditya on Releasing 2.7.9',
+  description: '- No breaks\n- No new bugs (forever spinning, anything else?)\n- Hiding the "Downloading Group Messages"',
+  owner: fadil
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'Forever Spinning Bug',
+  description: '- Try on Idol 3\n- etc\n- etc\n- etc',
+  owner: aditya
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'Continue 2.8.0 after 2.7.9 release',
+  owner: fadil
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'max time',
+  description: 'https://www.pivotaltracker.com/n/projects/1197302/stories/158050295',
+  owner: aditya
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'copy paste long text',
+  description: 'https://www.pivotaltracker.com/story/show/158056052 ',
+  owner: aditya
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'Chrome upload',
+  owner: fadil
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: "Review AW's PR",
+  owner: fadil
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: '3 pending Staging test',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'Start work on Task management in VP',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'iOS DC every 2 minutes',
+  description: 'Android doesnt have problem, this is ios specific',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'install NewRelic Infrastructure Monitoring',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: '[Everyone] Scrum - Playstore debug APK?',
+  description: 'Staging server > Test SR Changes',
+  owner: wenhan
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'Not joining Scrum. Travelling in Malaysia for meeting',
+  owner: wenhan
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: '[Everyone] Please read above',
+  description: 'Dev Road Map - June/July 2018',
+  owner: wenhan
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: '[FD/AW] standby as updating taxi (100 users) at 1130',
+  description: '[AW] confirm no 15 sec bug on wired/BT',
+  owner: wenhan
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: '[AW] Please make latest release builds for all versions',
+  description: 'Will be slowly updating blackview customers \nMAKE RELEASE PLAYSTORE so Yoga can start testing',
+  owner: wenhan
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: 'Test Intranet APK with intranet server',
+  owner: wenhan
+)
+day.rotations.create!(task: task, user: task.owner)
+
+task = vp_scrum.tasks.create!(
+  title: '[HB/SR] iOS testing with production server to ensure no problem on server',
+  owner: wenhan
+)
+day.rotations.create!(task: task, user: task.owner)
+
 user = User.create!(email: 'asdf@asdf.asdf', password: 'asdfasdf', password_confirmation: 'asdfasdf')
 
 first_scrum = Scrum.create(
