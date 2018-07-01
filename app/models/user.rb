@@ -8,6 +8,9 @@ class User < ApplicationRecord
   has_many :scrums, through: :memberships
   has_many :tasks
 
+  has_many :rotations
+  has_many :todos, through: :rotations, class_name: 'Task', foreign_key: 'user_id'
+
   has_many :messages
   has_many :discussions, through: :messages
 

@@ -8,6 +8,9 @@ RSpec.describe User, type: :model do
   it { should have_many(:scrums) }
   it { should have_many(:tasks) }
 
+  it { should have_many :rotations }
+  it { should have_many :todos }
+
   it { should have_many(:messages) }
   it { should have_many(:discussions) }
 end
