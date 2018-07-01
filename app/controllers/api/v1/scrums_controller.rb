@@ -20,17 +20,30 @@ class Api::V1::ScrumsController < ApiController
     data[:users] = []
     @day.rotations.includes(:user, :task).group_by(&:user).each do |user, rotations|
       user = user.as_json :only => [:id, :email], :methods => :avatar_url
+      # rotations.each do |rotation|
+      #   user[:rotations] << (rotation.as_json :only => :id, :include => {
+      #     :task => {
+      #       :only => [:id, :title], :include => {
+      #         :owner => {
+      #           :only => [:id, :email], :methods => :avatar_url
+      #         }
+      #       }
+      #     }
+      #   })
+      # end
       user[:rotations] = []
-      rotations.each do |rotation|
-        user[:rotations] << (rotation.as_json :only => :id, :include => {
-          :task => {
-            :only => [:id, :title], :include => {
-              :owner => {
-                :only => [:id, :email], :methods => :avatar_url
-              }
+      rotations.group_by(&:type).each do |type, rotation|
+        rttn = { :type => type, :name => type.to_s.capitalize }
+        rttn[:name] = 'Helps Needed' if type == :tomorrow
+        rttn[:tasks] = []
+        rotation.each do |r|
+          rttn[:tasks] << (r.task.as_json :only => [:id, :title], :include => {
+            :owner => {
+              :only => [:id, :email], :methods => :avatar_url
             }
-          }
-        })
+          })
+        end
+        user[:rotations] << rttn
       end
       data[:users] << user
     end
