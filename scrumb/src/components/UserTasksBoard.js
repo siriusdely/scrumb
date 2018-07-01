@@ -18,7 +18,11 @@ export default class UserTasksBoard extends React.Component {
             <Header as='h3'>{ this.user.email }</Header>
           </Grid.Column>
         </Grid.Row>
-        <TasksListRow rotation={ this.user } key={ this.user.id } />
+        {
+          this.rotations.map(rotation =>
+            <TasksListRow rotation={ rotation } key={ rotation.type } />
+          )
+        }
       </React.Fragment>
     );
   }

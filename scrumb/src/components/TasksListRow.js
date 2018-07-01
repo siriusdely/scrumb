@@ -13,13 +13,13 @@ class TasksListRow extends Component {
     return (
       <Grid.Row>
         <Grid.Column width={ 4 }>
-          TODOS:
+          { this.rotation.name }
         </Grid.Column>
         <Grid.Column width={ 12 }>
           <List ordered>
             {
-              this.rotation.rotations.map(rotation =>
-                <SingleTaskItem task={ rotation.task } key={ rotation.task.id } />
+              this.rotation.tasks.map(task =>
+                <SingleTaskItem task={ task } key={ task.id } />
               )
             }
           </List>
