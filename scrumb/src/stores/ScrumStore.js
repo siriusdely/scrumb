@@ -1,5 +1,5 @@
 import { USER_LOGOUT } from '../constants/AuthConstants';
-import { GET_SCRUMS, GET_SCRUM } from '../constants/ScrumConstants';
+import { GET_SCRUMS, GET_SCRUM, GOT_TODAY } from '../constants/ScrumConstants';
 import BaseStore from './BaseStore';
 
 class ScrumStore extends BaseStore {
@@ -8,6 +8,7 @@ class ScrumStore extends BaseStore {
     this.subscribe(() => this._subscribeToActions.bind(this));
     this._scrums = [];
     this._scrum = null;
+    this._today = null;
   }
 
   _subscribeToActions(action) {
@@ -18,6 +19,10 @@ class ScrumStore extends BaseStore {
       break;
     case GET_SCRUM:
       this._scrum = action.scrum;
+      this.emitChange();
+      break;
+    case GOT_TODAY:
+      this._today = action.today;
       this.emitChange();
       break;
     case USER_LOGOUT:
@@ -35,6 +40,10 @@ class ScrumStore extends BaseStore {
 
   get scrum() {
     return this._scrum;
+  }
+
+  get today() {
+    return this._today;
   }
 }
 

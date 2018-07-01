@@ -6,8 +6,8 @@ import TasksListRow from './TasksListRow';
 export default class UserTasksBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.user = props.scrum.user;
-    this.rotations = props.scrum.rotations;
+    this.user = props.user;
+    this.rotations = props.user.rotations;
   }
 
   render() {
@@ -15,14 +15,10 @@ export default class UserTasksBoard extends React.Component {
       <React.Fragment>
         <Grid.Row>
           <Grid.Column>
-            <Header as='h3'>{ this.user.first_name }</Header>
+            <Header as='h3'>{ this.user.email }</Header>
           </Grid.Column>
         </Grid.Row>
-        {
-          this.rotations.map(rotation =>
-            <TasksListRow rotation={ rotation } key={ rotation.name } />
-          )
-        }
+        <TasksListRow rotation={ this.user } key={ this.user.id } />
       </React.Fragment>
     );
   }

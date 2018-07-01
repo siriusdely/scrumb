@@ -1,4 +1,4 @@
-import { GET_SCRUMS, GET_SCRUM } from '../constants/ScrumConstants';
+import { GET_SCRUMS, GET_SCRUM, GOT_TODAY } from '../constants/ScrumConstants';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 
 export default {
@@ -13,6 +13,13 @@ export default {
     AppDispatcher.dispatch({
       actionType: GET_SCRUM,
       scrum: scrum
+    });
+  },
+
+  gotToday: function(today) {
+    AppDispatcher.dispatch({
+      actionType: GOT_TODAY,
+      today: today
     });
   }
 }

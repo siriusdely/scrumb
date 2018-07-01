@@ -7,11 +7,13 @@ import AuthStore from '../stores/AuthStore';
 class ScrumService {
   getScrums() {
     let self = this;
-    // axios.get(SCRUMS_URL, {
-    //   headers: {
-    //     Authorization: AuthStore.jwt,
-    //     'Content-Type': 'application/json'
-    //   }
+    /*
+    axios.get(SCRUMS_URL, {
+      headers: {
+        Authorization: AuthStore.jwt,
+        'Content-Type': 'application/json'
+      }
+    */
     axios({
       method: 'GET',
       url: SCRUMS_URL,
@@ -39,6 +41,22 @@ class ScrumService {
     }).then(function(response) {
       // console.log(response.data);
       ScrumActions.gotScrum(response.data);
+    }).catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  getToday(id) {
+    axios({
+      method: 'GET',
+      url: `${SCRUMS_URL}/${id}/today`,
+      headers: {
+        Authorization: AuthStore.jwt,
+        'Content-Type': 'application/json'
+      }
+    }).then(function(response) {
+      // console.log(JSON.stringify(response.data));
+      ScrumActions.gotToday(response.data);
     }).catch(function(error) {
       console.log(error);
     });
