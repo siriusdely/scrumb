@@ -18,7 +18,7 @@ class Api::V1::ScrumsController < ApiController
     data = @day.as_json only: :created_at
     data[:scrum] = @scrum.as_json :only => [:id, :title, :description]
     data[:users] = []
-    @day.rotations.includes(:user, :task).group_by(&:user).each do |user, rotations|
+    @day.rotations.includes(:user, :task => :owner).group_by(&:user).each do |user, rotations|
       user = user.as_json :only => [:id, :email], :methods => :avatar_url
       # rotations.each do |rotation|
       #   user[:rotations] << (rotation.as_json :only => :id, :include => {
