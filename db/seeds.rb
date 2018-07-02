@@ -29,190 +29,190 @@ task = vp_scrum.tasks.create!(
   description: '- No breaks\n- No new bugs (forever spinning, anything else?)\n- Hiding the "Downloading Group Messages"',
   owner: sirius
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'Focus with Aditya on Releasing 2.7.9',
   description: '- No breaks\n- No new bugs (forever spinning, anything else?)\n- Hiding the "Downloading Group Messages"',
   owner: fadil
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'Forever Spinning Bug',
   description: '- Try on Idol 3\n- etc\n- etc\n- etc',
   owner: aditya
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'Continue 2.8.0 after 2.7.9 release',
   owner: fadil
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 2)
 
 task = vp_scrum.tasks.create!(
   title: 'max time',
   description: 'https://www.pivotaltracker.com/n/projects/1197302/stories/158050295',
   owner: aditya
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 2)
 
 task = vp_scrum.tasks.create!(
   title: 'copy paste long text',
   description: 'https://www.pivotaltracker.com/story/show/158056052 ',
   owner: aditya
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 3)
 
 task = vp_scrum.tasks.create!(
   title: 'Chrome upload',
   owner: fadil
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 3)
 
 task = vp_scrum.tasks.create!(
   title: "Review AW's PR",
   owner: fadil
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 4)
 
 task = vp_scrum.tasks.create!(
   title: '3 pending Staging test',
   owner: sirius
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 2)
 
 task = vp_scrum.tasks.create!(
   title: 'Start work on Task management in VP',
   owner: sirius
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 3)
 
 task = vp_scrum.tasks.create!(
   title: 'iOS DC every 2 minutes',
   description: 'Android doesnt have problem, this is ios specific',
   owner: sirius
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 4)
 
 task = vp_scrum.tasks.create!(
   title: 'install NewRelic Infrastructure Monitoring',
   owner: sirius
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 5)
 
 task = vp_scrum.tasks.create!(
   title: '[Everyone] Scrum - Playstore debug APK?',
   description: 'Staging server > Test SR Changes',
   owner: wenhan
 )
-day.rotations.create!(task: task, user: task.owner, type: :tomorrow)
+day.rotations.create!(task: task, user: task.owner, type: :tomorrow, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'Not joining Scrum. Travelling in Malaysia for meeting',
   owner: wenhan
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: '[Everyone] Please read above',
   description: 'Dev Road Map - June/July 2018',
   owner: wenhan
 )
-day.rotations.create!(task: task, user: task.owner, type: :tomorrow)
+day.rotations.create!(task: task, user: task.owner, type: :tomorrow, order: 2)
 
 task = vp_scrum.tasks.create!(
   title: '[FD/AW] standby as updating taxi (100 users) at 1130',
   description: '[AW] confirm no 15 sec bug on wired/BT',
   owner: fadil
 )
-day.rotations.create!(task: task, user: wenhan, type: :tomorrow)
+day.rotations.create!(task: task, user: wenhan, type: :tomorrow, order: 3)
 
 task = vp_scrum.tasks.create!(
   title: '[AW] Please make latest release builds for all versions',
   description: 'Will be slowly updating blackview customers \nMAKE RELEASE PLAYSTORE so Yoga can start testing',
   owner: aditya
 )
-day.rotations.create!(task: task, user: wenhan, type: :tomorrow)
+day.rotations.create!(task: task, user: wenhan, type: :tomorrow, order: 4)
 
 task = vp_scrum.tasks.create!(
   title: 'Test Intranet APK with intranet server',
   owner: wenhan
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :today, order: 2)
 
 task = vp_scrum.tasks.create!(
   title: '[HB/SR] iOS testing with production server to ensure no problem on server',
   owner: sirius
 )
-day.rotations.create!(task: task, user: wenhan, type: :tomorrow)
+day.rotations.create!(task: task, user: wenhan, type: :tomorrow, order: 5)
 
 task = vp_scrum.tasks.create!(
   title: '[WH] ask leave monday 2 july?',
   owner: wenhan
 )
-day.rotations.create!(task: task, user: aditya, type: :tomorrow)
+day.rotations.create!(task: task, user: aditya, type: :tomorrow, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: '[AW/FD] You can check idenptt branch. Lots of the code related to GRID are placed at grid directory (com.media2359.voiceping -> grid)',
   description: 'Doc: https://docs.google.com/document/d/1As_CBuY7IeoGttopsF1UsjHHXmN8CK6HEvft6EqtGEw/edit',
   owner: fadil
 )
-day.rotations.create!(task: task, user: sirius, type: :tomorrow)
+day.rotations.create!(task: task, user: sirius, type: :tomorrow, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'VoicePing APK with Intranet Server',
   description: 'https://www.pivotaltracker.com/story/show/157996665',
   owner: sirius
 )
-day.rotations.create!(task: task, user: fadil, type: :tomorrow)
+day.rotations.create!(task: task, user: fadil, type: :tomorrow, order: 3)
 
 task = vp_scrum.tasks.create!(
   title: 'help dashboard production deploy',
   owner: sirius
 )
-day.rotations.create!(task: task, user: fadil, type: :tomorrow)
+day.rotations.create!(task: task, user: fadil, type: :tomorrow, order: 4)
 
 task = vp_scrum.tasks.create!(
   title: 'Foreground and other 281 stories',
   description: 'Rework the foreground: https://www.pivotaltracker.com/story/show/157764792 (Waiting for test result for Herbert)',
   owner: fadil
 )
-day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'interactive text, prevent user answer twice',
   description: 'https://www.pivotaltracker.com/story/show/158523751',
   owner: aditya
 )
-day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'Screen timeout',
   description: 'https://www.pivotaltracker.com/n/projects/1197302/stories/158021394 app-taxi-release-2.8.1.11-132-d992a0cb0',
   owner: aditya
 )
-day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday, order: 2)
 
 task = vp_scrum.tasks.create!(
   title: 'Group locking bug happened during yesterday scrum',
   description: '- Test on staging during today scrum \n- Update production on Tuesday night',
   owner: sirius
 )
-day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'Custom URL Build',
   owner: fadil
 )
-day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday, order: 2)
 
 task = vp_scrum.tasks.create!(
   title: "Review AW's PR",
   owner: fadil
 )
-day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday, order: 3)
 
 user = User.create!(email: 'asdf@asdf.asdf', password: 'asdfasdf', password_confirmation: 'asdfasdf')
 

@@ -5,9 +5,11 @@ class CreateRotations < ActiveRecord::Migration[5.1]
       t.references :task, foreign_key: true, null: false
       t.references :user, foreign_key: true, null: false
       t.integer :types_mask, null: false
+      t.integer :order, null: false
 
       t.timestamps
     end
     add_index :rotations, :types_mask
+    add_index :rotations, [:order, :day_id, :user_id, :types_mask], unique: true
   end
 end

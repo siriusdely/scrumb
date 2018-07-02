@@ -31,12 +31,14 @@ class Api::V1::ScrumsController < ApiController
         rttn = { :type => type, :name => type.to_s.capitalize }
         rttn[:name] = 'Helps Needed' if type == :tomorrow
         rttn[:tasks] = []
-        rotation.each do |r|
-          rttn[:tasks] << (r.task.as_json :only => [:id, :title], :include => {
+        rotation.sort_by(&:order).each do |r|
+          task = (r.task.as_json :only => [:id, :title], :include => {
             :owner => {
               :only => [:id, :email], :methods => :avatar_url
             }
           })
+          task[:order] = r.order
+          rttn[:tasks] << task
         end
         user[:rotations] << rttn
       end

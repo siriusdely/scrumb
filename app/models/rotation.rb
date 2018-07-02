@@ -5,6 +5,10 @@ class Rotation < ApplicationRecord
 
   validates_presence_of :type
 
+  validates_uniqueness_of :order, :scope => [:day_id, :user_id, :types_mask]
+  # validates :order, uniqueness: { scope: [:day_id, :types_mask] }
+  validates :order, :numericality => { :greater_than => 0 }, :allow_nil => false
+
   TYPES = %i[past yesterday today tomorrow future]
 
   def type=(type)

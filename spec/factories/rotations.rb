@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :rotation do
-    day nil
-    task nil
+    day
+    task
+    user
+    types_mask 1
+    order 1
   end
 end
