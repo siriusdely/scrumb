@@ -18,10 +18,16 @@ class Api::V1::ScrumsController < ApiController
     data = @day.as_json only: :created_at
     data[:scrum] = @scrum.as_json :only => [:id, :title, :description]
     data[:users] = []
-    @day.rotations.includes(:user, :task => :owner).group_by(&:user).each do |user, rotations|
+
+    @day.rotations.includes(:user, task: :owner).group_by(&:user).each do |user, rotations|
       user = user.as_json :only => [:id, :email], :methods => :avatar_url
       user[:rotations] = []
-      rotations.group_by(&:type).each do |type, rotation|
+
+      rotations = rotations.group_by(&:type).sort do |a, b|
+        Rotation::TYPES.index(a[0]) <=> Rotation::TYPES.index(b[0])
+      end
+
+      rotations.each do |type, rotation|
         rttn = { :type => type, :name => type.to_s.capitalize }
         rttn[:name] = 'Helps Needed' if type == :tomorrow
         rttn[:tasks] = []
