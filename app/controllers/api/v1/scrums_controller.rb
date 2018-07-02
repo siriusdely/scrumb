@@ -17,11 +17,17 @@ class Api::V1::ScrumsController < ApiController
 
     data = @day.as_json only: :created_at
     data[:scrum] = @scrum.as_json :only => [:id, :title, :description]
-    data[:users] = []
+    @users = []
+
+    @memberships = {}
+    @scrum.memberships.each do |membership|
+      @memberships[membership.user_id] = membership
+    end
 
     @day.rotations.includes(:user, task: :owner).group_by(&:user).each do |user, rotations|
-      user = user.as_json :only => [:id, :email], :methods => :avatar_url
-      user[:rotations] = []
+      usr = user.as_json :only => [:id, :email], :methods => :avatar_url
+      usr[:rotations] = []
+      usr[:role] = @memberships[user.id].role
 
       rotations = rotations.group_by(&:type).sort do |a, b|
         Rotation::TYPES.index(a[0]) <=> Rotation::TYPES.index(b[0])
@@ -40,10 +46,16 @@ class Api::V1::ScrumsController < ApiController
           task[:order] = r.order
           rttn[:tasks] << task
         end
-        user[:rotations] << rttn
+        usr[:rotations] << rttn
       end
-      data[:users] << user
+      @users << usr
     end
+
+    @users = @users.sort do |a, b|
+      Membership::ROLES.index(a[:role]) <=> Membership::ROLES.index(b[:role])
+    end
+
+    data[:users] = @users
 
     render json: data
   end
