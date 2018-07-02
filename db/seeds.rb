@@ -107,7 +107,7 @@ task = vp_scrum.tasks.create!(
   description: 'Staging server > Test SR Changes',
   owner: wenhan
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :tomorrow)
 
 task = vp_scrum.tasks.create!(
   title: 'Not joining Scrum. Travelling in Malaysia for meeting',
@@ -120,21 +120,21 @@ task = vp_scrum.tasks.create!(
   description: 'Dev Road Map - June/July 2018',
   owner: wenhan
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: task.owner, type: :tomorrow)
 
 task = vp_scrum.tasks.create!(
   title: '[FD/AW] standby as updating taxi (100 users) at 1130',
   description: '[AW] confirm no 15 sec bug on wired/BT',
-  owner: wenhan
+  owner: fadil
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: wenhan, type: :tomorrow)
 
 task = vp_scrum.tasks.create!(
   title: '[AW] Please make latest release builds for all versions',
   description: 'Will be slowly updating blackview customers \nMAKE RELEASE PLAYSTORE so Yoga can start testing',
-  owner: wenhan
+  owner: aditya
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: wenhan, type: :tomorrow)
 
 task = vp_scrum.tasks.create!(
   title: 'Test Intranet APK with intranet server',
@@ -144,9 +144,75 @@ day.rotations.create!(task: task, user: task.owner, type: :today)
 
 task = vp_scrum.tasks.create!(
   title: '[HB/SR] iOS testing with production server to ensure no problem on server',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: wenhan, type: :tomorrow)
+
+task = vp_scrum.tasks.create!(
+  title: '[WH] ask leave monday 2 july?',
   owner: wenhan
 )
-day.rotations.create!(task: task, user: task.owner, type: :today)
+day.rotations.create!(task: task, user: aditya, type: :tomorrow)
+
+task = vp_scrum.tasks.create!(
+  title: '[AW/FD] You can check idenptt branch. Lots of the code related to GRID are placed at grid directory (com.media2359.voiceping -> grid)',
+  description: 'Doc: https://docs.google.com/document/d/1As_CBuY7IeoGttopsF1UsjHHXmN8CK6HEvft6EqtGEw/edit',
+  owner: fadil
+)
+day.rotations.create!(task: task, user: sirius, type: :tomorrow)
+
+task = vp_scrum.tasks.create!(
+  title: 'VoicePing APK with Intranet Server',
+  description: 'https://www.pivotaltracker.com/story/show/157996665',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: fadil, type: :tomorrow)
+
+task = vp_scrum.tasks.create!(
+  title: 'help dashboard production deploy',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: fadil, type: :tomorrow)
+
+task = vp_scrum.tasks.create!(
+  title: 'Foreground and other 281 stories',
+  description: 'Rework the foreground: https://www.pivotaltracker.com/story/show/157764792 (Waiting for test result for Herbert)',
+  owner: fadil
+)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+
+task = vp_scrum.tasks.create!(
+  title: 'interactive text, prevent user answer twice',
+  description: 'https://www.pivotaltracker.com/story/show/158523751',
+  owner: aditya
+)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+
+task = vp_scrum.tasks.create!(
+  title: 'Screen timeout',
+  description: 'https://www.pivotaltracker.com/n/projects/1197302/stories/158021394 app-taxi-release-2.8.1.11-132-d992a0cb0',
+  owner: aditya
+)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+
+task = vp_scrum.tasks.create!(
+  title: 'Group locking bug happened during yesterday scrum',
+  description: '- Test on staging during today scrum \n- Update production on Tuesday night',
+  owner: sirius
+)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+
+task = vp_scrum.tasks.create!(
+  title: 'Custom URL Build',
+  owner: fadil
+)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday)
+
+task = vp_scrum.tasks.create!(
+  title: "Review AW's PR",
+  owner: fadil
+)
+day.rotations.create!(task: task, user: task.owner, type: :yesterday)
 
 user = User.create!(email: 'asdf@asdf.asdf', password: 'asdfasdf', password_confirmation: 'asdfasdf')
 
