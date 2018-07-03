@@ -63,9 +63,12 @@ ActiveRecord::Schema.define(version: 20180617040633) do
     t.integer "scrum_id"
     t.integer "user_id"
     t.integer "roles_mask"
+    t.integer "order", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["order"], name: "index_memberships_on_order"
     t.index ["roles_mask"], name: "index_memberships_on_roles_mask"
+    t.index ["scrum_id", "user_id"], name: "index_memberships_on_scrum_id_and_user_id", unique: true
     t.index ["scrum_id"], name: "index_memberships_on_scrum_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end

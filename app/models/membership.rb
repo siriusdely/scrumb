@@ -4,6 +4,9 @@ class Membership < ApplicationRecord
 
   validates_presence_of :role
 
+  validates :user_id, uniqueness: { scope: :scrum_id }
+  validates :order, :numericality => true, allow_nil: true
+
   ROLES = %i[owner creator admin member]
 
   def role=(role)
