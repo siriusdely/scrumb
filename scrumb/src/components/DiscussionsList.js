@@ -37,6 +37,7 @@ export default class DiscussionsList extends React.Component {
 
   componentWillUnmount = () => {
     ChatService.deinitCable();
+    ChatStore.removeChangeListener(this.chatStoreChange);
   }
 
   handleClick = id => {
