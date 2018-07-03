@@ -1,5 +1,5 @@
 class Api::V1::ScrumsController < ApiController
-  before_action :set_scrum, only: [:show, :update, :destroy]
+  before_action :set_scrum, only: [:show, :update, :destroy, :today]
   # GET /scrums
   def index
     @scrums = @current_user.scrums
@@ -12,27 +12,27 @@ class Api::V1::ScrumsController < ApiController
   end
 
   def today
-    @scrum = Scrum.find(params[:id])
-    @day = @scrum.days.first
+    day = @scrum.days.first
 
-    data = @day.as_json only: :created_at
+    data = day.as_json only: :created_at
     data[:scrum] = @scrum.as_json :only => [:id, :title, :description]
-    @users = []
+    users = []
 
-    @memberships = {}
+    memberships = {}
     @scrum.memberships.each do |membership|
-      @memberships[membership.user_id] = membership
+      memberships[membership.user_id] = membership
     end
 
-    @day.rotations.includes(:user, task: :owner).group_by(&:user).each do |user, rotations|
+    day.rotations.includes(:user, task: :owner).group_by(&:user).each do |user, rotations|
       usr = user.as_json :only => [:id, :email], :methods => :avatar_url
-      usr[:rotations] = []
-      usr[:role] = @memberships[user.id].role
+      usr[:role] = memberships[user.id].role
+      usr[:order] = memberships[user.id].order
 
       rotations = rotations.group_by(&:type).sort do |a, b|
         Rotation::TYPES.index(a[0]) <=> Rotation::TYPES.index(b[0])
       end
 
+      usr[:rotations] = []
       rotations.each do |type, rotation|
         rttn = { :type => type, :name => type.to_s.capitalize }
         rttn[:name] = 'Helps Needed' if type == :tomorrow
@@ -48,14 +48,14 @@ class Api::V1::ScrumsController < ApiController
         end
         usr[:rotations] << rttn
       end
-      @users << usr
+      users << usr
     end
 
-    @users = @users.sort do |a, b|
+    users = users.sort do |a, b|
       Membership::ROLES.index(a[:role]) <=> Membership::ROLES.index(b[:role])
     end
 
-    data[:users] = @users
+    data[:users] = users
 
     render json: data
   end

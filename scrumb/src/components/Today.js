@@ -29,7 +29,6 @@ export default class Today extends React.Component {
 
   render() {
     let { today } = this.state;
-    console.log(today)
     return (
       <Container text>
         <Grid celled>
