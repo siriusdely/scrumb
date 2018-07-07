@@ -1,9 +1,11 @@
 import React from 'react';
-import { Container, Grid } from 'semantic-ui-react';
+import { Container, Header, Icon } from 'semantic-ui-react';
+
+import DailyNavigationBar from './DailyNavigationBar';
+import UserTasksBoard from './UserTasksBoard';
 
 import ScrumService from '../services/ScrumService';
 import ScrumStore from '../stores/ScrumStore';
-import UserTasksBoard from './UserTasksBoard';
 
 export default class Today extends React.Component {
   constructor(props) {
@@ -27,11 +29,23 @@ export default class Today extends React.Component {
     ScrumService.getToday(1);
   }
 
+  componentWillUnmount() {
+    ScrumStore.removeChangeListener(this.todayChange);
+  }
+
   render() {
     let { today } = this.state;
     return (
       <Container text>
-        <Grid celled>
+        { today && today.scrum && today.scrum.title &&
+          <Header as='h2' icon textAlign='center' color='teal'>
+            <Icon name='ordered list' circular />
+            <Header.Content>
+              { today.scrum.title }
+            </Header.Content>
+          </Header>
+        }
+        <DailyNavigationBar />
           {
             today && today.users && today.users.length ?
             today.users.map(
@@ -39,7 +53,6 @@ export default class Today extends React.Component {
                 <UserTasksBoard user={ user } key={ user.id } />
             ) : null
           }
-        </Grid>
       </Container>
     );
   }

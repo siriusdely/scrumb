@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, List } from 'semantic-ui-react';
+import { Grid, List, Segment } from 'semantic-ui-react';
 
 import SingleTaskItem from './SingleTaskItem';
 
@@ -11,9 +11,9 @@ class TasksListRow extends Component {
 
   render() {
     return (
-      <Grid.Row>
+      <React.Fragment>
         <Grid.Column width={ 4 }>
-          { this.rotation.name }
+          { this.rotation.name }:
         </Grid.Column>
         <Grid.Column width={ 12 }>
           <List ordered>
@@ -24,7 +24,7 @@ class TasksListRow extends Component {
             }
           </List>
         </Grid.Column>
-      </Grid.Row>
+      </React.Fragment>
     );
   }
 }

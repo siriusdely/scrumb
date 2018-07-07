@@ -65,7 +65,7 @@ class App extends Component {
   get headerItems() {
     return (
       !this.state.isSignedIn ? (
-          <Menu size="large">
+          <Menu size="huge" inverted color="teal">
             <Menu.Item header>ScrumBy</Menu.Item>
             <Link className="item active" to="/">Home</Link>
             <Menu.Menu position="right">
@@ -74,12 +74,12 @@ class App extends Component {
             </Menu.Menu>
           </Menu>
         ) : (
-          <Menu size="large">
-            <Menu.Item header>ScrumBy</Menu.Item>
-            <Link className="item active" to="/">Home</Link>
-            <Link className="item" to="dashboard">Dashboard</Link>
-            <Link className="item" to="chats">Chats</Link>
-            <Menu.Menu position="right">
+          <Menu size="huge" inverted>
+            <Menu.Item header color="teal">ScrumBy</Menu.Item>
+            <Link className="item active teal" to="/">Home</Link>
+            <Link className="item teal" to="dashboard">Dashboard</Link>
+            <Link className="item teal" to="chats">Chats</Link>
+            <Menu.Menu position="right" color="teal">
               <a className="item" href="#logout" onClick={ this.logout }>Logout</a>
             </Menu.Menu>
           </Menu>

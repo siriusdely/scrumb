@@ -1,5 +1,10 @@
 import React from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import {
+  Grid
+  , Header
+  , Image
+  , Segment
+} from 'semantic-ui-react';
 
 import TasksListRow from './TasksListRow';
 
@@ -13,16 +18,22 @@ export default class UserTasksBoard extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Grid.Row>
-          <Grid.Column>
-            <Header as='h3'>{ this.user.email }</Header>
-          </Grid.Column>
-        </Grid.Row>
-        {
-          this.rotations.map(rotation =>
-            <TasksListRow rotation={ rotation } key={ rotation.type } />
-          )
-        }
+        <Header as='h3' attached='top'>
+          <Image src={ this.user.avatar_url } rounded bordered />
+          <Header.Content>
+            { this.user.email }
+            <Header.Subheader content={ this.user.role } />
+          </Header.Content>
+        </Header>
+        <Segment color='teal' size='big' attached='bottom'>
+          <Grid>
+            {
+              this.rotations.map(rotation =>
+                <TasksListRow rotation={ rotation } key={ rotation.type } />
+              )
+            }
+          </Grid>
+        </Segment>
       </React.Fragment>
     );
   }
