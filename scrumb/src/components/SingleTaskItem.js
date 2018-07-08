@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, List } from 'semantic-ui-react';
+import { Label, List, Segment } from 'semantic-ui-react';
 
 class SingleTaskItem extends Component {
   constructor(props) {
@@ -16,6 +16,7 @@ class SingleTaskItem extends Component {
           <Label as='a' active content={ initial } /> }
         { this.props.labeled && initial && ' ' }
         { this.task.title }
+        { this.task.description && <Segment content={ this.task.description} /> }
       </List.Item>
     );
   }
