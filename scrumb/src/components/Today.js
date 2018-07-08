@@ -1,5 +1,9 @@
 import React from 'react';
-import { Container, Header, Icon } from 'semantic-ui-react';
+import { Container
+       , Dimmer
+       , Header
+       , Icon
+       , Loader } from 'semantic-ui-react';
 
 import DailyNavigationBar from './DailyNavigationBar';
 import UserTasksBoard from './UserTasksBoard';
@@ -35,25 +39,34 @@ export default class Today extends React.Component {
 
   render() {
     let { today } = this.state;
-    return (
-      <Container text>
-        { today && today.scrum && today.scrum.title &&
-          <Header as='h2' icon textAlign='center' color='teal'>
-            <Icon name='ordered list' circular />
-            <Header.Content>
-              { today.scrum.title }
-            </Header.Content>
-          </Header>
-        }
-        <DailyNavigationBar />
+    if (today) {
+      return (
+        <Container text>
+          { today.scrum && today.scrum.title &&
+            <Header as='h2' icon textAlign='center' color='teal'>
+              <Icon name='ordered list' circular />
+              <Header.Content>
+                { today.scrum.title }
+              </Header.Content>
+            </Header>
+          }
+          <DailyNavigationBar />
           {
-            today && today.users && today.users.length ?
+            today.users && today.users.length ?
             today.users.map(
-              user =>
-                <UserTasksBoard user={ user } key={ user.id } />
+              user => <UserTasksBoard user={ user } key={ user.id } />
             ) : null
           }
-      </Container>
-    );
+        </Container>
+      );
+    } else {
+      return (
+        <Container text>
+          <Dimmer active inverted>
+            <Loader content='Loading' />
+          </Dimmer>
+        </Container>
+      );
+    }
   }
 }
