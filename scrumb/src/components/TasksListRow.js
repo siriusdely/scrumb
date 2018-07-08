@@ -13,7 +13,7 @@ class TasksListRow extends Component {
     return (
       <React.Fragment>
         <Grid.Column width={ 4 }>
-          { this.rotation.name }:
+          { this.rotation.name + ':' }
         </Grid.Column>
         <Grid.Column width={ 12 }>
           <List ordered>

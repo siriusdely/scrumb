@@ -65,7 +65,7 @@ class App extends Component {
   get headerItems() {
     return (
       !this.state.isSignedIn ? (
-          <Menu size="huge" inverted color="teal">
+          <Menu size="huge" stackable inverted color="teal">
             <Menu.Item header>ScrumBy</Menu.Item>
             <Link className="item active" to="/">Home</Link>
             <Menu.Menu position="right">
@@ -74,7 +74,7 @@ class App extends Component {
             </Menu.Menu>
           </Menu>
         ) : (
-          <Menu size="huge" inverted>
+          <Menu size="huge" stackable inverted>
             <Menu.Item header color="teal">ScrumBy</Menu.Item>
             <Link className="item active teal" to="/">Home</Link>
             <Link className="item teal" to="dashboard">Dashboard</Link>
