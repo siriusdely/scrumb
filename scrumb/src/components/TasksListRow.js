@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, List, Segment } from 'semantic-ui-react';
+import { Grid, List } from 'semantic-ui-react';
 
 import SingleTaskItem from './SingleTaskItem';
 
@@ -19,7 +19,7 @@ class TasksListRow extends Component {
           <List ordered>
             {
               this.rotation.tasks.map(task =>
-                <SingleTaskItem task={ task } key={ task.id } />
+                <SingleTaskItem task={ task } key={ task.id } labeled={ this.rotation.type === 'tomorrow' } />
               )
             }
           </List>

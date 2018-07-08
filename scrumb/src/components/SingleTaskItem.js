@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List } from 'semantic-ui-react';
+import { Label, List } from 'semantic-ui-react';
 
 class SingleTaskItem extends Component {
   constructor(props) {
@@ -8,8 +8,15 @@ class SingleTaskItem extends Component {
   }
 
   render() {
+    let initial = this.task.owner && this.task.owner.email;
+    initial = initial ? initial.slice(0, 2).toUpperCase() : null;
     return (
-      <List.Item>{ this.task.title }</List.Item>
+      <List.Item>
+        { this.props.labeled && initial &&
+          <Label as='a' active content={ initial } /> }
+        { this.props.labeled && initial && ' ' }
+        { this.task.title }
+      </List.Item>
     );
   }
 }
