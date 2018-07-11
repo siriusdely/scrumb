@@ -4,7 +4,9 @@ import {
   Button,
   Container,
   Form,
-  Header
+  Grid,
+  Header,
+  Input
 } from 'semantic-ui-react';
 
 import Auth from '../services/AuthService';
@@ -75,31 +77,45 @@ class LoginForm extends React.Component {
               : 'Login' }
           </Header.Content>
         </Header>
-        <Container>
-          <Form onSubmit={ this.handleSubmit }>
-            <Form.Field>
-              <label>
-                Email:
-                <input type="email"
+        <Form onSubmit={ this.handleSubmit }>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width="4">
+                <label>
+                  Email:
+                </label>
+              </Grid.Column>
+              <Grid.Column width="12">
+                <Input fluid required
+                       type="email"
                        name="email"
                        placeholder="email"
                        value={ this.state.email }
                        onChange={ this.handleChange } />
-              </label>
-            </Form.Field>
-            <Form.Field>
-              <label>
-                Password:
-                <input type="password"
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width="4">
+                <label>
+                  Password:
+                </label>
+              </Grid.Column>
+              <Grid.Column width="12">
+                <Input fluid required
+                       type="password"
                        name="password"
                        placeholder="password"
                        value={ this.state.password }
                        onChange={ this.handleChange } />
-              </label>
-            </Form.Field>
-            <Button type="submit" color="teal">Login</Button>
-          </Form>
-        </Container>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row centered>
+              <Grid.Column width="8">
+                <Button fluid type="submit" color="teal">Login</Button>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Form>
       </Container>
     );
   }
