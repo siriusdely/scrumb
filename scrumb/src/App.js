@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Link,
+  NavLink,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -20,6 +20,7 @@ import LogoutLink from './components/LogoutLink';
 import NotFound from './components/NotFound';
 import Private from './components/Private';
 import PrivateRoute from './components/PrivateRoute';
+import Public from './components/Public';
 import Today from './components/Today';
 
 import AuthService from './services/AuthService';
@@ -62,28 +63,23 @@ class App extends Component {
     AuthService.logout();
   }
 
-  get headerItems() {
+  get navigationMenu() {
+    let isSignedIn = this.state.isSignedIn;
     return (
-      !this.state.isSignedIn ? (
-          <Menu size="huge" stackable inverted color="teal">
-            <Menu.Item header>ScrumBy</Menu.Item>
-            <Link className="item active" to="/">Home</Link>
-            <Menu.Menu position="right">
-              <Link className="item" to="login">Login</Link>
-              <Link className="item" to="signup">Signup</Link>
-            </Menu.Menu>
-          </Menu>
-        ) : (
-          <Menu size="huge" stackable inverted>
-            <Menu.Item header color="teal">ScrumBy</Menu.Item>
-            <Link className="item active teal" to="/">Home</Link>
-            <Link className="item teal" to="dashboard">Dashboard</Link>
-            <Link className="item teal" to="chats">Chats</Link>
-            <Menu.Menu position="right" color="teal">
-              <a className="item" href="#logout" onClick={ this.logout }>Logout</a>
-            </Menu.Menu>
-          </Menu>
-        )
+      <Menu size="huge" stackable inverted={ !isSignedIn } color="teal">
+        { /* <Menu.Item header color="teal">ScrumBy</Menu.Item> */ }
+        <NavLink className="item header" exact to="/">ScrumBy</NavLink>
+        { isSignedIn ? [
+            <NavLink key="dashboard" className="item teal" exact to="/dashboard">Dashboard</NavLink>,
+            <NavLink key="chats" className="item teal" exact to="/chats">Chats</NavLink>
+        ] : null }
+        <Menu.Menu position="right">
+          { !isSignedIn ? [
+              <NavLink key="login" className="item" exact to="/login">Login</NavLink>,
+              <NavLink key="signup" className="item" exact to="/signup">Signup</NavLink>
+          ] : <a className="item" href="#logout" onClick={ this.logout }>Logout</a> }
+        </Menu.Menu>
+      </Menu>
     );
   }
 
@@ -92,11 +88,11 @@ class App extends Component {
       <Router>
         <Container>
           <Divider hidden />
-          { this.headerItems }
+          { this.navigationMenu }
           <Divider hidden section />
           <Switch>
-            <Route path='/' exact component={ Today } />
-            <Route path='/chats' exact component={ ChatsPage} />
+            <Route path='/' exact component={ this.state.isSignedIn ? Today : Public } />
+            <Route path='/chats' exact component={ ChatsPage } />
             <Route path='/login' exact component={ LoginForm } />
             <Route path='/logout' exact component={ LogoutLink } />
             <Route path='/public' exact component={ Home } />
