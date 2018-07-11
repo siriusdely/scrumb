@@ -12,7 +12,7 @@ import {
 import Auth from '../services/AuthService';
 import AuthStore from '../stores/AuthStore';
 
-class LoginForm extends React.Component {
+class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -121,4 +121,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default LoginPage;

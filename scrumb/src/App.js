@@ -13,12 +13,12 @@ import {
 
 import ChatsPage from './components/MessagesPage';
 import Home from './components/Home';
-import LoginForm from './components/LoginForm';
+import LoginPage from './components/LoginPage';
 import LogoutLink from './components/LogoutLink';
 import NotFound from './components/NotFound';
 import Private from './components/Private';
 import PrivateRoute from './components/PrivateRoute';
-import Public from './components/Public';
+import PublicPage from './components/PublicPage';
 import Today from './components/Today';
 
 import AuthService from './services/AuthService';
@@ -86,9 +86,9 @@ class App extends Component {
           { this.navigationMenu }
           <Divider hidden section />
           <Switch>
-            <Route path='/' exact component={ this.state.isSignedIn ? Today : Public } />
+            <Route path='/' exact component={ this.state.isSignedIn ? Today : PublicPage } />
             <Route path='/chats' exact component={ ChatsPage } />
-            <Route path='/login' exact component={ LoginForm } />
+            <Route path='/login' exact component={ LoginPage } />
             <Route path='/logout' exact component={ LogoutLink } />
             <Route path='/public' exact component={ Home } />
             <PrivateRoute path='/dashboard' exact component={ Private } />
