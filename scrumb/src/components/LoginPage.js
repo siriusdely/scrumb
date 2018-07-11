@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import {
   Button,
   Container,
+  Divider,
   Form,
   Grid,
   Header,
@@ -50,6 +51,7 @@ class LoginPage extends React.Component {
     Auth.login(this.state.email, this.state.password);
   }
 
+  /*
   getMetaContent(name) {
     var metas = document.getElementsByTagName('meta');
     for (var i = 0; i < metas.length; i++) {
@@ -59,6 +61,7 @@ class LoginPage extends React.Component {
     }
     return "";
   }
+  */
 
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
@@ -70,23 +73,23 @@ class LoginPage extends React.Component {
 
     return (
       <Container text>
-        <Header as='h3' textAlign='center' color='teal'>
+        <Header as='h2' textAlign='center' color='teal'>
           <Header.Content>
             { from && from.pathname && from.pathname !== '/'
               ? `You must log in to view page at ${from.pathname}`
               : 'Login' }
           </Header.Content>
         </Header>
+        <Divider hidden section />
         <Form onSubmit={ this.handleSubmit }>
           <Grid>
             <Grid.Row>
-              <Grid.Column width="4">
-                <label>
-                  Email:
-                </label>
+              <Grid.Column width="4" verticalAlign="middle">
+                <Header as="h3" content="Email:" />
               </Grid.Column>
               <Grid.Column width="12">
                 <Input fluid required
+                       size="big"
                        type="email"
                        name="email"
                        placeholder="email"
@@ -95,13 +98,12 @@ class LoginPage extends React.Component {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Column width="4">
-                <label>
-                  Password:
-                </label>
+              <Grid.Column width="4" verticalAlign="middle">
+                <Header as="h3" content="Password:" />
               </Grid.Column>
               <Grid.Column width="12">
                 <Input fluid required
+                       size="big"
                        type="password"
                        name="password"
                        placeholder="password"
@@ -109,9 +111,10 @@ class LoginPage extends React.Component {
                        onChange={ this.handleChange } />
               </Grid.Column>
             </Grid.Row>
+            <Divider hidden />
             <Grid.Row centered>
               <Grid.Column width="8">
-                <Button fluid type="submit" color="teal">Login</Button>
+                <Button size="big" fluid type="submit" color="teal">Login</Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>
