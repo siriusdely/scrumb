@@ -11,10 +11,8 @@ import {
   Menu
 } from 'semantic-ui-react';
 
-// import AuthButton from './components/AuthButton';
 import ChatsPage from './components/MessagesPage';
 import Home from './components/Home';
-// import Login from './components/Login';
 import LoginForm from './components/LoginForm';
 import LogoutLink from './components/LogoutLink';
 import NotFound from './components/NotFound';
@@ -30,8 +28,6 @@ import AuthStore from './stores/AuthStore';
 class App extends Component {
   constructor() {
     super();
-    // this.state = {};
-    // this.isSignedIn = this.isSignedIn.bind(this);
     this.state = this._getLoginState();
   }
 
@@ -42,7 +38,6 @@ class App extends Component {
   }
 
   componentWillMount() {
-    // this.isSignedIn();
   }
 
   componentDidMount() {
@@ -110,21 +105,6 @@ class App extends Component {
       router
     );
   }
-
-  fetch(endpoint) {
-    return window.fetch(endpoint)
-                 .then(response => response.json())
-                 .catch(error => console.log(error));
-  }
-
-  isSignedIn() {
-    this.fetch('/auth/is_signed_in')
-        .then(response => {
-          this.setState({ isSignedIn: response.signed_in });
-          console.log(this.state);
-        });
-  }
-
 }
 
 export default App;
