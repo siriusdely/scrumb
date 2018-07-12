@@ -2,7 +2,8 @@ class Api::V1::ScrumsController < ApiController
   before_action :set_scrum, only: [:show, :update, :destroy, :today]
   # GET /scrums
   def index
-    @scrums = @current_user.scrums
+    # @scrums = @current_user.scrums
+    @scrums = Scrum.all
     render json: @scrums.to_json
   end
 

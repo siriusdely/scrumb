@@ -4,6 +4,7 @@ class Membership < ApplicationRecord
 
   validates_presence_of :role
 
+  # validates :user, uniqueness: { scope: :scrum }
   validates :user_id, uniqueness: { scope: :scrum_id }
   validates :order, :numericality => true, allow_nil: true
 

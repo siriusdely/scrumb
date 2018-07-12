@@ -1,10 +1,10 @@
-import { LOGIN_URL } from '../constants/AuthConstants';
+import { LOGIN_URL, REGISTER_URL } from '../constants/AuthConstants';
 import AuthActions from '../actions/AuthActions';
 
 class AuthService {
+  /*
   isAuthenticated = false;
-
-  authenticate(cb) {
+  signin(cb) {
     this.login("asdf@asdf.asdf", "asdfasdf")
       .then((response) => {
         console.log(response.auth_token);
@@ -18,19 +18,9 @@ class AuthService {
     this.isAuthenticated = false;
     setTimeout(cb, 100);
   }
-
+  */
   login(email, password) {
-    return window
-      .fetch(LOGIN_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-          'email': email,
-          'password': password
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+    return this.post(LOGIN_URL, { email, password })
       .then(response => response.json())
       .then(json => {
         // console.log(json);
@@ -42,16 +32,29 @@ class AuthService {
     AuthActions.logoutUser();
   }
 
-  fetch(endpoint) {
+  register(firstName, lastName, email, password, passwordConfirmation) {
+    console.log(firstName, lastName, email, password, passwordConfirmation);
+    return this.post(REGISTER_URL, {
+      firstName
+      , lastName
+      , email
+      , password
+      , passwordConfirmation
+    })
+      .then(response => response.json())
+      .then(json => AuthActions.loginUser(json['auth_token']))
+      .catch(error => console.log(error));
+  }
+
+  post(url, json) {
     return window
-      .fetch(endpoint, {
+      .fetch(url, {
+        body: JSON.stringify(json),
         headers: {
           'Content-Type': 'application/json'
-        }
-      })
-      .then(response => response.json())
-       // .then(json => console.log(json))
-      .catch(error => console.log(error));
+        },
+        method: 'POST'
+      });
   }
 }
 
