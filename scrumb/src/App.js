@@ -19,6 +19,8 @@ import NotFound from './components/NotFound';
 import Private from './components/Private';
 import PrivateRoute from './components/PrivateRoute';
 import PublicPage from './components/PublicPage';
+import RegisterPage from './components/RegisterPage';
+import ScrumsPage from './components/ScrumsPage';
 import Today from './components/Today';
 
 import AuthService from './services/AuthService';
@@ -71,7 +73,7 @@ class App extends Component {
         <Menu.Menu position="right">
           { !isSignedIn ? [
               <NavLink key="login" className="item" exact to="/login">Login</NavLink>,
-              <NavLink key="signup" className="item" exact to="/signup">Signup</NavLink>
+              <NavLink key="register" className="item" exact to="/register">Register</NavLink>
           ] : <a className="item" href="#logout" onClick={ this.logout }>Logout</a> }
         </Menu.Menu>
       </Menu>
@@ -86,8 +88,9 @@ class App extends Component {
           { this.navigationMenu }
           <Divider hidden section />
           <Switch>
-            <Route path='/' exact component={ this.state.isSignedIn ? Today : PublicPage } />
+            <Route path='/' exact component={ this.state.isSignedIn ? ScrumsPage : PublicPage } />
             <Route path='/chats' exact component={ ChatsPage } />
+            <Route path='/register' exact component={ RegisterPage } />
             <Route path='/login' exact component={ LoginPage } />
             <Route path='/logout' exact component={ LogoutLink } />
             <Route path='/public' exact component={ Home } />
