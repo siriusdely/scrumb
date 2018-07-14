@@ -11,6 +11,8 @@ import {
   Modal
 } from 'semantic-ui-react';
 
+// import Today from './Today';
+
 import ScrumService from '../services/ScrumService';
 import ScrumStore from '../stores/ScrumStore';
 
@@ -120,6 +122,7 @@ export default class ScrumsPage extends React.Component {
             }
 
           </Card.Group>
+          {/*<Route path='/scrums/:scrumId' exact component={ Today } />*/}
         </Container>
       );
     } else {
