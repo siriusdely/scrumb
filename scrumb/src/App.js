@@ -12,9 +12,7 @@ import {
 } from 'semantic-ui-react';
 
 import ChatsPage from './components/MessagesPage';
-import Home from './components/Home';
 import LoginPage from './components/LoginPage';
-import LogoutLink from './components/LogoutLink';
 import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 import PublicPage from './components/PublicPage';
@@ -66,7 +64,7 @@ class App extends Component {
         { /* <Menu.Item header color="teal">ScrumBy</Menu.Item> */ }
         <NavLink className="item header" exact to="/">ScrumBy</NavLink>
         { isSignedIn ? [
-            <NavLink key="scrums" className="item teal" exact to="/scrums">Scrums</NavLink>,
+            <NavLink key="scrums" className="item teal" to="/scrums">Scrums</NavLink>,
             <NavLink key="chats" className="item teal" exact to="/chats">Chats</NavLink>
         ] : null }
         <Menu.Menu position="right">
@@ -88,13 +86,11 @@ class App extends Component {
           <Divider hidden section />
           <Switch>
             <Route path='/' exact component={ this.state.isSignedIn ? ScrumsPage : PublicPage } />
-            <Route path='/chats' exact component={ ChatsPage } />
+            <PrivateRoute path='/chats' exact component={ ChatsPage } />
             <PrivateRoute path='/scrums' exact component={ ScrumsPage } />
             <Route path='/login' exact component={ LoginPage } />
-            <Route path='/logout' exact component={ LogoutLink } />
-            <Route path='/public' exact component={ Home } />
             <Route path='/register' exact component={ RegisterPage } />
-            <Route path='/scrums/:scrumId' exact component={ Today } />
+            <PrivateRoute path='/scrums/:scrumId' exact component={ Today } />
             <Route component={ NotFound } />
           </Switch>
           <Divider hidden section />
