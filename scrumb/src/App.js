@@ -90,11 +90,12 @@ class App extends Component {
           <Switch>
             <Route path='/' exact component={ this.state.isSignedIn ? ScrumsPage : PublicPage } />
             <Route path='/chats' exact component={ ChatsPage } />
-            <Route path='/register' exact component={ RegisterPage } />
+            <PrivateRoute path='/dashboard' exact component={ Private } />
             <Route path='/login' exact component={ LoginPage } />
             <Route path='/logout' exact component={ LogoutLink } />
             <Route path='/public' exact component={ Home } />
-            <PrivateRoute path='/dashboard' exact component={ Private } />
+            <Route path='/register' exact component={ RegisterPage } />
+            <Route path='/scrums/:scrumId' exact component={ Today } />
             <Route component={ NotFound } />
           </Switch>
           <Divider hidden section />

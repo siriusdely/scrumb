@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -77,10 +78,10 @@ export default class ScrumsPage extends React.Component {
                 Cancel
               </Button>
               <Button positive icon='checkmark' labelPosition='right'
-                content="Save" onClick={ () => this.handleModal(false) }
-              />
+                content="Save" onClick={ () => this.handleModal(false) } />
             </Modal.Actions>
           </Modal>
+
           <Card.Group centered itemsPerRow="2">
             <Card color='grey' >
               <Card.Content textAlign='center'>
@@ -92,28 +93,32 @@ export default class ScrumsPage extends React.Component {
                 </a>
               </Card.Content>
             </Card>
+
             {
               scrums &&
               scrums.map((scrum) => {
                 return (
-                  <Card key={ scrum.id }
-                        color='teal'
-                        href='#card-example-link-card'>
-                    <Card.Content>
-                      <Card.Header>{ scrum.title }</Card.Header>
-                      <Card.Meta>
-                        <span className='date'>{ scrum['updated_at'] }</span>
-                      </Card.Meta>
-                      <Card.Description>{ scrum.description }</Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <Icon name='user' />
-                      { scrum['created_at'] }
-                    </Card.Content>
-                  </Card>
+                  <Route key={ scrum.id } render={ ({ history }) => (
+                    <Card color='teal'
+                      onClick={ () => history.push(`/scrums/${scrum.id}`) }>
+
+                      <Card.Content>
+                        <Card.Header>{ scrum.title }</Card.Header>
+                        <Card.Meta>
+                          <span className='date'>{ scrum['updated_at'] }</span>
+                        </Card.Meta>
+                        <Card.Description>{ scrum.description }</Card.Description>
+                      </Card.Content>
+                      <Card.Content extra>
+                        <Icon name='user' />
+                        { scrum['created_at'] }
+                      </Card.Content>
+                    </Card>
+                  ) } />
                 );
               })
             }
+
           </Card.Group>
         </Container>
       );
