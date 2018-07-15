@@ -11,7 +11,7 @@ import {
   Menu
 } from 'semantic-ui-react';
 
-import ChatsPage from './components/MessagesPage';
+import DiscussionsPage from './components/DiscussionsPage';
 import LoginPage from './components/LoginPage';
 import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
@@ -65,7 +65,7 @@ class App extends Component {
         <NavLink className="item header" exact to="/">ScrumBy</NavLink>
         { isSignedIn ? [
             <NavLink key="scrums" className="item teal" to="/scrums">Scrums</NavLink>,
-            <NavLink key="chats" className="item teal" exact to="/chats">Chats</NavLink>
+            <NavLink key="discussions" className="item teal" exact to="/discussions">Discussions</NavLink>
         ] : null }
         <Menu.Menu position="right">
           { !isSignedIn ? [
@@ -86,7 +86,7 @@ class App extends Component {
           <Divider hidden section />
           <Switch>
             <Route path='/' exact component={ this.state.isSignedIn ? ScrumsPage : PublicPage } />
-            <PrivateRoute path='/chats' exact component={ ChatsPage } />
+            <PrivateRoute path='/discussions' exact component={ DiscussionsPage } />
             <PrivateRoute path='/scrums' exact component={ ScrumsPage } />
             <Route path='/login' exact component={ LoginPage } />
             <Route path='/register' exact component={ RegisterPage } />
