@@ -9,7 +9,7 @@ export default class DiscussionsList extends React.Component {
     return (
       <Menu fluid vertical tabular size='large'>
       {
-        discussions ?
+        discussions && discussions.length ?
         discussions.map(discussion =>
           <DiscussionElement key={ discussion.id }
                              discussion={ discussion } handleClick={ handleClick }

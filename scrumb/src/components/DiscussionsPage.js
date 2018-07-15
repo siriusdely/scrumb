@@ -1,9 +1,8 @@
 import React from 'react';
 import { Container, Grid, Header } from 'semantic-ui-react';
 
-import DiscussionsList from './DiscussionsList';
-import MessagesSection from './MessagesSection';
-import NewDiscussionForm from './NewDiscussionForm';
+import { DiscussionsList, NewDiscussionForm } from './discussions';
+import { MessagesSection } from './messages';
 
 import ChatService from '../services/ChatService';
 import ChatStore from '../stores/ChatStore';
@@ -49,9 +48,10 @@ export default class DiscussionsPage extends React.Component {
           <Grid.Column width={ 5 }>
             <Header as='h2'>Topics</Header>
             <NewDiscussionForm />
-            <DiscussionsList discussions={ discussions }
-                             handleClick={ this.handleClick }
-                             activeDiscussionId={ activeDiscussionId } />
+            { discussions && <DiscussionsList discussions={ discussions }
+                                              handleClick={ this.handleClick }
+                                              activeDiscussionId={ activeDiscussionId } />
+            }
           </Grid.Column>
           <Grid.Column width={ 11 } stretched>
             { activeDiscussionId ? (

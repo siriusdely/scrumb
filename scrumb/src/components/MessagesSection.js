@@ -41,7 +41,7 @@ const orderedMessages = messages => {
       <Comment key={ message.id }>
         <Comment.Avatar as='a' src={ message.user.avatar_url } />
         <Comment.Content>
-          <Comment.Author>{ message.user.email }</Comment.Author>
+          <Comment.Author as='a'>{ message.user.email }</Comment.Author>
           <Comment.Metadata>
             <span>{ message.created_at }</span>
           </Comment.Metadata>
