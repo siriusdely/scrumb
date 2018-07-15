@@ -26,7 +26,9 @@ class ScrumService {
       self.getScrum(response.data[0].id);
       ScrumActions.gotScrums(response.data);
     }).catch(function(error) {
-      console.error(error);
+      const response = error.response;
+      console.error(`${ response.statusText } (${ response.status}): ${ response.data.message }`);
+      if (response.status === 422) { AuthStore.jwt = null; }
     });
   }
 

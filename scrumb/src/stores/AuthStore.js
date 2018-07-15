@@ -31,6 +31,12 @@ class AuthStore extends BaseStore {
     return this._jwt;
   }
 
+  set jwt(jwt) {
+    localStorage.setItem('jwt', jwt);
+    this._jwt = jwt;
+    this.emitChange();
+  }
+
   isLoggedIn() {
     return !!this._jwt;
   }
