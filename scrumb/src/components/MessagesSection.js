@@ -1,7 +1,7 @@
 import React from 'react';
 import { Comment
-       , Container
-       , Header } from 'semantic-ui-react';
+       , Header
+       , Segment } from 'semantic-ui-react';
 import Linkify from 'react-linkify';
 import NewMessageForm from './NewMessageForm';
 
@@ -13,13 +13,17 @@ const MessagesSection = ({
   }
 }) => {
   return (
-    <Container>
-      <Header as='h2' dividing>{ topic }</Header>
+    <React.Fragment>
+      <Header as='h3' attached='top'>{ topic }</Header>
+      <Segment attached>
       <Comment.Group minimal>
         { messages && messages.length ? orderedMessages(messages) : null }
-        <NewMessageForm discussionId={ id } />
       </Comment.Group>
-    </Container>
+      </Segment>
+      <Segment attached='bottom'>
+        <NewMessageForm discussionId={ id } />
+      </Segment>
+    </React.Fragment>
   );
 };
 

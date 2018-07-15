@@ -225,14 +225,17 @@ first_scrum = Scrum.create(
 first_scrum.memberships.create!(user: user, role: :owner)
 
 task = first_scrum.tasks.create(title: "1 banana")
-first_scrum.tasks.create(title: "1 tbsp porridge oats")
+discussion = task.create_discussion!(topic: task.title)
+discussion.messages.create!(content: 'hohoho', user: user)
+
+task = first_scrum.tasks.create(title: "1 tbsp porridge oats")
+discussion = task.create_discussion!(topic: task.title)
+discussion.messages.create!(content: 'hohoho', user: user)
+
 first_scrum.tasks.create(title: "80g soft fruit (like mango or strawberries)")
 first_scrum.tasks.create(title: "150ml milk")
 first_scrum.tasks.create(title: "1 tsp honey")
 first_scrum.tasks.create(title: "1 tsp vanilla extract")
-
-discussion = task.create_discussion!(topic: task.title)
-discussion.messages.create!(content: 'hohoho', user: user)
 
 second_scrum = Scrum.create(
   title: "Kale And Hearty Smoothie",

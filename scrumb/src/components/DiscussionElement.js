@@ -1,5 +1,5 @@
 import React from 'react';
-import { List } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import ChatService from '../services/ChatService';
 
 class DiscussionElement extends React.Component {
@@ -13,12 +13,10 @@ class DiscussionElement extends React.Component {
 
   render() {
     return (
-      <List.Item key={ this.props.discussion.id } active={ this.props.discussion.id === 2 }
+      <Menu.Item key={ this.props.discussion.id } active={ this.props.active }
                  onClick={ () => this.props.handleClick(this.props.discussion.id) }>
-        <List.Content>
-          <List.Header>{ this.props.discussion.topic }</List.Header>
-        </List.Content>
-      </List.Item>
+          { this.props.discussion.topic }
+      </Menu.Item>
     );
   }
 }

@@ -46,11 +46,11 @@ class NewMessageForm extends Component {
 
   render = () => {
     return (
-      <Form reply onSubmit={ this.handleSubmit }>
-        <Form.TextArea
-          value={ this.state.content }
-          onChange={ this.handleChange } />
-        <Button content='Add Comment' labelPosition='left' icon='edit' primary />
+      <Form onSubmit={ this.handleSubmit }>
+        <Form.TextArea value={ this.state.content }
+                       onChange={ this.handleChange } />
+        <Button fluid primary labelPosition='right' icon='edit'
+                content='Add Comment' />
       </Form>
     );
   }

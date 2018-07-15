@@ -1,4 +1,6 @@
 import React from 'react';
+import { Input } from 'semantic-ui-react';
+
 import { DISCUSSIONS_URL } from '../constants/ChatConstants';
 import AuthStore from '../stores/AuthStore';
 
@@ -9,6 +11,12 @@ export default class NewDiscussionForm extends React.Component {
 
   handleChange = (e) => {
     this.setState({ topic: e.target.value });
+  }
+
+  handleKeyDown(e) {
+    if (e.which === 13) { // ENTER_KEY
+      this.handleSubmit(e);
+    }
   }
 
   handleSubmit = (e) => {
@@ -27,18 +35,16 @@ export default class NewDiscussionForm extends React.Component {
 
   render = () => {
     return (
-      <div className='new-discussion-form'>
-        <form onSubmit={ this.handleSubmit }>
-          <label>New Discussion</label>
-          <br />
-          <input
-            type='text'
-            value={ this.state.topic }
-            onChange={ this.handleChange }
-          />
-          <input type='submit' />
-        </form>
-      </div>
+      <Input fluid type='text'
+             action={ {
+                 color: 'teal',
+                 icon: 'check',
+             } }
+             placeholder='New Discussion...'
+             value={ this.state.topic }
+             onChange={ this.handleChange }
+             onKeyDown={ this.handleKeyDown.bind(this) }
+      />
     );
   }
 }
