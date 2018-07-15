@@ -1,4 +1,5 @@
-import { GET_SCRUMS, GET_SCRUM, GOT_TODAY } from '../constants/ScrumConstants';
+import { GET_SCRUMS, GET_SCRUM, GOT_TODAY,
+       INVALIDATE_TODAY } from '../constants/ScrumConstants';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 
 export default {
@@ -20,6 +21,13 @@ export default {
     AppDispatcher.dispatch({
       actionType: GOT_TODAY,
       today: today
+    });
+  },
+
+  invalidateToday: function() {
+    AppDispatcher.dispatch({
+      actionType: INVALIDATE_TODAY,
+      today: {}
     });
   }
 }

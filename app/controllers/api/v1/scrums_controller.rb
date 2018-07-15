@@ -15,7 +15,8 @@ class Api::V1::ScrumsController < ApiController
   def today
     day = @scrum.days.first
 
-    data = day.as_json only: :created_at
+    data = {}
+    data = day.as_json only: :created_at if day
     data[:scrum] = @scrum.as_json :only => [:id, :title, :description]
     users = []
 
@@ -23,6 +24,8 @@ class Api::V1::ScrumsController < ApiController
     @scrum.memberships.each do |membership|
       memberships[membership.user_id] = membership
     end
+
+    return render json: data if not day
 
     day.rotations.includes(:user, task: :owner).group_by(&:user).each do |user, rotations|
       usr = user.as_json :only => [:id, :email], :methods => :avatar_url

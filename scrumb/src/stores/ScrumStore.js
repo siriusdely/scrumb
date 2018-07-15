@@ -1,5 +1,6 @@
 import { USER_LOGOUT } from '../constants/AuthConstants';
-import { GET_SCRUMS, GET_SCRUM, GOT_TODAY } from '../constants/ScrumConstants';
+import { GET_SCRUMS, GET_SCRUM, GOT_TODAY,
+       INVALIDATE_TODAY } from '../constants/ScrumConstants';
 import BaseStore from './BaseStore';
 
 class ScrumStore extends BaseStore {
@@ -22,6 +23,10 @@ class ScrumStore extends BaseStore {
       this.emitChange();
       break;
     case GOT_TODAY:
+      this._today = action.today;
+      this.emitChange();
+      break;
+    case INVALIDATE_TODAY:
       this._today = action.today;
       this.emitChange();
       break;

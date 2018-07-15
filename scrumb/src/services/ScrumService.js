@@ -26,7 +26,7 @@ class ScrumService {
       self.getScrum(response.data[0].id);
       ScrumActions.gotScrums(response.data);
     }).catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -42,7 +42,7 @@ class ScrumService {
       // console.log(response.data);
       ScrumActions.gotScrum(response.data);
     }).catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -58,8 +58,12 @@ class ScrumService {
       // console.log(JSON.stringify(response.data));
       ScrumActions.gotToday(response.data);
     }).catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
+  }
+
+  invalidateToday() {
+    ScrumActions.invalidateToday();
   }
 }
 

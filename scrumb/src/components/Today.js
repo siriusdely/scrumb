@@ -32,6 +32,7 @@ export default class Today extends React.Component {
     ScrumStore.addChangeListener(this.todayChange);
 
     const { match: { params: { scrumId } } } = this.props;
+    ScrumService.invalidateToday();
     ScrumService.getToday(scrumId);
   }
 
