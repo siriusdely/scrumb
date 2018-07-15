@@ -6,11 +6,10 @@ import SingleScrumModal from './SingleScrumModal';
 const AddScrumCard = (props) => {
   return (
     <Card link color='grey' >
-      <SingleScrumModal
-        modal={ props.modal }
-        scrum={ props.scrum }
-        onModal={ props.onModal }
-        onChange={ props.onChange } />
+      <SingleScrumModal modal={ props.modal }
+                        scrum={ props.scrum }
+                        onModal={ props.onModal }
+                        onChange={ props.onChange } />
 
       <Card.Content textAlign='center'>
         <Card.Header>New Scrum</Card.Header>
