@@ -16,7 +16,7 @@ class SingleTaskItem extends Component {
           <Label as='a' active content={ initial } /> }
         { this.props.labeled && initial && ' ' }
         { this.task.title }
-        { this.task.description && <Segment stacked content={ this.task.description} /> }
+        { this.task.description && <Segment content={ this.task.description} /> }
       </List.Item>
     );
   }
