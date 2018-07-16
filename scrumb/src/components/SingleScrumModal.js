@@ -10,7 +10,7 @@ function SingleScrumModal(props) {
 
       <Modal.Header>Create a New Scrum</Modal.Header>
       <Modal.Content>
-        <Form>
+        <Form onSubmit={ props.onSubmit }>
           <Form.Input label='Title:' placeholder='title..'
                       name='title' value={ props.scrum.title }
                       onChange={ props.onChange } />
@@ -25,7 +25,10 @@ function SingleScrumModal(props) {
           Cancel
         </Button>
         <Button positive icon='checkmark' labelPosition='right'
-                content="Save" onClick={ () => props.onModal(false) } />
+                content="Save" onClick={ () => {
+                    props.onModal(false);
+                    props.onSubmit();
+                } } />
       </Modal.Actions>
     </Modal>
   );

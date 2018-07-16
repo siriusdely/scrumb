@@ -65,7 +65,10 @@ class Api::V1::ScrumsController < ApiController
   end
 
   def create
-    @scrum = Scrum.create!(scrum_params)
+    Scrum.transaction do
+      @scrum = Scrum.create!(scrum_params)
+      @scrum.memberships.create!(user: @current_user, role: :owner)
+    end
     json_response(@scrum, :created)
   end
 

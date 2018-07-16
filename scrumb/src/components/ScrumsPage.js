@@ -49,8 +49,19 @@ export default class ScrumsPage extends React.Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value.trim()
     });
+  }
+
+  handleSubmit(e) {
+    const { title, description } = this.state;
+    this.setState({
+      title: '',
+      description: ''
+    });
+    if (title && description) {
+      ScrumService.createScrum(this.state.title, this.state.description);
+    }
   }
 
   render() {
@@ -66,7 +77,9 @@ export default class ScrumsPage extends React.Component {
               } }
               modal={ this.state.modal }
               onModal={ this.handleModal.bind(this) }
-              onChange={ this.handleChange.bind(this) }/>
+              onChange={ this.handleChange.bind(this) }
+              onSubmit={ this.handleSubmit.bind(this) } />
+
             {
               scrums &&
               scrums.map((scrum) =>

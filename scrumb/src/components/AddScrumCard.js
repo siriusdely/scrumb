@@ -9,7 +9,8 @@ const AddScrumCard = (props) => {
       <SingleScrumModal modal={ props.modal }
                         scrum={ props.scrum }
                         onModal={ props.onModal }
-                        onChange={ props.onChange } />
+                        onChange={ props.onChange }
+                        onSubmit={ props.onSubmit } />
 
       <Card.Content textAlign='center'>
         <Card.Header>New Scrum</Card.Header>

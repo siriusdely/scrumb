@@ -67,6 +67,18 @@ class ScrumService {
   invalidateToday() {
     ScrumActions.invalidateToday();
   }
+
+  createScrum(title, description) {
+    fetch(SCRUMS_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: AuthStore.jwt,
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({ title, description })
+    });
+  }
 }
 
 export default new ScrumService();
