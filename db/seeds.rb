@@ -7,10 +7,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-wenhan = User.create!(email: 'wenhan@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
-sirius = User.create!(email: 'sirius@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
-fadil = User.create!(email: 'fadil@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
-aditya = User.create!(email: 'aditya@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+wenhan = User.create!(first_name: 'Wenhan', last_name: 'Zhou', email: 'wenhan@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+sirius = User.create!(first_name: 'Sirius', last_name: 'Dely', email: 'sirius@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+fadil = User.create!(first_name: 'Fadil', last_name: 'Sethyo', email: 'fadil@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+aditya = User.create!(first_name: 'Aditya', last_name: 'Wibisana', email: 'aditya@voiceping.com', password: 'asdfasdf', password_confirmation: 'asdfasdf')
 
 vp_scrum = Scrum.create!(
   title: 'VoicePing Devs Work Log',
@@ -214,7 +214,7 @@ task = vp_scrum.tasks.create!(
 )
 day.rotations.create!(task: task, user: task.owner, type: :yesterday, order: 3)
 
-user = User.create!(email: 'asdf@asdf.asdf', password: 'asdfasdf', password_confirmation: 'asdfasdf')
+user = User.create!(first_name: 'Asdf', last_name: 'Ghjk', email: 'asdf@asdf.asdf', password: 'asdfasdf', password_confirmation: 'asdfasdf')
 
 first_scrum = Scrum.create(
   title: "Two-Minute Breakfast Boost",
