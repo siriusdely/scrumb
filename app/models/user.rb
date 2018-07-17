@@ -16,6 +16,14 @@ class User < ApplicationRecord
   has_many :messages
   has_many :discussions, through: :messages
 
+  def full_name
+    "#{first_name} #{last_name}".capitalize
+  end
+
+  def initials
+    "#{first_name.first}#{last_name.first}".upcase
+  end
+
   def avatar_url
     "//www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.strip.downcase)}?d=robohash&s=60"
   end

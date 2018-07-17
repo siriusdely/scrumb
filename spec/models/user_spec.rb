@@ -6,6 +6,10 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
 
+  it { should respond_to :full_name }
+  it { should respond_to :initials }
+  it { should respond_to :avatar_url }
+
   it { should have_many(:memberships).dependent(:destroy) }
   it { should have_many(:scrums) }
   it { should have_many(:tasks) }

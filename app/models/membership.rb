@@ -2,10 +2,13 @@ class Membership < ApplicationRecord
   belongs_to :scrum
   belongs_to :user
 
-  validates_presence_of :role
+  validates_presence_of :role, :initials
+
+  # validates :initials, length: { in: 1..3 }
+  validates_length_of :initials, in: 1..3
 
   # validates :user, uniqueness: { scope: :scrum }
-  validates :user_id, uniqueness: { scope: :scrum_id }
+  validates :initials, uniqueness: { scope: [:scrum_id, :user_id] }
   validates :order, :numericality => true, allow_nil: true
 
   ROLES = %i[owner creator admin member]

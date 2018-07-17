@@ -9,7 +9,7 @@ FactoryBot.define do
 
     trait :with_memberships do
       after(:create) do |scrum, evaluator|
-        create(:membership, scrum: scrum, user: evaluator.user, role: :member)
+        create(:membership, scrum: scrum, user: evaluator.user, role: :member, initials: evaluator.user.initials)
       end
     end
   end

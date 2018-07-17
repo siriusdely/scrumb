@@ -17,10 +17,10 @@ vp_scrum = Scrum.create!(
   description: 'Daily Stand-up Meeting for VoicePing Developers Scrum'
 )
 
-vp_scrum.memberships.create!(user: wenhan, role: :owner)
-vp_scrum.memberships.create!(user: sirius, role: :creator)
-vp_scrum.memberships.create!(user: fadil, role: :admin)
-vp_scrum.memberships.create!(user: aditya, role: :member)
+vp_scrum.memberships.create!(user: wenhan, role: :owner, initials: wenhan.initials)
+vp_scrum.memberships.create!(user: sirius, role: :creator, initials: sirius.initials)
+vp_scrum.memberships.create!(user: fadil, role: :admin, initials: fadil.initials)
+vp_scrum.memberships.create!(user: aditya, role: :member, initials: aditya.initials)
 
 day = vp_scrum.days.create!
 
@@ -222,7 +222,7 @@ first_scrum = Scrum.create(
   items: "Put all the items in a blender and whizz for 1 min until smooth. Pour the mixture into two glasses to serve.",
   link: "https://www.bbcgoodfood.com/recipes/two-minute-breakfast-smoothie"
 )
-first_scrum.memberships.create!(user: user, role: :owner)
+first_scrum.memberships.create!(user: user, role: :owner, initials: user.initials)
 
 task = first_scrum.tasks.create(title: "1 banana")
 discussion = task.create_discussion!(topic: task.title)
@@ -243,7 +243,7 @@ second_scrum = Scrum.create(
   items: "Put all of the items into a bullet or smoothie maker, add a large splash of water and blitz. Add more water until you have the desired consistency.",
   link: "https://www.bbcgoodfood.com/recipes/kale-smoothie",
 )
-second_scrum.memberships.create!(user: user, role: :owner)
+second_scrum.memberships.create!(user: user, role: :owner, initials: user.initials)
 
 second_scrum.tasks.create(title: "2 handfuls kale")
 second_scrum.tasks.create(title: "½ avocado")
