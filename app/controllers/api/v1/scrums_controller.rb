@@ -49,6 +49,7 @@ class Api::V1::ScrumsController < ApiController
                 :only => [:id], :methods => [:full_name, :avatar_url]
               }
             }
+          task[:state] = :finished if (task['id'] % 2 == 0)
           task['owner']['initials'] = memberships[task['owner']['id']].initials unless task['owner'].nil?
           task[:order] = r.order
           rttn[:tasks] << task
