@@ -219,8 +219,8 @@ user = User.create!(first_name: 'Asdf', last_name: 'Ghjk', email: 'asdf@asdf.asd
 first_scrum = Scrum.create(
   title: "Two-Minute Breakfast Boost",
   description: "Whizz up a low-fat breakfast smoothie in no time. Use banana with other soft fruit, plus honey for a little sweetness and oats for slow-release fuel.",
-  items: "Put all the items in a blender and whizz for 1 min until smooth. Pour the mixture into two glasses to serve.",
-  link: "https://www.bbcgoodfood.com/recipes/two-minute-breakfast-smoothie"
+  # items: "Put all the items in a blender and whizz for 1 min until smooth. Pour the mixture into two glasses to serve.",
+  # link: "https://www.bbcgoodfood.com/recipes/two-minute-breakfast-smoothie"
 )
 first_scrum.memberships.create!(user: user, role: :owner, initials: user.initials)
 
@@ -240,8 +240,8 @@ first_scrum.tasks.create(title: "1 tsp vanilla extract")
 second_scrum = Scrum.create(
   title: "Kale And Hearty Smoothie",
   description: "Give yourself a dose of vitamin C in the morning with this vegan green smoothie. Along with kale and avocado, there's a hit of zesty lime and pineapple.",
-  items: "Put all of the items into a bullet or smoothie maker, add a large splash of water and blitz. Add more water until you have the desired consistency.",
-  link: "https://www.bbcgoodfood.com/recipes/kale-smoothie",
+  # items: "Put all of the items into a bullet or smoothie maker, add a large splash of water and blitz. Add more water until you have the desired consistency.",
+  # link: "https://www.bbcgoodfood.com/recipes/kale-smoothie",
 )
 second_scrum.memberships.create!(user: user, role: :owner, initials: user.initials)
 

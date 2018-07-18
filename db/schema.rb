@@ -103,8 +103,6 @@ ActiveRecord::Schema.define(version: 20180617040633) do
   create_table "scrums", force: :cascade do |t|
     t.string "title"
     t.string "description", default: "", null: false
-    t.string "items"
-    t.string "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["title"], name: "index_scrums_on_title"
@@ -115,6 +113,7 @@ ActiveRecord::Schema.define(version: 20180617040633) do
     t.integer "user_id"
     t.string "title", null: false
     t.string "description"
+    t.integer "states_mask", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["scrum_id"], name: "index_tasks_on_scrum_id"

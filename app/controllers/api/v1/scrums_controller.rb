@@ -43,11 +43,12 @@ class Api::V1::ScrumsController < ApiController
         rttn[:name] = 'Helps Needed' if type == :tomorrow
         rttn[:tasks] = []
         rotation.sort_by(&:order).each do |r|
-          task = (r.task.as_json :only => [:id, :title, :description], :include => {
-            :owner => {
-              :only => [:id], :methods => [:full_name, :avatar_url]
+          task = r.task.as_json :only => [:id, :title, :description],
+            :methods => :state, :include => {
+              :owner => {
+                :only => [:id], :methods => [:full_name, :avatar_url]
+              }
             }
-          })
           task['owner']['initials'] = memberships[task['owner']['id']].initials unless task['owner'].nil?
           task[:order] = r.order
           rttn[:tasks] << task

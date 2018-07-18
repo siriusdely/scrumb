@@ -14,4 +14,6 @@ RSpec.describe Task, type: :model do
 
   it { should have_one(:discussion).dependent(:destroy) }
   it { should_not validate_presence_of :discussion }
+
+  it { should respond_to :state }
 end
