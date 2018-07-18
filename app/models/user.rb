@@ -17,7 +17,7 @@ class User < ApplicationRecord
   has_many :discussions, through: :messages
 
   def full_name
-    "#{first_name} #{last_name}".capitalize
+    "#{first_name} #{last_name}".titleize
   end
 
   def initials

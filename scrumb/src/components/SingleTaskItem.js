@@ -8,13 +8,14 @@ class SingleTaskItem extends Component {
   }
 
   render() {
-    let initial = this.task.owner && this.task.owner.email;
-    initial = initial ? initial.slice(0, 2).toUpperCase() : null;
+    let initials = this.task.owner && this.task.owner.full_name;
+    initials = initials ? initials.slice(0, 2).toUpperCase() : null;
+    initials = this.task.owner && this.task.owner.initials;
     return (
       <List.Item>
-        { this.props.labeled && initial &&
-          <Label as='a' active content={ initial } /> }
-        { this.props.labeled && initial && ' ' }
+        { this.props.labeled && initials &&
+          <Label as='a' active content={ initials } /> }
+        { this.props.labeled && initials && ' ' }
         { this.task.title }
         { this.task.description && <Segment content={ this.task.description} /> }
       </List.Item>

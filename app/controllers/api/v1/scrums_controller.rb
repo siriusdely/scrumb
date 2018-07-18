@@ -28,9 +28,10 @@ class Api::V1::ScrumsController < ApiController
     return render json: data if not day
 
     day.rotations.includes(:user, task: :owner).group_by(&:user).each do |user, rotations|
-      usr = user.as_json :only => [:id, :email], :methods => :avatar_url
+      usr = user.as_json :only => [:id, :first_name, :last_name], :methods => :avatar_url
       usr[:role] = memberships[user.id].role
       usr[:order] = memberships[user.id].order
+      usr[:initials] = memberships[user.id].initials
 
       rotations = rotations.group_by(&:type).sort do |a, b|
         Rotation::TYPES.index(a[0]) <=> Rotation::TYPES.index(b[0])
@@ -44,9 +45,10 @@ class Api::V1::ScrumsController < ApiController
         rotation.sort_by(&:order).each do |r|
           task = (r.task.as_json :only => [:id, :title, :description], :include => {
             :owner => {
-              :only => [:id, :email], :methods => :avatar_url
+              :only => [:id], :methods => [:full_name, :avatar_url]
             }
           })
+          task['owner']['initials'] = memberships[task['owner']['id']].initials unless task['owner'].nil?
           task[:order] = r.order
           rttn[:tasks] << task
         end

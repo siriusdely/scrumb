@@ -3,6 +3,7 @@ import {
   Grid
   , Header
   , Image
+  , Label
   , Segment
 } from 'semantic-ui-react';
 
@@ -21,7 +22,8 @@ export default class UserTasksBoard extends React.Component {
         <Header as='h3' attached='top'>
           <Image src={ this.user.avatar_url } rounded bordered />
           <Header.Content>
-            { this.user.email }
+            { `${ this.user.first_name } ${ this.user.last_name }` }
+            <Label content={ this.user.initials } />
             <Header.Subheader content={ this.user.role } />
           </Header.Content>
         </Header>
