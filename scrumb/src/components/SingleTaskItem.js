@@ -35,7 +35,7 @@ class SingleTaskItem extends Component {
           <span style={ this.task.state === 'finished' ? styles.textDecorationLineThrough : styles.textDecorationInitial }>{ this.task.title }</span>
         </List.Content>
         { this.task.description && <Segment>
-          <Label as='a' icon='edit outline' corner='top right' />
+          <Label as='a' icon='edit outline' corner='right' />
           { this.task.description }
           </Segment> }
       </List.Item>

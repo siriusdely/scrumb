@@ -11,6 +11,7 @@ import {
   Menu
 } from 'semantic-ui-react';
 
+import DailyScrumPage from './components/DailyScrumPage';
 import DiscussionsPage from './components/DiscussionsPage';
 import LoginPage from './components/LoginPage';
 import NotFound from './components/NotFound';
@@ -18,7 +19,6 @@ import PrivateRoute from './components/PrivateRoute';
 import PublicPage from './components/PublicPage';
 import RegisterPage from './components/RegisterPage';
 import ScrumsPage from './components/ScrumsPage';
-import Today from './components/Today';
 
 import AuthService from './services/AuthService';
 import AuthStore from './stores/AuthStore';
@@ -90,7 +90,7 @@ class App extends Component {
             <PrivateRoute path='/scrums' exact component={ ScrumsPage } />
             <Route path='/login' exact component={ LoginPage } />
             <Route path='/register' exact component={ RegisterPage } />
-            <PrivateRoute path='/scrums/:scrumId' exact component={ Today } />
+            <PrivateRoute path='/scrums/:scrumId' exact component={ DailyScrumPage } />
             <Route component={ NotFound } />
           </Switch>
           <Divider hidden section />

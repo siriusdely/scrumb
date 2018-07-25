@@ -11,7 +11,7 @@ import UserTasksBoard from './UserTasksBoard';
 import ScrumService from '../services/ScrumService';
 import ScrumStore from '../stores/ScrumStore';
 
-export default class Today extends React.Component {
+export default class DailyScrumPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = this._todayState();
