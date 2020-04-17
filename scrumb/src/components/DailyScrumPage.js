@@ -17,43 +17,19 @@ import { Container
 
 import DailyNavigationBar from './DailyNavigationBar';
 import UserTasksBoard from './UserTasksBoard';
-/*
-import ScrumService from '../services/ScrumService';
-import ScrumStore from '../stores/ScrumStore';
-*/
+
 class DailyScrumPage extends React.Component {
   constructor(props) {
     super(props);
     console.log('DailyScrumPage props', props);
-    // this.state = this._todayState();
-  }
-  /*
-  _todayState() {
-    return {
-      today: ScrumStore.today
-    };
   }
 
-  _todayChange() {
-    this.setState(this._todayState());
-  }
-  */
   componentDidMount() {
     // const { match: { params: { scrumId } } } = this.props;
-    /*
-    this.todayChange = this._todayChange.bind(this);
-    ScrumStore.addChangeListener(this.todayChange);
-    ScrumService.invalidateToday();
-    ScrumService.getToday(scrumId);
-    */
     const { fetchToday } = this.props;
     fetchToday();
   }
-  /*
-  componentWillUnmount() {
-    ScrumStore.removeChangeListener(this.todayChange);
-  }
-  */
+
   render() {
     let { today, toggleTask } = this.props;
     // console.log('DailyScrumPage render today', today);
