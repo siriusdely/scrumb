@@ -1,4 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import {
+  fetchToday,
+} from '../actions/DailyActions'
+
 import { Container
        , Dimmer
        , Header
@@ -7,16 +13,17 @@ import { Container
 
 import DailyNavigationBar from './DailyNavigationBar';
 import UserTasksBoard from './UserTasksBoard';
-
+/*
 import ScrumService from '../services/ScrumService';
 import ScrumStore from '../stores/ScrumStore';
-
-export default class DailyScrumPage extends React.Component {
+*/
+class DailyScrumPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this._todayState();
+    console.log('DailyScrumPage props', props);
+    // this.state = this._todayState();
   }
-
+  /*
   _todayState() {
     return {
       today: ScrumStore.today
@@ -26,23 +33,26 @@ export default class DailyScrumPage extends React.Component {
   _todayChange() {
     this.setState(this._todayState());
   }
-
+  */
   componentDidMount() {
+    // const { match: { params: { scrumId } } } = this.props;
+    /*
     this.todayChange = this._todayChange.bind(this);
     ScrumStore.addChangeListener(this.todayChange);
-
-    const { match: { params: { scrumId } } } = this.props;
     ScrumService.invalidateToday();
     ScrumService.getToday(scrumId);
+    */
+    const { dispatch } = this.props;
+    dispatch(fetchToday());
   }
-
+  /*
   componentWillUnmount() {
     ScrumStore.removeChangeListener(this.todayChange);
   }
-
+  */
   render() {
-    let { today } = this.state;
-    console.log(today)
+    let { today } = this.props;
+    console.log('DailyScrumPage render today', today);
     if (today) {
       return (
         <Container text>
@@ -74,3 +84,10 @@ export default class DailyScrumPage extends React.Component {
     }
   }
 }
+
+function mapStateToProps(state) {
+  console.log('DailyScrumPage mapStateToProps state', state);
+  return state.scrum;
+}
+
+export default connect(mapStateToProps)(DailyScrumPage);
