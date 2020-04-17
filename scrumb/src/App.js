@@ -12,7 +12,6 @@ import {
 } from 'semantic-ui-react';
 
 import DailyScrumContainer from './containers/DailyScrumContainer';
-import DailyScrumPage from './components/DailyScrumPage';
 import DiscussionsPage from './components/DiscussionsPage';
 import LoginPage from './components/LoginPage';
 import NotFound from './components/NotFound';

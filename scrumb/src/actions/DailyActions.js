@@ -10,7 +10,7 @@ export function chooseDailyScrumDate(date) {
     type: CHOOSE_DAILY_SCRUM_DATE,
     date
   };
-};
+}
 
 export const INVALIDATE_DAILY_SCRUM = 'INVALIDATE_DAILY_SCRUM';
 
@@ -19,7 +19,7 @@ export function invalidateDailyScrum(date) {
     type: INVALIDATE_DAILY_SCRUM,
     date
   };
-};
+}
 
 export const REQUEST_DAILY_SCRUM = 'REQUEST_DAILY_SCRUM';
 
@@ -28,17 +28,17 @@ export function requestDailyScrum(date) {
     type: REQUEST_DAILY_SCRUM,
     date
   };
-};
+}
 
 export const RECEIVE_DAILY_SCRUM = 'RECEIVE_DAILY_SCRUM';
 
-export function receiveDailyScrum(date, json) {
+export function receiveDailyScrum(date, today) {
   return {
     type: RECEIVE_DAILY_SCRUM,
     date,
-    today: json.data,
+    today,
   };
-};
+}
 
 export const RECEIVE_DAILY_SCRUM_ERROR = 'RECEIVE_DAILY_SCRUM_ERROR';
 
@@ -62,7 +62,7 @@ export function fetchToday(date) {
         'Content-Type': 'application/json'
       }
     }).then(function(response) {
-      // console.log(JSON.stringify(response.data));
+      console.log('DailyActions fetchToday response', response.data);
       dispatch(receiveDailyScrum(date, response.data));
     }).catch(function(error) {
       console.error(error);
