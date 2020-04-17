@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "react-app"
+  ],
+  "rules": {
+    "no-console": "warn"
+  }
+}
