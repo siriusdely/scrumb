@@ -2,12 +2,12 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
-import dailyReducers from '../reducers/dailyReducers';
+import reducers from '../reducers';
 
 const loggerMiddleware = createLogger();
 
 const dailyStore = createStore(
-  dailyReducers,
+  reducers,
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
