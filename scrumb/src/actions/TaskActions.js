@@ -42,6 +42,7 @@ export function toggleTaskSucceed(id) {
 }
 
 export function toggleTask(id) {
+  console.log('toggleTask id', id);
   return function(dispatch) {
     axios.put(`${TASKS_URL}/${id}/toggle`, {
       headers: {
@@ -49,10 +50,10 @@ export function toggleTask(id) {
         'Content-Type': 'application/json'
       }
     }).then(function(response) {
-      console.log('toggleTask ' + id, response);
+      console.log('toggleTask id response', id, response);
       dispatch(toggleTaskSucceed(id));
     }).catch(function(error) {
-      console.error('toggleTask ' + id, error);
+      console.error('toggleTask id ERR', id, error);
     });
   };
 }
