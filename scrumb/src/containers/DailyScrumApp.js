@@ -5,10 +5,6 @@ import {
   fetchToday,
 } from '../actions/DailyActions';
 
-import {
-  toggleTask,
-} from '../actions/TaskActions';
-
 import DailyScrumPage from '../components/DailyScrumPage';
 
 class DailyScrumApp extends React.Component {
@@ -24,25 +20,21 @@ class DailyScrumApp extends React.Component {
   }
 
   render() {
-    let { today, toggleTask } = this.props;
+    let { today } = this.props;
     // console.log('DailyScrumApp render today', today);
     return (
       <DailyScrumPage
         today={ today }
-        toggleTask={ toggleTask }
       />
     );
   }
 }
 
-
 function mapDispatchToProps(dispatch) {
   return {
     fetchToday: id => dispatch(fetchToday(id)),
-    toggleTask: id => dispatch(toggleTask(id)),
   };
 }
-
 
 function mapStateToProps(state) {
   // console.log('DailyScrumApp mapStateToProps state', state);

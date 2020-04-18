@@ -12,7 +12,6 @@ import TasksListRow from './TasksListRow';
 export default class UserTasksBoard extends React.Component {
   render() {
     const {
-      onToggleTask,
       user,
     } = this.props;
     const {
@@ -41,7 +40,6 @@ export default class UserTasksBoard extends React.Component {
               <TasksListRow
                 key={ rotation.type }
                 rotation={ rotation }
-                onToggleTask={ onToggleTask }
               />
               )
             }

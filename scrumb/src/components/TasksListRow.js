@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Grid, List } from 'semantic-ui-react';
 
-import SingleTaskItem from './SingleTaskItem';
+import SingleTaskContainer from '../containers/SingleTaskContainer';
 
 class TasksListRow extends Component {
   render() {
     const {
-      onToggleTask,
       rotation,
     } = this.props;
 
@@ -19,11 +18,10 @@ class TasksListRow extends Component {
           <List ordered>
             {
               rotation.tasks.map(task =>
-              <SingleTaskItem
+              <SingleTaskContainer
                 key={ task.id }
                 labeled={ rotation.type === 'tomorrow' }
                 task={ task }
-                onToggle={ () => onToggleTask(task.id) }
               />
               )
             }

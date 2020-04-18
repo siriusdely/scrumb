@@ -16,7 +16,7 @@ export default class DailyScrumPage extends React.Component {
   }
 
   render() {
-    let { today, toggleTask } = this.props;
+    let { today } = this.props;
     // console.log('DailyScrumPage render today', today);
     if (today) {
       return (
@@ -35,7 +35,6 @@ export default class DailyScrumPage extends React.Component {
               today.users.map(
                 user => <UserTasksBoard
                   key={ user.id }
-                  onToggleTask={ toggleTask }
                   user={ user }
                 />
               ) : null
