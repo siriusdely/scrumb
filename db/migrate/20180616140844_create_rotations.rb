@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRotations < ActiveRecord::Migration[5.1]
   def change
     create_table :rotations do |t|
@@ -10,6 +12,6 @@ class CreateRotations < ActiveRecord::Migration[5.1]
       t.timestamps
     end
     add_index :rotations, :types_mask
-    add_index :rotations, [:order, :day_id, :user_id, :types_mask], unique: true
+    add_index :rotations, %i[order day_id user_id types_mask], unique: true
   end
 end

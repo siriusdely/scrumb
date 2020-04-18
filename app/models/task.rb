@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class Task < ApplicationRecord
   belongs_to :scrum
-  belongs_to :owner, class_name: 'User', foreign_key: 'user_id', required: false
+  belongs_to :owner, class_name: 'User', foreign_key: 'user_id', optional: true
   has_one :discussion, as: :topicable, dependent: :destroy
 
-  validates_presence_of :title
+  validates :title, presence: true
 
-  STATES = %i[unstarted started finished delivered rejected accepted]
+  STATES = %i[unstarted started finished delivered rejected accepted].freeze
 
   def state=(state)
     state = state.to_sym
@@ -20,8 +22,8 @@ class Task < ApplicationRecord
   end
 
   def toggle_state
-    self.state = self.state == :finished ? :unstarted : :finished
-    self.save
+    self.state = state == :finished ? :unstarted : :finished
+    save
   end
 
   def as_json(*)

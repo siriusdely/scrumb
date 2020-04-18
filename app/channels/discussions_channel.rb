@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class DiscussionsChannel < ApplicationCable::Channel
   def subscribed
     puts "DiscussionsChannel.current_user: #{current_user.inspect}"
-    stream_from "discussions_channel"
+    stream_from 'discussions_channel'
   end
 
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
-    puts "unsubscribed"
+    puts 'unsubscribed'
   end
 
   def create(opts)

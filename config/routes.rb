@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # root to: "static_pages#index"
 
@@ -20,10 +22,10 @@ Rails.application.routes.draw do
       post 'users/register', to: 'users#create'
       post 'auth/login', to: 'auth#login'
 
-      resources :sessions, only: [:create, :destroy]
+      resources :sessions, only: %i[create destroy]
 
       resources :scrums do
-        resources :days, only: [:create, :show]
+        resources :days, only: %i[create show]
         resources :tasks
         get 'today', on: :member
       end
@@ -32,8 +34,8 @@ Rails.application.routes.draw do
         put :toggle, on: :member
       end
 
-      resources :discussions, only: [:index, :create] do
-        resources :messages, only: [:index, :create]
+      resources :discussions, only: %i[index create] do
+        resources :messages, only: %i[index create]
       end
       resources :messages, only: [:create]
     end
@@ -43,7 +45,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   # get '*path', to: "static_pages#index", constraints: ->(request) do
-  get '*path', to: "application#fallback_index_html", constraints: ->(request) do
+  get '*path', to: 'application#fallback_index_html', constraints: lambda { |request|
     !request.xhr? && request.format.html?
-  end
+  }
 end

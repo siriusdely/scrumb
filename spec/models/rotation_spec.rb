@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Rotation, type: :model do
@@ -16,7 +18,7 @@ RSpec.describe Rotation, type: :model do
 
   it { should respond_to :type }
 
-  it { should validate_uniqueness_of(:order).scoped_to([:day_id, :user_id, :types_mask]) }
+  it { should validate_uniqueness_of(:order).scoped_to(%i[day_id user_id types_mask]) }
   it { should validate_numericality_of :order }
   it { should_not allow_value(-1).for(:order) }
   it { should_not allow_value(0).for(:order) }

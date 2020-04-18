@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 # Test suite for the Task model
 RSpec.describe Task, type: :model do
