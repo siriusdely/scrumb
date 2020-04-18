@@ -28,6 +28,10 @@ Rails.application.routes.draw do
         get 'today', on: :member
       end
 
+      resources :tasks do
+        put :toggle, on: :member
+      end
+
       resources :discussions, only: [:index, :create] do
         resources :messages, only: [:index, :create]
       end

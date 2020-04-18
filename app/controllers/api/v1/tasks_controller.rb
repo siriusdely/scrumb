@@ -1,6 +1,7 @@
 class Api::V1::TasksController < ApiController
-  before_action :set_scrum
-  before_action :set_scrum_task, only: [:show, :update, :destroy]
+  # before_action :set_scrum
+  # before_action :set_scrum_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: [:toggle]
 
   def index
     json_response(@scrum.tasks)
@@ -18,6 +19,18 @@ class Api::V1::TasksController < ApiController
   def update
     @task.update(task_params)
     head :no_content
+  end
+
+  def toggle
+    @task.toggle_state
+    task = @task.as_json :only => [:id, :title, :description],
+      :methods => :state, :include => {
+      :owner => {
+        :only => [:id], :methods => [:full_name, :avatar_url, :initials]
+      }
+    }
+
+    json_response(task)
   end
 
   def destroy
@@ -39,4 +52,7 @@ class Api::V1::TasksController < ApiController
     @task = @scrum.tasks.find_by!(id: params[:id]) if @scrum
   end
 
+  def set_task
+    @task = Task.find(params[:id])
+  end
 end
