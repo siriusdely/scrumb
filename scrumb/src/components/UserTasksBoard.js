@@ -10,28 +10,39 @@ import {
 import TasksListRow from './TasksListRow';
 
 export default class UserTasksBoard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.user = props.user;
-    this.rotations = props.user.rotations;
-  }
-
   render() {
+    const {
+      onToggleTask,
+      user,
+    } = this.props;
+    const {
+      avatar_url,
+      first_name,
+      last_name,
+      initials,
+      role,
+      rotations,
+    } = user;
+
     return (
       <React.Fragment>
         <Header as='h3' attached='top'>
-          <Image src={ this.user.avatar_url } rounded bordered />
+          <Image src={ avatar_url } rounded bordered />
           <Header.Content>
-            { `${ this.user.first_name } ${ this.user.last_name }` }
-            <Label content={ this.user.initials } />
-            <Header.Subheader content={ this.user.role } />
+            { `${ first_name } ${ last_name }` }
+            <Label content={ initials } />
+            <Header.Subheader content={ role } />
           </Header.Content>
         </Header>
         <Segment color='teal' size='big' attached='bottom'>
           <Grid>
             {
-              this.rotations.map(rotation =>
-                <TasksListRow rotation={ rotation } key={ rotation.type } />
+              rotations.map(rotation =>
+              <TasksListRow
+                key={ rotation.type }
+                rotation={ rotation }
+                onToggleTask={ onToggleTask }
+              />
               )
             }
           </Grid>

@@ -18,18 +18,20 @@ class ChatStore extends BaseStore {
       this._activeDiscussion = this.discussions[0];
       this.emitChange();
       break;
-    case GOT_NEW_MESSAGE:
+    case GOT_NEW_MESSAGE: {
       const message = action.message;
       const discussion = this.findDiscussion(message.discussion_id);
       discussion.messages = [...discussion.messages, message];
       this.emitChange();
       break;
-    case GOT_NEW_DISCUSSION:
+    }
+    case GOT_NEW_DISCUSSION: {
       const discussion1 = action.discussion;
       this._activeDiscussion = discussion1;
       this._discussions = [...this.discussions, discussion1];
       this.emitChange();
       break;
+    }
     default:
       break;
     }
@@ -47,7 +49,7 @@ class ChatStore extends BaseStore {
     return this.discussions.find(
       discussion => discussion.id === discussionId
     );
-  };
+  }
 }
 
 export default new ChatStore();

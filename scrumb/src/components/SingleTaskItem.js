@@ -5,6 +5,12 @@ class SingleTaskItem extends Component {
   constructor(props) {
     super(props);
     this.task = props.task;
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  handleToggle() {
+    console.log('SingleTaskItem handleToggle', this.task);
+    this.props.onToggle();
   }
 
   render() {
@@ -25,7 +31,9 @@ class SingleTaskItem extends Component {
         <List.Content floated='right'>
           <Button circular size='small' icon='edit outline' compact />
           <Button toggle circular size='small' icon='check' compact
-                  active={ this.task.state === 'finished' } />
+            active={ this.task.state === 'finished' }
+            onClick={ this.handleToggle }
+          />
           <Button negative circular size='small' icon='times' compact />
         </List.Content>
         <List.Content>
