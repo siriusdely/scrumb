@@ -9,6 +9,7 @@ import AuthStore from '../stores/AuthStore';
 import {
   TASKS_URL,
   ADD_TASK,
+  UPDATE_TASK_SUCCEED,
   DELETE_TASK,
   TOGGLE_TASK_SUCCEED,
 } from '../constants/TaskConstants'
@@ -34,6 +35,29 @@ export function deleteTask(id) {
   };
 }
 
+export function updateTaskSucceed(task) {
+  return {
+    type: UPDATE_TASK_SUCCEED,
+    task,
+  }
+}
+
+export function updateTask(task) {
+  return function(dispatch) {
+    axios.put(`${TASKS_URL}/${task.id}`, task, {
+      headers: {
+        Authorization: AuthStore.jwt,
+        'Content-Type': 'application/json'
+      }
+    }).then(function(response) {
+      console.log('updateTask response', task, response);
+      dispatch(updateTaskSucceed(response.data));
+    }).catch(function(error) {
+      console.error('updateTask ERR', task, error);
+    });
+  }
+}
+
 export function toggleTaskSucceed(task) {
   return {
     type: TOGGLE_TASK_SUCCEED,
@@ -42,7 +66,7 @@ export function toggleTaskSucceed(task) {
 }
 
 export function toggleTask(id) {
-  console.log('toggleTask id', id);
+  // console.log('toggleTask id', id);
   return function(dispatch) {
     axios.put(`${TASKS_URL}/${id}/toggle`, null, {
       headers: {
@@ -50,10 +74,10 @@ export function toggleTask(id) {
         'Content-Type': 'application/json'
       }
     }).then(function(response) {
-      console.log('toggleTask id response', id, response);
+      // console.log('toggleTask id response', id, response);
       dispatch(toggleTaskSucceed(response.data));
     }).catch(function(error) {
-      console.error('toggleTask id ERR', id, error);
+      // console.error('toggleTask id ERR', id, error);
     });
   };
 }
