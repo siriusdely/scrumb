@@ -23,4 +23,16 @@ class Task < ApplicationRecord
     self.state = self.state == :finished ? :unstarted : :finished
     self.save
   end
+
+  def as_json(*)
+    super(only: %i[id title description],
+          methods: :state, include: {
+            owner: {
+              only: [:id], methods: %i[
+                full_name avatar_url initials
+              ]
+            }
+          }
+         )
+  end
 end

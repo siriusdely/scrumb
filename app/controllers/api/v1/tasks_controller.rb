@@ -24,13 +24,7 @@ class Api::V1::TasksController < ApiController
 
   def toggle
     @task.toggle_state
-    task = @task.as_json :only => [:id, :title, :description],
-      :methods => :state, :include => {
-      :owner => {
-        :only => [:id], :methods => [:full_name, :avatar_url, :initials]
-      }
-    }
-
+    task = @task.as_json
     json_response(task)
   end
 
