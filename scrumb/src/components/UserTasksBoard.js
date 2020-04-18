@@ -7,12 +7,11 @@ import {
   , Segment
 } from 'semantic-ui-react';
 
-import TasksListRow from './TasksListRow';
+import TasksListContainer from '../containers/TasksListContainer';
 
 export default class UserTasksBoard extends React.Component {
   render() {
     const {
-      onToggleTask,
       user,
     } = this.props;
     const {
@@ -38,10 +37,9 @@ export default class UserTasksBoard extends React.Component {
           <Grid>
             {
               rotations.map(rotation =>
-              <TasksListRow
+              <TasksListContainer
                 key={ rotation.type }
                 rotation={ rotation }
-                onToggleTask={ onToggleTask }
               />
               )
             }

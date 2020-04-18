@@ -19,4 +19,8 @@ class Task < ApplicationRecord
     end
   end
 
+  def toggle_state
+    self.state = self.state == :finished ? :unstarted : :finished
+    self.save
+  end
 end

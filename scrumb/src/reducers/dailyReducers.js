@@ -14,31 +14,33 @@ export function selectedDate(state=Date.now(), action) {
   }
 }
 
+const initialState = {
+  isFetching: false,
+  isInvalidated: false,
+  today: {},
+};
+
 export function scrum(
-  state={
-    isFetching: false,
-    isInvalidated: false,
-    today: {}
-  },
+  state=initialState,
   action
 ) {
   switch(action.type) {
-  case INVALIDATE_DAILY_SCRUM:
-    return Object.assign({}, state, {
-      isInvalidated: true
-    });
-  case REQUEST_DAILY_SCRUM:
-    return Object.assign({}, state, {
-      isFetching: true,
-      isInvalidated: false
-    });
-  case RECEIVE_DAILY_SCRUM:
-    return Object.assign({}, state, {
-      isFetching: false,
-      isInvalidated: false,
-      today: action.today
-    })
-  default:
-    return state;
+    case INVALIDATE_DAILY_SCRUM:
+      return Object.assign({}, state, {
+        isInvalidated: true
+      });
+    case REQUEST_DAILY_SCRUM:
+      return Object.assign({}, state, {
+        isFetching: true,
+        isInvalidated: false
+      });
+    case RECEIVE_DAILY_SCRUM:
+      return Object.assign({}, state, {
+        isFetching: false,
+        isInvalidated: false,
+        today: action.today
+      });
+    default:
+      return state;
   }
 }
