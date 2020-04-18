@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 class Api::V1::DiscussionsController < ApiController
   def index
     discussions = Discussion.all
-    render json: discussions.to_json(:include => { :messages => {
-      :only => [:id, :content, :created_at, :discussion_id],
-      :include => { :user => { :only => [:id, :email], :methods => :avatar_url } } } })
+    render json: discussions.to_json(include: { messages: {
+                                       only: %i[id content created_at discussion_id],
+                                       include: { user: { only: %i[id email], methods: :avatar_url } }
+                                     } })
   end
 
   def create

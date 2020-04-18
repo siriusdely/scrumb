@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
@@ -10,11 +12,11 @@ module ApplicationCable
 
     def find_verified_user
       header_array = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(',')
-      token = header_array[header_array.length-1]
+      token = header_array[header_array.length - 1]
       header = { 'Authorization' => token }
-      (AuthorizeApiRequest.new(header).call)[:user]
-    rescue => exception
-      puts "ApplicationCable::Connection => #{exception.inspect}"
+      AuthorizeApiRequest.new(header).call[:user]
+    rescue StandardError => e
+      puts "ApplicationCable::Connection => #{e.inspect}"
       reject_unauthorized_connection
     end
   end

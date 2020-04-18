@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthorizeApiRequest
   def initialize(headers = {})
     @headers = headers
@@ -36,6 +38,7 @@ class AuthorizeApiRequest
     if headers['Authorization'].present?
       return headers['Authorization'].split(' ').last
     end
+
     raise(ExceptionHandler::MissingToken, AuthMessage.missing_token)
   end
 end

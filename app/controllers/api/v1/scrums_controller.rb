@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Api::V1::ScrumsController < ApiController
-  before_action :set_scrum, only: [:show, :update, :destroy, :today]
+  before_action :set_scrum, only: %i[show update destroy today]
   # GET /scrums
   def index
     # @scrums = @current_user.scrums
@@ -9,7 +11,7 @@ class Api::V1::ScrumsController < ApiController
 
   # GET /scrums/:id
   def show
-    render json: @scrum.to_json(:include => { :tasks => { :only => [:id, :title] } })
+    render json: @scrum.to_json(include: { tasks: { only: %i[id title] } })
   end
 
   def today
@@ -17,7 +19,7 @@ class Api::V1::ScrumsController < ApiController
 
     data = {}
     data = day.as_json only: :created_at if day
-    data[:scrum] = @scrum.as_json :only => [:id, :title, :description]
+    data[:scrum] = @scrum.as_json only: %i[id title description]
     users = []
 
     memberships = {}
@@ -25,10 +27,10 @@ class Api::V1::ScrumsController < ApiController
       memberships[membership.user_id] = membership
     end
 
-    return render json: data if not day
+    return render json: data unless day
 
     day.rotations.includes(:user, task: :owner).group_by(&:user).each do |user, rotations|
-      usr = user.as_json :only => [:id, :first_name, :last_name], :methods => :avatar_url
+      usr = user.as_json only: %i[id first_name last_name], methods: :avatar_url
       usr[:role] = memberships[user.id].role
       usr[:order] = memberships[user.id].order
       usr[:initials] = memberships[user.id].initials
@@ -39,18 +41,15 @@ class Api::V1::ScrumsController < ApiController
 
       usr[:rotations] = []
       rotations.each do |type, rotation|
-        rttn = { :type => type, :name => type.to_s.capitalize }
+        rttn = { type: type, name: type.to_s.capitalize }
         rttn[:name] = 'Helps Needed' if type == :tomorrow
         rttn[:tasks] = []
         rotation.sort_by(&:order).each do |r|
-          task = r.task.as_json :only => [:id, :title, :description],
-            :methods => :state, :include => {
-              :owner => {
-                :only => [:id], :methods => [:full_name, :avatar_url]
-              }
-            }
+          task = r.task.as_json
           # task[:state] = :finished if (task['id'] % 2 == 0)
-          task['owner']['initials'] = memberships[task['owner']['id']].initials unless task['owner'].nil?
+          unless task['owner'].nil?
+            task['owner']['initials'] = memberships[task['owner']['id']].initials
+          end
           task[:order] = r.order
           rttn[:tasks] << task
         end

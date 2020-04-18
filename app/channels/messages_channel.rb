@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MessagesChannel < ApplicationCable::Channel
   def subscribed
     discussion = Discussion.find(params[:discussion_id])

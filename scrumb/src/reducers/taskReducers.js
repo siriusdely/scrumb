@@ -1,5 +1,6 @@
 import {
   TOGGLE_TASK_SUCCEED,
+  UPDATE_TASK_SUCCEED,
 } from '../constants/TaskConstants'
 
 import {
@@ -18,6 +19,18 @@ export function tasks(state={}, action) {
           tasks[task.id] = task
           return tasks;
         }, state);
+    }
+    case UPDATE_TASK_SUCCEED: {
+      const _task = state[action.task.id];
+      const task = {
+        ..._task,
+        ...action.task,
+      };
+
+      return {
+        ...state,
+        [task.id]: task,
+      };
     }
     case TOGGLE_TASK_SUCCEED: {
       // console.log('taskReducers tasks actions', action);

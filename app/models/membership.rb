@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 class Membership < ApplicationRecord
   belongs_to :scrum
   belongs_to :user
 
-  validates_presence_of :role, :initials
+  validates :role, :initials, presence: true
 
   # validates :initials, length: { in: 1..3 }
-  validates_length_of :initials, in: 1..3
+  validates :initials, length: { in: 1..3 }
 
   # validates :user, uniqueness: { scope: :scrum }
-  validates :initials, uniqueness: { scope: [:scrum_id, :user_id] }
-  validates :order, :numericality => true, allow_nil: true
+  validates :initials, uniqueness: { scope: %i[scrum_id user_id] }
+  validates :order, numericality: true, allow_nil: true
 
-  ROLES = %i[owner creator admin member]
+  ROLES = %i[owner creator admin member].freeze
 
   def role=(role)
     role = role.to_sym

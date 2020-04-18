@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe 'api/v1/AuthController', type: :request do
   # Authentication test suite
@@ -26,11 +28,11 @@ RSpec.describe 'api/v1/AuthController', type: :request do
 
     # returns auth token when request is valid
     context 'when request is valid' do
-      before {
+      before do
         post '/api/v1/auth/login',
-          params: valid_credentials,
-          headers: headers
-      }
+             params: valid_credentials,
+             headers: headers
+      end
 
       it 'returns an authentication token' do
         expect(json['auth_token']).not_to be_nil
@@ -39,11 +41,11 @@ RSpec.describe 'api/v1/AuthController', type: :request do
 
     # returns failure message when request is invalid
     context 'when request is invalid' do
-      before {
+      before do
         post '/api/v1/auth/login',
-          params: invalid_credentials,
-          headers: headers
-      }
+             params: invalid_credentials,
+             headers: headers
+      end
 
       it 'returns a failure message' do
         expect(json['message']).to match(/Invalid credentials/)

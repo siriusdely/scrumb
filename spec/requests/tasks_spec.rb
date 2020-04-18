@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe 'Tasks API Version 1' do
   let(:user) { create(:user) }
@@ -87,9 +89,9 @@ RSpec.describe 'Tasks API Version 1' do
   describe 'PUT /api/v1/scrums/:scrum_id/tasks/:id' do
     let(:valid_attributes) { { title: 'Mozart' }.to_json }
 
-    before {
+    before do
       put "/api/v1/scrums/#{scrum_id}/tasks/#{task_id}", params: valid_attributes, headers: headers
-    }
+    end
 
     context 'when task exists' do
       it 'returns status code 204' do

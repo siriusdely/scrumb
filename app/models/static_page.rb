@@ -1,2 +1,4 @@
-class StaticPage < ActiveRecord::Base
+# frozen_string_literal: true
+
+class StaticPage < ApplicationRecord
 end

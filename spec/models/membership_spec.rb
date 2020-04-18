@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Membership, type: :model do
@@ -13,7 +15,7 @@ RSpec.describe Membership, type: :model do
   it { should allow_value(0).for(:order) }
   it { should allow_value(nil).for(:order) }
 
-  context "with a saved membership" do
+  context 'with a saved membership' do
     # pending "add some examples to (or delete) #{__FILE__}"
 
     setup do
@@ -21,7 +23,7 @@ RSpec.describe Membership, type: :model do
     end
     subject { @membership }
 
-    it { is_expected.to have_attributes(:role => :owner) }
+    it { is_expected.to have_attributes(role: :owner) }
     # it { should validate_uniqueness_of(:user).scoped_to(:scrum) }
     it { should validate_uniqueness_of(:initials).scoped_to(:scrum_id, :user_id) }
   end

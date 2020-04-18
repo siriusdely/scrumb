@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   let(:user) { build(:user) }
@@ -10,10 +12,10 @@ RSpec.describe 'Users', type: :request do
   # User register test suite
   describe 'POST /api/v1/users/register' do
     context 'when valid request' do
-      before {
+      before do
         post '/api/v1/users/register',
-          params: valid_attributes.to_json, headers: headers
-      }
+             params: valid_attributes.to_json, headers: headers
+      end
 
       it 'creates new user' do
         expect(response).to have_http_status(201)
@@ -37,7 +39,7 @@ RSpec.describe 'Users', type: :request do
 
       it 'returns failure message' do
         expect(json['message'])
-        .to match(/Validation failed/)
+          .to match(/Validation failed/)
       end
     end
   end
