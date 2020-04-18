@@ -21,17 +21,17 @@ export function tasks(state={}, action) {
     }
     case TOGGLE_TASK_SUCCEED: {
       // console.log('taskReducers tasks actions', action);
-      const _task = state[action.id];
+      const _task = state[action.task.id];
       // console.log('taskReducers tasks TOGGLE_TASK_SUCCEED _task', _task);
       const task = {
         ..._task,
-        state: _task.state === 'finished' ? 'unstarted' : 'finished'
+        ...action.task,
       };
       // console.log('taskReducers tasks TOGGLE_TASK_SUCCEED task', task);
 
       return {
         ...state,
-        [action.id]: task,
+        [task.id]: task,
       };
     }
     default:

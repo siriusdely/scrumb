@@ -34,24 +34,24 @@ export function deleteTask(id) {
   };
 }
 
-export function toggleTaskSucceed(id) {
+export function toggleTaskSucceed(task) {
   return {
     type: TOGGLE_TASK_SUCCEED,
-    id,
+    task,
   };
 }
 
 export function toggleTask(id) {
   console.log('toggleTask id', id);
   return function(dispatch) {
-    axios.put(`${TASKS_URL}/${id}/toggle`, {
+    axios.put(`${TASKS_URL}/${id}/toggle`, null, {
       headers: {
         Authorization: AuthStore.jwt,
         'Content-Type': 'application/json'
       }
     }).then(function(response) {
       console.log('toggleTask id response', id, response);
-      dispatch(toggleTaskSucceed(id));
+      dispatch(toggleTaskSucceed(response.data));
     }).catch(function(error) {
       console.error('toggleTask id ERR', id, error);
     });
