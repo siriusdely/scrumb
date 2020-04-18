@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# TasksControllesa
 class Api::V1::TasksController < ApiController
   # before_action :set_scrum
   # before_action :set_scrum_task, only: [:show, :update, :destroy]
