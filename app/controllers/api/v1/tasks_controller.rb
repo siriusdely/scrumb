@@ -1,7 +1,7 @@
 class Api::V1::TasksController < ApiController
   # before_action :set_scrum
   # before_action :set_scrum_task, only: [:show, :update, :destroy]
-  before_action :set_task, only: [:toggle]
+  before_action :set_task, only: %i[toggle update]
 
   def index
     json_response(@scrum.tasks)
@@ -18,7 +18,8 @@ class Api::V1::TasksController < ApiController
 
   def update
     @task.update(task_params)
-    head :no_content
+    task = @task.as_json
+    json_response(task)
   end
 
   def toggle
