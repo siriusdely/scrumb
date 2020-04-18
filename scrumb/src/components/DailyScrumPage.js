@@ -1,13 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import {
-  fetchToday,
-} from '../actions/DailyActions';
-
-import {
-  toggleTask,
-} from '../actions/TaskActions';
 
 import { Container
        , Dimmer
@@ -18,16 +9,10 @@ import { Container
 import DailyNavigationBar from './DailyNavigationBar';
 import UserTasksBoard from './UserTasksBoard';
 
-class DailyScrumPage extends React.Component {
+export default class DailyScrumPage extends React.Component {
   constructor(props) {
     super(props);
     console.log('DailyScrumPage props', props);
-  }
-
-  componentDidMount() {
-    // const { match: { params: { scrumId } } } = this.props;
-    const { fetchToday } = this.props;
-    fetchToday();
   }
 
   render() {
@@ -68,22 +53,3 @@ class DailyScrumPage extends React.Component {
     }
   }
 }
-
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchToday: id => dispatch(fetchToday(id)),
-    toggleTask: id => dispatch(toggleTask(id)),
-  };
-}
-
-
-function mapStateToProps(state) {
-  // console.log('DailyScrumPage mapStateToProps state', state);
-  return state.scrum;
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DailyScrumPage);
