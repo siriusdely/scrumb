@@ -17,10 +17,7 @@ export function selectedDate(state=Date.now(), action) {
 const initialState = {
   isFetching: false,
   isInvalidated: false,
-  tasks: {},
-  today: {
-    users: [],
-  },
+  today: {},
 };
 
 export function scrum(
@@ -37,14 +34,12 @@ export function scrum(
         isFetching: true,
         isInvalidated: false
       });
-    case RECEIVE_DAILY_SCRUM: {
-      const users = action.today.users;
+    case RECEIVE_DAILY_SCRUM:
       return Object.assign({}, state, {
         isFetching: false,
         isInvalidated: false,
         today: action.today
       });
-    }
     default:
       return state;
   }
