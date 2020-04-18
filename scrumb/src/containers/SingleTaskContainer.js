@@ -7,8 +7,9 @@ import {
 import SingleTaskItem from '../components/SingleTaskItem';
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  // console.log('SingleTaskContainer mapDispatchToProps ownProps', ownProps);
   return {
-    onToggle: toggleTask(ownProps.id),
+    onToggle: () => dispatch(toggleTask(ownProps.task.id)),
   };
 };
 
