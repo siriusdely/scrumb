@@ -1,4 +1,7 @@
-import React, { Component, createRef } from 'react';
+import React, {
+  Component,
+  // createRef,
+} from 'react';
 import { findDOMNode } from 'react-dom';
 
 import {
@@ -8,8 +11,10 @@ import {
   Label,
   List,
   Segment,
-  TextArea,
+  // TextArea,
 } from 'semantic-ui-react';
+
+import TextArea from 'react-textarea-autosize';
 
 import {
   ENTER_KEY,
@@ -47,7 +52,7 @@ class SingleTaskItem extends Component {
     editTitleText: this.props.task.title,
   };
 
-  editDescriptionRef = createRef();
+  // editDescriptionRef = createRef();
 
   handleCancel() {
     this.setState({
@@ -167,14 +172,15 @@ class SingleTaskItem extends Component {
     if (!prevState.editingTitle && this.state.editingTitle) {
       // console.log('SingleTaskItem componentDidUpdate refs', this.refs);
       const editTitleField = findDOMNode(this.refs.editTitleField);
-      // console.log('SingleTaskItem componentDidUpdate editTitleField', editTitleField);
       const editTitleInput = editTitleField.getElementsByTagName('input')[0];
       // console.log('SingleTaskItem componentDidUpdate editTitleInput', editTitleInput);
       editTitleInput.focus();
       editTitleInput.setSelectionRange(editTitleInput.value.length, editTitleInput.value.length);
     }
     if (!prevState.editingDescription && this.state.editingDescription) {
-      const editDescriptionField = this.editDescriptionRef.current;
+      // const editDescriptionField = this.editDescriptionRef.current;
+      const editDescriptionField = this.editDescriptionRef;
+      // console.log('SingleTaskItem componentDidUpdate editDescriptionField', editDescriptionField);
       editDescriptionField.focus();
     }
   }
@@ -253,9 +259,10 @@ class SingleTaskItem extends Component {
           <Form style={ {
             display: this.state.editingDescription ? 'flex' : 'none',
           } }>
+          {/* ref={ this.editDescriptionRef } */}
           <TextArea placeholder='Tell us more'
+            inputRef={ ref => this.editDescriptionRef = ref }
             name={ editDescriptionFieldName }
-            ref={ this.editDescriptionRef }
             value={ this.state.editDescriptionText }
             onChange={ this.handleChange }
             onKeyDown={ this.handleKeyDown }
