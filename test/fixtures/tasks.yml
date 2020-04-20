@@ -2,8 +2,10 @@
 
 one:
   scrum: one
+  title: title1
   description: MyString
 
 two:
   scrum: two
+  title: title2
   description: MyString

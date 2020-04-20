@@ -1,18 +1,30 @@
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+import React, {
+  Component,
+  // createRef,
+} from 'react';
+import { findDOMNode } from 'react-dom';
 
 import {
   Button,
+  Form,
   Input,
   Label,
   List,
   Segment,
+  // TextArea,
 } from 'semantic-ui-react';
+
+import TextArea from 'react-textarea-autosize';
 
 import {
   ENTER_KEY,
   ESCAPE_KEY,
 } from '../constants';
+
+const editDescriptionButtonName = 'editDescriptionButton';
+const editDescriptionFieldName = 'editDescriptionField';
+const editTitleButtonName = 'editTitleButton';
+const editTitleFieldName = 'editTitleField';
 
 const styles = {
   textDecorationInitial: {
@@ -31,56 +43,123 @@ class SingleTaskItem extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-
-    this.state = {
-      editing: null,
-      editText: this.props.task.title,
-    };
   }
+
+  state = {
+    editingDescription: null,
+    editingTitle: null,
+    editDescriptionText: this.props.task.title,
+    editTitleText: this.props.task.title,
+  };
+
+  // editDescriptionRef = createRef();
 
   handleCancel() {
     this.setState({
-      editing: null,
-      editText: '',
+      editingDescription: null,
+      editingTitle: null,
+      editDescriptionText: '',
+      editTitleText: '',
     });
   }
 
   handleChange(e) {
-    if (this.state.editing) {
-      this.setState({ editText: e.target.value });
+    /*
+    console.log('SingleTaskItem handleChange event target name', e.target.name);
+    console.log('SingleTaskItem handleChange event target value', e.target.value);
+    */
+    let {
+      editingDescription,
+      editingTitle,
+      editDescriptionText,
+      editTitleText,
+    } = this.state;
+
+    if (e.target.name === editTitleFieldName && editingTitle) {
+      editTitleText = e.target.value;
+    } else if (e.target.name === editDescriptionFieldName && editingDescription) {
+      editDescriptionText = e.target.value;
     }
+
+    this.setState({
+      editDescriptionText,
+      editTitleText,
+    });
   }
 
-  handleEdit() {
+  handleEdit(event, data) {
     const { task } = this.props;
+    let {
+      editingDescription,
+      editingTitle,
+      editDescriptionText,
+      editTitleText,
+    } = this.state;
+
+    if (data.name === editDescriptionButtonName) {
+      editingDescription = task.id;
+      editDescriptionText = task.description;
+    } else if (data.name === editTitleButtonName) {
+      editingTitle = task.id;
+      editTitleText = task.title;
+    }
+
     this.setState({
-      editing: task.id,
-      editText: task.title,
+      editingDescription,
+      editingTitle,
+      editDescriptionText,
+      editTitleText,
     });
   }
 
   handleKeyDown(e) {
-    if (e.which === ESCAPE_KEY) {
+    if (e.keyCode === ESCAPE_KEY) {
       this.handleCancel(e);
-    } else if (e.which === ENTER_KEY) {
+    } else if (e.keyCode === ENTER_KEY && !e.shiftKey) {
       this.handleSubmit(e);
     }
   }
 
   handleSubmit(e) {
-    const val = this.state.editText.trim();
-    if (val !== this.props.task.title) {
-      // console.log('SingleTaskItem handleSubmit val', val);
-      this.props.onTitleChange(val);
-      /*
-    } else {
-      this.props.onDestroy();
+    let {
+      editingDescription,
+      editingTitle,
+      editDescriptionText,
+      editTitleText,
+    } = this.state;
+
+    const {
+      onDescriptionChange,
+      onTitleChange,
+      task,
+    } = this.props;
+
+    if (e.target.name === editTitleFieldName && editingTitle) {
+      const val = editTitleText.trim();
+      if (val !== task.title) {
+        // console.log('SingleTaskItem handleSubmit val', val);
+        onTitleChange(val);
+        /*
+      } else {
+        this.props.onDestroy();
       */
+      }
+      editingTitle = null;
+      editTitleText = '';
+    } else if (e.target.name === editDescriptionFieldName && editingDescription) {
+      const val = editDescriptionText.trim();
+      if (val !== task.title) {
+        onDescriptionChange(val);
+      }
+      editingDescription = null;
+      editDescriptionText = '';
     }
 
     this.setState({
-      editing: null,
-      editText: '',
+      editingDescription,
+      editingTitle,
+      editDescriptionText,
+      editTitleText,
     });
   }
 
@@ -90,14 +169,19 @@ class SingleTaskItem extends Component {
   }
 
   componentDidUpdate(_, prevState) {
-    if (!prevState.editing && this.state.editing) {
+    if (!prevState.editingTitle && this.state.editingTitle) {
       // console.log('SingleTaskItem componentDidUpdate refs', this.refs);
-      const node = ReactDom.findDOMNode(this.refs.editField);
-      // console.log('SingleTaskItem componentDidUpdate node', node);
-      const input = node.getElementsByTagName('input')[0];
-      // console.log('SingleTaskItem componentDidUpdate input', input);
-      input.focus();
-      input.setSelectionRange(input.value.length, input.value.length);
+      const editTitleField = findDOMNode(this.refs.editTitleField);
+      const editTitleInput = editTitleField.getElementsByTagName('input')[0];
+      // console.log('SingleTaskItem componentDidUpdate editTitleInput', editTitleInput);
+      editTitleInput.focus();
+      editTitleInput.setSelectionRange(editTitleInput.value.length, editTitleInput.value.length);
+    }
+    if (!prevState.editingDescription && this.state.editingDescription) {
+      // const editDescriptionField = this.editDescriptionRef.current;
+      const editDescriptionField = this.editDescriptionRef;
+      // console.log('SingleTaskItem componentDidUpdate editDescriptionField', editDescriptionField);
+      editDescriptionField.focus();
     }
   }
 
@@ -113,7 +197,7 @@ class SingleTaskItem extends Component {
 
     let style = task.state === 'finished' ? styles.textDecorationLineThrough :
       styles.textDecorationInitial;
-    if (this.state.editing) {
+    if (this.state.editingTitle) {
       style = {
         ...style,
         display: 'none',
@@ -123,7 +207,7 @@ class SingleTaskItem extends Component {
     let editStyle = {
       display: 'none',
     };
-    if (this.state.editing) {
+    if (this.state.editingTitle) {
       editStyle = {
         display: 'flex',
       }
@@ -133,6 +217,7 @@ class SingleTaskItem extends Component {
       <List.Item>
         <List.Content floated='right'>
           <Button circular size='small' icon='edit outline' compact
+            name={ editTitleButtonName }
             onClick={ this.handleEdit }
           />
           <Button toggle circular size='small' icon='check' compact
@@ -143,20 +228,46 @@ class SingleTaskItem extends Component {
         </List.Content>
         <List.Content>
           { labeled && initials &&
-            <Label as='a' active content={ initials } /> }
-          { labeled && initials && ' ' }
-          <span style={ style }>{ task.title }</span>
-          <Input ref='editField' fluid
-            style={ editStyle }
-            value={ this.state.editText }
+          <Label as='a' active content={ initials } /> }
+            { labeled && initials && ' ' }
+            <span style={ style }>{ task.title }</span>
+            <Input ref='editTitleField' fluid
+              name={ editTitleFieldName }
+              style={ editStyle }
+              value={ this.state.editTitleText }
+              onChange={ this.handleChange }
+              onKeyDown={ this.handleKeyDown }
+            />
+          </List.Content>
+          { task.description && <Segment style={ {
+            display: this.state.editingDescription ? 'none' : 'flex',
+          } }>
+          <Label as='a' icon='edit outline' corner='right'
+            name={ editDescriptionButtonName }
+            onClick={ this.handleEdit }
+          />
+          <ul style={ {
+            listStyleType: 'none',
+            margin: 0,
+            padding: 0,
+          } }>
+          { task.description
+              .split('\n')
+              .map((l, i) => <li key={i}>{l}</li>) }
+            </ul>
+        </Segment> }
+          <Form style={ {
+            display: this.state.editingDescription ? 'flex' : 'none',
+          } }>
+          {/* ref={ this.editDescriptionRef } */}
+          <TextArea placeholder='Tell us more'
+            inputRef={ ref => this.editDescriptionRef = ref }
+            name={ editDescriptionFieldName }
+            value={ this.state.editDescriptionText }
             onChange={ this.handleChange }
             onKeyDown={ this.handleKeyDown }
           />
-        </List.Content>
-        { task.description && <Segment>
-          <Label as='a' icon='edit outline' corner='right' />
-          { task.description }
-          </Segment> }
+        </Form>
       </List.Item>
     );
   }

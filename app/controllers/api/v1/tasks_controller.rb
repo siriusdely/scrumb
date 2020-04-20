@@ -39,7 +39,7 @@ class Api::V1::TasksController < ApiController
   private
 
   def task_params
-    params.permit(:title)
+    params.permit(:title, :description)
   end
 
   def set_scrum

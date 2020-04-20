@@ -21,7 +21,7 @@ class ScrumsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show scrum' do
-    get scrum_url(@scrum), as: :json
+    get api_v1_scrum_url(@scrum), as: :json
     assert_response :success
   end
 
