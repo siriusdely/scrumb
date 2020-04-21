@@ -37,3 +37,9 @@ jobs:
         bundle install --jobs 4 --retry 3
     - name: Run tests
       run: bundle exec rspec
+    - name: Deploy to Heroku
+      uses: AkhileshNS/heroku-deploy@v3.0.4
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+        heroku_email: ${{secrets.HEROKU_API_ID}}
