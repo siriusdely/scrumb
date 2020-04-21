@@ -29,13 +29,12 @@ gem 'redis', '~> 3.0'
 gem 'activeadmin'
 gem 'devise'
 gem 'jwt'
-
+gem 'pg'
 gem 'rubocop-rails'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   # gem 'sqlite3'
-  gem 'pg'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails', '~> 3.5'
@@ -57,7 +56,7 @@ end
 
 group :production do
   # Use postgres as the database for production
-  gem 'pg'
+  # gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
