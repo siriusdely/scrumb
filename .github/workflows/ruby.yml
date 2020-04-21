@@ -18,11 +18,19 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:11.6-alpine
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready --health-interval 10s
+          --health-timeout 5s --health-retries 5
+
     steps:
     - uses: actions/checkout@v2
     - name: Setup System
       run: |
-        sudo apt-get install libsqlite3-dev    
+        sudo apt-get install libpq-dev
     - name: Set up Ruby 2.6
     # uses: actions/setup-ruby@v1
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
