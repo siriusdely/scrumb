@@ -28,7 +28,10 @@ class ScrumService {
     }).catch(function(error) {
       const response = error.response;
       console.error(`${ response.statusText } (${ response.status}): ${ response.data.message }`);
-      if (response.status === 422) { AuthStore.jwt = null; }
+      if (response.status === 401 ||
+        response.status === 422) {
+        AuthStore.jwt = null;
+      }
     });
   }
 
