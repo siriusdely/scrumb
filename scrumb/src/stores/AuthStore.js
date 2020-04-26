@@ -32,7 +32,11 @@ class AuthStore extends BaseStore {
   }
 
   set jwt(jwt) {
-    localStorage.setItem('jwt', jwt);
+    if (jwt) {
+      localStorage.setItem('jwt', jwt);
+    } else {
+      localStorage.removeItem('jwt');
+    }
     this._jwt = jwt;
     this.emitChange();
   }
