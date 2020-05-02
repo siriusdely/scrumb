@@ -50,6 +50,8 @@ jobs:
         with:
           path: vendor/bundle
           key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            bundle-
       - name: Install dependencies
         run: |
           gem install bundler
