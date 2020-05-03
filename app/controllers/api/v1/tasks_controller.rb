@@ -17,8 +17,9 @@ class Api::V1::TasksController < ApiController
   def create
     task = @scrum.tasks.create! task_params
 
-    order = 1 + Rotation.where(day_id: 1, user_id: task.user_id, types_mask: 4).count
-    rotation = Rotation.new(rotation_params.merge({ order: order, task_id: task.id }))
+    rotation = Rotation.new(rotation_params.merge({ task_id: task.id }))
+    order = 1 + Rotation.where(day_id: rotation.day_id, user_id: rotation.user_id, types_mask: rotation.types_mask).count
+    rotation.order = order
     rotation.save!
 
     task_json = task.as_json
