@@ -62,10 +62,15 @@ export function fetchToday(date) {
         'Content-Type': 'application/json'
       }
     }).then(function(response) {
-      console.log('DailyActions fetchToday response', response.data);
+      // console.log('DailyActions fetchToday response', response.data);
       dispatch(receiveDailyScrum(date, response.data));
     }).catch(function(error) {
-      console.error(error);
+      const response = error.response;
+      // console.error(`DailyActions fetchToday ERR ${ response.statusText } (${ response.status}): ${ response.data.message }`);
+      if (response.status === 401 ||
+        response.status === 422) {
+        AuthStore.jwt = null;
+      }
     });
   };
 }

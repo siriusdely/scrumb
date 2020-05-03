@@ -7,8 +7,9 @@ import AuthStore from '../stores/AuthStore';
  */
 
 import {
+  SCRUMS_URL,
   TASKS_URL,
-  ADD_TASK,
+  ADD_TASK_SUCCEED,
   UPDATE_TASK_SUCCEED,
   DELETE_TASK,
   TOGGLE_TASK_SUCCEED,
@@ -19,13 +20,27 @@ import {
  * ACTION CREATORS
  */
 
-let nextTaskId = 0;
-export function addTask(text) {
+export function addTaskSucceed(task) {
   return {
-    type: ADD_TASK,
-    id: nextTaskId++,
-    text,
+    type: ADD_TASK_SUCCEED,
+    task,
   };
+}
+
+export function addTask(task) {
+  return function(dispatch) {
+    axios.post(`${SCRUMS_URL}/${task.scrum_id}/tasks`, task, {
+      headers: {
+        Authorization: AuthStore.jwt,
+        'Content-Type': 'application/json'
+      }
+    }).then(function(response) {
+      console.log('addTask response', task, response);
+      dispatch(addTaskSucceed(response.data));
+    }).catch(function(error) {
+      console.error('addTask ERR', task, error);
+    });
+  }
 }
 
 export function deleteTask(id) {
@@ -50,10 +65,10 @@ export function updateTask(task) {
         'Content-Type': 'application/json'
       }
     }).then(function(response) {
-      console.log('updateTask response', task, response);
+      // console.log('updateTask response', task, response);
       dispatch(updateTaskSucceed(response.data));
     }).catch(function(error) {
-      console.error('updateTask ERR', task, error);
+      // console.error('updateTask ERR', task, error);
     });
   }
 }

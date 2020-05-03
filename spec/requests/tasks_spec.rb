@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Tasks API Version 1' do
   let(:user) { create(:user) }
   let!(:scrum) { create(:scrum) }
+  let!(:day) { scrum.days.create! }
   let!(:tasks) { create_list(:task, 20, scrum_id: scrum.id) }
   let(:scrum_id) { scrum.id }
   let(:task_id) { tasks.first.id }
@@ -64,9 +65,19 @@ RSpec.describe 'Tasks API Version 1' do
     end
   end
 
-=begin
   describe 'POST /api/v1/scrums/:scrum_id/tasks' do
-    let(:valid_attributes) { { title: 'Visit Narnia' }.to_json }
+    let(:valid_attributes) do
+      {
+        rotation: {
+          day_id: day.id,
+          type: 'today',
+          user_id: user.id
+        },
+        scrum_id: scrum_id,
+        title: 'Visit Narnia',
+        user_id: user.id
+      }.to_json
+    end
 
     context 'when request attributes are valid' do
       before { post "/api/v1/scrums/#{scrum_id}/tasks", params: valid_attributes, headers: headers }
@@ -88,7 +99,6 @@ RSpec.describe 'Tasks API Version 1' do
       end
     end
   end
-=end
 
   describe 'PUT /api/v1/scrums/:scrum_id/tasks/:id' do
     let(:valid_attributes) { { title: 'Mozart' }.to_json }
