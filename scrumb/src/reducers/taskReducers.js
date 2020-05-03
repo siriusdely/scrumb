@@ -1,4 +1,5 @@
 import {
+  ADD_TASK_SUCCEED,
   TOGGLE_TASK_SUCCEED,
   UPDATE_TASK_SUCCEED,
 } from '../constants/TaskConstants'
@@ -19,6 +20,16 @@ export function tasks(state={}, action) {
           tasks[task.id] = task
           return tasks;
         }, state);
+    }
+    case ADD_TASK_SUCCEED: {
+      const task = {
+        ...action.task,
+      };
+
+      return {
+        ...state,
+        [task.id]: task,
+      };
     }
     case UPDATE_TASK_SUCCEED: {
       const _task = state[action.task.id];
