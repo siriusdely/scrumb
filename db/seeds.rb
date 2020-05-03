@@ -167,13 +167,13 @@ task = vp_scrum.tasks.create!(
   description: 'https://www.pivotaltracker.com/story/show/157996665',
   owner: sirius
 )
-day.rotations.create!(task: task, user: fadil, type: :tomorrow, order: 3)
+day.rotations.create!(task: task, user: fadil, type: :tomorrow, order: 1)
 
 task = vp_scrum.tasks.create!(
   title: 'help dashboard production deploy',
   owner: sirius
 )
-day.rotations.create!(task: task, user: fadil, type: :tomorrow, order: 4)
+day.rotations.create!(task: task, user: fadil, type: :tomorrow, order: 2)
 
 task = vp_scrum.tasks.create!(
   title: 'Foreground and other 281 stories',
