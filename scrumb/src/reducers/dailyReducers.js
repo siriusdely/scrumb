@@ -76,7 +76,7 @@ export function scrum(
         ...today,
         users: _users,
       };
-      console.log('_today', _today)
+
       return {
         ...state,
         today: _today,
