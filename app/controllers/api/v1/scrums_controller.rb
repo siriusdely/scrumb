@@ -41,7 +41,12 @@ class Api::V1::ScrumsController < ApiController
 
       usr[:rotations] = []
       rotations.each do |type, rotation|
-        rttn = { type: type, name: type.to_s.capitalize }
+        rttn = {
+          day_id: day.id,
+          name: type.to_s.capitalize,
+          type: type,
+          user_id: user.id
+        }
         rttn[:name] = 'Helps Needed' if type == :tomorrow
         rttn[:tasks] = []
         rotation.sort_by(&:order).each do |r|
