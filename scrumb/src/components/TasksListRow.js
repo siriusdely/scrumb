@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, List } from 'semantic-ui-react';
 
 import SingleTaskContainer from '../containers/SingleTaskContainer';
+import AddTaskItem from '../containers/AddTaskItem';
 
 class TasksListRow extends Component {
   render() {
@@ -25,6 +26,7 @@ class TasksListRow extends Component {
               />
               )
             }
+            <AddTaskItem rotation={ rotation } />
           </List>
         </Grid.Column>
       </React.Fragment>
