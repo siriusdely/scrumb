@@ -11,7 +11,7 @@ import {
   TASKS_URL,
   ADD_TASK_SUCCEED,
   UPDATE_TASK_SUCCEED,
-  DELETE_TASK,
+  DELETE_TASK_SUCCEED,
   TOGGLE_TASK_SUCCEED,
 } from '../constants/TaskConstants'
 
@@ -20,7 +20,7 @@ import {
  * ACTION CREATORS
  */
 
-export function addTaskSucceed(task) {
+function addTaskSucceed(task) {
   return {
     type: ADD_TASK_SUCCEED,
     task,
@@ -35,22 +35,41 @@ export function addTask(task) {
         'Content-Type': 'application/json'
       }
     }).then(function(response) {
-      console.log('addTask response', task, response);
+      // console.log('addTask response', task, response);
       dispatch(addTaskSucceed(response.data));
     }).catch(function(error) {
-      console.error('addTask ERR', task, error);
+      // console.error('addTask ERR', task, error);
     });
   }
 }
 
-export function deleteTask(id) {
+function deleteTaskSucceed(task) {
   return {
-    type: DELETE_TASK,
-    id,
+    type: DELETE_TASK_SUCCEED,
+    task,
   };
 }
 
-export function updateTaskSucceed(task) {
+export function deleteTask(task) {
+  return function(dispatch) {
+    axios({
+      data: task,
+      headers: {
+        Authorization: AuthStore.jwt,
+        'Content-Type': 'application/json'
+      },
+      method: 'DELETE',
+      url: `${TASKS_URL}/${task.id}`,
+    }).then(function(response) {
+      console.log('deleteTask response', task, response);
+      dispatch(deleteTaskSucceed(task));
+    }).catch(function(error) {
+      console.error('deleteTask ERR', task, error);
+    });
+  };
+}
+
+function updateTaskSucceed(task) {
   return {
     type: UPDATE_TASK_SUCCEED,
     task,
@@ -73,7 +92,7 @@ export function updateTask(task) {
   }
 }
 
-export function toggleTaskSucceed(task) {
+function toggleTaskSucceed(task) {
   return {
     type: TOGGLE_TASK_SUCCEED,
     task,

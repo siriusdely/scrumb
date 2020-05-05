@@ -40,6 +40,7 @@ class SingleTaskItem extends Component {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -85,6 +86,10 @@ class SingleTaskItem extends Component {
       editDescriptionText,
       editTitleText,
     });
+  }
+
+  handleDelete() {
+    this.props.onDelete();
   }
 
   handleEdit(event, data) {
@@ -224,7 +229,9 @@ class SingleTaskItem extends Component {
             active={ task.state === 'finished' }
             onClick={ this.handleToggle }
           />
-          <Button negative circular size='small' icon='times' compact />
+          <Button negative circular size='small' icon='times' compact
+            onClick={ this.handleDelete }
+          />
         </List.Content>
         <List.Content>
           { labeled && initials &&
