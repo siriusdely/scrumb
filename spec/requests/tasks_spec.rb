@@ -7,6 +7,7 @@ RSpec.describe 'Tasks API Version 1' do
   let!(:scrum) { create(:scrum) }
   let!(:day) { scrum.days.create! }
   let!(:tasks) { create_list(:task, 20, scrum_id: scrum.id) }
+  let!(:rotation) { create(:rotation, day: day, task: tasks.first, user: user) }
   let(:scrum_id) { scrum.id }
   let(:task_id) { tasks.first.id }
   let(:headers) { valid_headers }
@@ -131,13 +132,22 @@ RSpec.describe 'Tasks API Version 1' do
     end
   end
 
-=begin
   describe 'DELETE /api/v1/scrums/#scrum_id/tasks/#{task_id}' do
-    before { delete "/api/v1/scrums/#{scrum_id}/tasks/#{task_id}", params: {}, headers: headers }
+    let(:valid_attributes) do
+      {
+        rotation: {
+          day_id: rotation.day.id,
+          type: rotation.type,
+          user_id: rotation.user.id
+        },
+        task_id: task_id
+      }.to_json
+    end
+
+    before { delete "/api/v1/scrums/#{scrum_id}/tasks/#{task_id}", params: valid_attributes, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
     end
   end
-=end
 end

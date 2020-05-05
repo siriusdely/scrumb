@@ -4,7 +4,8 @@
 class Api::V1::TasksController < ApiController
   before_action :set_scrum, only: %i[create]
   # before_action :set_scrum_task, only: [:show, :update, :destroy]
-  before_action :set_task, only: %i[show toggle update]
+  before_action :set_task, only: %i[show toggle update destroy]
+  before_action :set_rotation, only: %i[destroy]
 
   def index
     json_response(@scrum.tasks)
@@ -48,7 +49,9 @@ class Api::V1::TasksController < ApiController
   end
 
   def destroy
-    @task.destroy
+    @rotation.destroy
+    rotations_count = Rotation.where(@rotation.as_json only: %i[task_id]).count
+    @task.destroy if rotations_count == 0
     head :no_content
   end
 
@@ -72,5 +75,10 @@ class Api::V1::TasksController < ApiController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def set_rotation
+    rotation = Rotation.new(rotation_params.merge task_id: params[:id])
+    @rotation = Rotation.find_by(rotation.as_json only: %i[day_id task_id user_id types_mask])
   end
 end

@@ -22,6 +22,7 @@ class TasksListRow extends Component {
               <SingleTaskContainer
                 key={ task.id }
                 labeled={ rotation.type === 'tomorrow' }
+                rotation={ rotation }
                 task={ task }
               />
               )
