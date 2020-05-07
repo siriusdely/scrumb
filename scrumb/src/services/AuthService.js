@@ -35,11 +35,11 @@ class AuthService {
   register(firstName, lastName, email, password, passwordConfirmation) {
     console.log(firstName, lastName, email, password, passwordConfirmation);
     return this.post(REGISTER_URL, {
-      firstName
-      , lastName
-      , email
-      , password
-      , passwordConfirmation
+      email,
+      first_name: firstName,
+      last_name: lastName,
+      password,
+      password_confirmation: passwordConfirmation,
     })
       .then(response => response.json())
       .then(json => AuthActions.loginUser(json['auth_token']))

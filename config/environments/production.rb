@@ -53,14 +53,27 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
+  # For devise purpose
+  config.action_mailer.default_url_options = { host: ENV['APP_DOMAIN'] || 'localhost' }
+
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "scrumby_#{Rails.env}"
   config.action_mailer.perform_caching = false
+  config.action_mailer.perform_deliveries = true
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    address: ENV['SMTP_ADDRESS'] || 'smtp.sendgrid.net',
+    authentication: :plain,
+    domain: ENV['APP_DOMAIN'] || 'scrumby.herokuapp.com',
+    enable_starttls_auto: true,
+    password: ENV['SMTP_PASSWORD'] || 'SMTP_PASSWORD',
+    port: ENV['SMTP_PORT'] || 587,
+    user_name: ENV['SMTP_USER_NAME'] || 'apikey'
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
