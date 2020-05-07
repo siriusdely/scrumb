@@ -3,7 +3,7 @@
 class Api::V1::UsersController < ApiController
   skip_before_action :authorize_request, only: :create
 
-  # POST /signup
+  # POST /register
   # return authenticated token upon signup
   def create
     user = User.create!(user_params)
