@@ -48,19 +48,25 @@ export default class ScrumsPage extends React.Component {
   }
 
   handleChange(e) {
+    const { name, value } = e.target;
+
     this.setState({
-      [e.target.name]: e.target.value.trim()
+      [name]: value
     });
   }
 
   handleSubmit(e) {
-    const { title, description } = this.state;
+    let { title, description } = this.state;
+
     this.setState({
       title: '',
       description: ''
     });
+
+    title = title.trim();
+    description = description.trim();
     if (title && description) {
-      ScrumService.createScrum(this.state.title, this.state.description);
+      ScrumService.createScrum(title, description);
     }
   }
 
