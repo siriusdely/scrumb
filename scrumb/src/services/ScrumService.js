@@ -6,7 +6,7 @@ import AuthStore from '../stores/AuthStore';
 
 class ScrumService {
   getScrums() {
-    let self = this;
+    // const self = this;
     /*
     axios.get(SCRUMS_URL, {
       headers: {
@@ -23,7 +23,7 @@ class ScrumService {
       }
     }).then(function(response) {
       // console.log(response);
-      self.getScrum(response.data[0].id);
+      // self.getScrum(response.data[0].id);
       ScrumActions.gotScrums(response.data);
     }).catch(function(error) {
       const response = error.response;
@@ -72,6 +72,8 @@ class ScrumService {
   }
 
   createScrum(title, description) {
+    const self = this;
+
     fetch(SCRUMS_URL, {
       method: 'POST',
       headers: {
@@ -80,6 +82,19 @@ class ScrumService {
         Accept: 'application/json'
       },
       body: JSON.stringify({ title, description })
+    }).then(function(resp) {
+      const { status } = resp;
+      if (status < 200 || status >= 300) {
+        console.error('ScrumService createScrum resp', resp);
+        return;
+      }
+
+      resp.json().then(function(json) {
+        // console.log('ScrumService createScrum resp json', json);
+        self.getScrums();
+      });
+    }).catch(function(err) {
+      console.error('ScrumService createScrum ERR', err);
     });
   }
 }
