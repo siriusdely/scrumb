@@ -5,7 +5,7 @@ class Api::V1::ScrumsController < ApiController
   # GET /scrums
   def index
     # @scrums = @current_user.scrums
-    @scrums = Scrum.all
+    @scrums = Scrum.order('LOWER(title) ASC').all
     render json: @scrums.to_json
   end
 
