@@ -50,13 +50,13 @@ export function receiveDailyScrumError(date, error) {
   };
 }
 
-export function fetchToday(date) {
+export function fetchToday(scrumId, date) {
   return function(dispatch) {
-    dispatch(requestDailyScrum(date));
+    dispatch(requestDailyScrum(scrumId, date));
 
     axios({
       method: 'GET',
-      url: `${SCRUMS_URL}/${1}/today`,
+      url: `${SCRUMS_URL}/${scrumId}/today`,
       headers: {
         Authorization: AuthStore.jwt,
         'Content-Type': 'application/json'
@@ -65,6 +65,7 @@ export function fetchToday(date) {
       // console.log('DailyActions fetchToday response', response.data);
       dispatch(receiveDailyScrum(date, response.data));
     }).catch(function(error) {
+      console.error('DailyActions fetchToday ERR', error);
       const response = error.response;
       // console.error(`DailyActions fetchToday ERR ${ response.statusText } (${ response.status}): ${ response.data.message }`);
       if (response.status === 401 ||
