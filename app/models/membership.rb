@@ -6,7 +6,6 @@ class Membership < ApplicationRecord
 
   validates :role, :initials, presence: true
 
-  # validates :initials, length: { in: 1..3 }
   validates :initials, length: { in: 1..3 }
 
   # validates :user, uniqueness: { scope: :scrum }
