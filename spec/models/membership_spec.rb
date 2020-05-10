@@ -8,6 +8,7 @@ RSpec.describe Membership, type: :model do
   it { should validate_presence_of(:initials) }
   it { should validate_length_of(:initials).is_at_least(1).is_at_most(3) }
   it { should respond_to :role }
+  it { should respond_to :status }
   # it { should validate_presence_of :role }
   # its(:attributes) { should include 'role' }
   it { should validate_numericality_of :order }
@@ -24,6 +25,7 @@ RSpec.describe Membership, type: :model do
     subject { @membership }
 
     it { is_expected.to have_attributes(role: :owner) }
+    it { is_expected.to have_attributes(status: :invited) }
     # it { should validate_uniqueness_of(:user).scoped_to(:scrum) }
     it { should validate_uniqueness_of(:initials).scoped_to(:scrum_id, :user_id) }
   end

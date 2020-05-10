@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180617040633) do
+ActiveRecord::Schema.define(version: 20200509141450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20180617040633) do
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.string "author_type"
-    t.integer "author_id"
+    t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20180617040633) do
   end
 
   create_table "days", force: :cascade do |t|
-    t.integer "scrum_id", null: false
+    t.bigint "scrum_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["scrum_id"], name: "index_days_on_scrum_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20180617040633) do
 
   create_table "discussions", force: :cascade do |t|
     t.string "topicable_type", null: false
-    t.integer "topicable_id", null: false
+    t.bigint "topicable_id", null: false
     t.string "topic", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,9 +63,10 @@ ActiveRecord::Schema.define(version: 20180617040633) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer "scrum_id"
-    t.integer "user_id"
+    t.bigint "scrum_id"
+    t.bigint "user_id"
     t.integer "roles_mask", null: false
+    t.integer "status_mask", null: false
     t.integer "order", default: 0
     t.string "initials", limit: 3, null: false
     t.datetime "created_at", null: false
@@ -75,12 +76,13 @@ ActiveRecord::Schema.define(version: 20180617040633) do
     t.index ["roles_mask"], name: "index_memberships_on_roles_mask"
     t.index ["scrum_id", "user_id", "initials"], name: "index_memberships_on_scrum_id_and_user_id_and_initials", unique: true
     t.index ["scrum_id"], name: "index_memberships_on_scrum_id"
+    t.index ["status_mask"], name: "index_memberships_on_status_mask"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "discussion_id"
+    t.bigint "user_id"
+    t.bigint "discussion_id"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -89,9 +91,9 @@ ActiveRecord::Schema.define(version: 20180617040633) do
   end
 
   create_table "rotations", force: :cascade do |t|
-    t.integer "day_id", null: false
-    t.integer "task_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "day_id", null: false
+    t.bigint "task_id", null: false
+    t.bigint "user_id", null: false
     t.integer "types_mask", null: false
     t.integer "order", null: false
     t.datetime "created_at", null: false
@@ -112,8 +114,8 @@ ActiveRecord::Schema.define(version: 20180617040633) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer "scrum_id", null: false
-    t.integer "user_id"
+    t.bigint "scrum_id", null: false
+    t.bigint "user_id"
     t.string "title", null: false
     t.string "description"
     t.integer "states_mask", default: 1, null: false
@@ -145,12 +147,34 @@ ActiveRecord::Schema.define(version: 20180617040633) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["first_name"], name: "index_users_on_first_name"
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["last_name"], name: "index_users_on_last_name"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "days", "scrums"
+  add_foreign_key "memberships", "scrums"
+  add_foreign_key "memberships", "users"
+  add_foreign_key "messages", "discussions"
+  add_foreign_key "messages", "users"
+  add_foreign_key "rotations", "days"
+  add_foreign_key "rotations", "tasks"
+  add_foreign_key "rotations", "users"
+  add_foreign_key "tasks", "scrums"
+  add_foreign_key "tasks", "users"
 end

@@ -14,9 +14,9 @@ class DailyScrumApp extends React.Component {
   }
 
   componentDidMount() {
-    // const { match: { params: { scrumId } } } = this.props;
+    const { match: { params: { scrumId } } } = this.props;
     const { fetchToday } = this.props;
-    fetchToday();
+    fetchToday(scrumId);
   }
 
   render() {

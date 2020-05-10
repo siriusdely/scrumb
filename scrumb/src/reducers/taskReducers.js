@@ -13,6 +13,9 @@ export function tasks(state={}, action) {
   switch(action.type) {
     case RECEIVE_DAILY_SCRUM: {
       const users = action.today.users;
+      if (!users || !users.length || users.length <= 0) {
+        return state;
+      }
       return users.reduce((rotations, user) => (
         rotations.concat(user.rotations)
       ), [])
