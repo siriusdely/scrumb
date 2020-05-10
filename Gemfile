@@ -28,6 +28,7 @@ gem 'redis', '~> 3.0'
 # ActiveAdmin
 gem 'activeadmin'
 gem 'devise'
+gem 'devise_invitable', '~> 1.7.5'
 gem 'jwt'
 gem 'pg'
 gem 'rubocop-rails'
